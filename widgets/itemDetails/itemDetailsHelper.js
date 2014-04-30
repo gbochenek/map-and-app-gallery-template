@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,esri,dojoConfig */
-/*jslint browser:true,sloppy:true,nomen:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -42,7 +42,10 @@ define([
         mapPoint: null,
         map: null,
         tempGraphicsLayerId: "esriGraphicsLayerMapSettings",
-
+        /**
+        *@class
+        *@name  widgets/itemDetailsHelper/itemDetailsHelper
+        */
         attachLocatorEvents: function () {
             domStyle.set(this.hideMapText, "display", "none");
             this.own(on(this.addressSearchIcon, "click", lang.hitch(this, function () {
@@ -88,6 +91,7 @@ define([
                 * do not perform auto complete search if alphabets,
                 * numbers,numpad keys,comma,ctl+v,ctrl +x,delete or
                 * backspace is pressed
+                * @memberOf widgets/itemDetails/itemDetailsHelper
                 */
                 if ((!((evt.keyCode >= 46 && evt.keyCode < 58) || (evt.keyCode > 64 && evt.keyCode < 91) || (evt.keyCode > 95 && evt.keyCode < 106) || evt.keyCode === 8 || evt.keyCode === 110 || evt.keyCode === 188)) || (evt.keyCode === 86 && evt.ctrlKey) || (evt.keyCode === 88 && evt.ctrlKey)) {
                     evt.cancelBubble = true;
@@ -99,6 +103,7 @@ define([
 
                 /**
                 * call locator service if search text is not empty
+                * @memberOf widgets/itemDetails/itemDetailsHelper
                 */
                 if (lang.trim(this.txtAddressSearch.value) !== '') {
                     if (this.lastSearchString !== lang.trim(this.txtAddressSearch.value)) {
@@ -222,6 +227,7 @@ define([
 
         /**
         * display error message if locator service fails or does not return any results
+        * @memberOf widgets/itemDetails/itemDetailsHelper
         */
         _locatorErrBack: function () {
             if (domClass.contains(this.autocompleteResults, "displayNoneAll")) {
@@ -230,7 +236,10 @@ define([
             this.spanErrResults = domConstruct.create('div', { "class": "esriCTCursorDefault", "innerHTML": nls.errorMessages.invalidSearch }, this.autocompleteResults);
         },
 
-        //display a list of valid results
+        /**
+        * display a list of valid results
+        * @memberOf widgets/itemDetails/itemDetailsHelper
+        */
         _displayValidLocations: function (candidate) {
             var locatorSettings, tdData, _this = this;
 

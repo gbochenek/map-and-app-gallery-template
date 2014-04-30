@@ -24,7 +24,6 @@ dojoConfig = {
     parseOnLoad: true,
     async: true,
     baseURL: root,
-    locale: location.search.match(/locale=([\w\-]+)/) ? RegExp.$1 : "en-us",
     packages: [{
         name: "application",
         location: root

@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,Modernizr,dojoConfig */
-/*jslint browser:true,sloppy:true,nomen:true,unparam:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -39,13 +39,13 @@ define([
         * @class
         * @name widgets/geoLocation/geoLocation
         */
-        postCreate: function () {
+        startup: function () {
             /**
             * Modernizr.geolocation checks for support for geolocation on client browser
             * if browser is not supported, geolocation widget is not created
             */
             if (Modernizr.geolocation) {
-                this.domNode = domConstruct.create("div", { "class": "esriCTMapGeoLocation", "title": nls.geolocationBtnTitle }, query(".esriCTIconContainer")[0]);
+                this.domNode = domConstruct.create("div", { "class": "esriCTMapGeoLocation", "title": nls.title.geolocationBtnTitle }, query(".esriCTIconContainer")[0]);
                 domConstruct.create("span", { "class": "icon-gps esriCTGeolocationIcon" }, this.domNode);
                 this.own(on(this.domNode, "click", lang.hitch(this, function () {
                     this._showCurrentLocation();

@@ -64,9 +64,7 @@ define([
                 widgets[widgetConfig.WidgetPath] = null;
                 require([widgetConfig.WidgetPath], function (Widget) {
 
-                    widgets[widgetConfig.WidgetPath] = new Widget({
-                        title: widgetConfig.Title
-                    });
+                    widgets[widgetConfig.WidgetPath] = new Widget();
 
                     deferred.resolve(widgetConfig.WidgetPath);
                 });

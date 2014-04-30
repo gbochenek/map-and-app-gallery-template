@@ -13,6 +13,10 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
+html
+{
+    overflow: hidden;
+}
 body
 {
     background: #fff;
@@ -91,7 +95,6 @@ font
     float: left;
     line-height: 38px;
     z-index: 12;
-    position: fixed;
 }
 
 .esriCTMenuTabLeft
@@ -148,7 +151,7 @@ font
 .esriCTSearchInput
 {
     float: left;
-    margin: 0 10px;
+
 }
 
 .esriCTSearch
@@ -263,18 +266,17 @@ font
 {
     float: left;
     width: 350px;
-    position: fixed;
 }
 
 .esriCTLeftPanelDesc
 {
-    overflow: auto; /* max-height: 80px;*/
+    overflow: auto;
     font-size: small;
 }
 
 .esriCTInnerLeftPanelTop
 {
-    padding: 65px 30px 0px 15px;
+    padding: 15px 30px 0px 15px;
 }
 
 .esriCTInnerLeftPanelBottom
@@ -339,15 +341,17 @@ font
 {
     margin-left: 350px;
     background: #fff;
-    padding-top: 48px;
+    padding-top: 0px;
 }
 
 .esriCTInnerRightPanel
 {
-    padding: 20px 0px;
+    padding: 20px 0px 0 0;
     float: left;
     background: #FFF;
     width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden; /*height:500px;*/
 }
 
 .esriCTApplicationBox
@@ -705,6 +709,7 @@ font
     left: 30%;
     width: 40%;
     text-align: center;
+    margin-bottom: 15px;
 }
 
 .esriCTNoThumbnailImage
@@ -958,7 +963,7 @@ font
 
 .esriCTInnerLeftPanelTopMap
 {
-    padding: 65px 20px 0px 20px;
+    padding: 15px 20px 0px 20px;
 }
 
 .esriCTLegendTab

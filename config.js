@@ -1,5 +1,5 @@
 ﻿/*global define */
-/*jslint browser:true,sloppy:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -139,22 +139,16 @@ define([], function () {
         // WidgetPath: path of the widget respective to the widgets package.
 
         AppHeaderWidgets: [{
-            Title: "Settings",
             WidgetPath: "widgets/settings/settings"
         }, {
-            Title: "Item Search",
             WidgetPath: "widgets/locator/locator"
         }, {
-            Title: "Info",
             WidgetPath: "widgets/info/info"
         }, {
-            Title: "Sort By",
             WidgetPath: "widgets/sortby/sortby"
         }, {
-            Title: "Layout",
             WidgetPath: "widgets/layout/layout"
         }, {
-            Title: "Sign In",
             WidgetPath: "widgets/portalSignin/portalSignin"
         }],
 
