@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,CollectUniqueTags,TagCloudObj,ItemGallery */
-/*jslint browser:true,sloppy:true,nomen:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -45,7 +45,10 @@ define([
             }
         },
 
-        //Collect all the tags in an array
+        /**
+        * Collect all the tags in an array
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         collectTags: function (results, geoTag, prefixTag) {
             var i, j, geoTagValue, tagValue, tagsObj, groupItemsTagsdata = [], geoTagCollection = [];
 
@@ -88,7 +91,10 @@ define([
             return tagsObj;
         },
 
-        //Sort the the tag cloud array in order
+        /**
+        * Sort the the tag cloud array in order
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _sortArray: function (tagArray) {
             var i, sortedArray = [];
 
@@ -112,7 +118,10 @@ define([
             return sortedArray;
         },
 
-        //Search for the tags with the geographiesTagText tag configured
+        /**
+        * Search for the tags with the geographiesTagText tag configured
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _searchGeoTag: function (tag, geoTag) {
             var geoTagValue = tag.toLowerCase().indexOf(geoTag.toLowerCase());
             return geoTagValue;
@@ -121,7 +130,10 @@ define([
 
     declare("TagCloudObj", null, {
 
-        //Generate the Tag cloud based on the inputs provided
+        /**
+        *Generate the Tag cloud based on the inputs provided
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         generateTagCloud: function (tagsCollection, maxTags) {
             var maxUsedTags, fontSizeArray, tagCloudTags;
 
@@ -134,7 +146,10 @@ define([
             return tagCloudTags;
         },
 
-        //Identify maximum used tags
+        /**
+        * Identify maximum used tags
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _identifyMaxUsedTags: function (tagsCollection, maxTagsToDisplay) {
             var i, maxUsedTags = [];
 
@@ -144,7 +159,10 @@ define([
             return maxUsedTags;
         },
 
-        //Generate the required font ranges for each and every tag in tag cloud
+        /**
+        * Generate the required font ranges for each and every tag in tag cloud
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _generateFontSize: function (min, max, count) {
             var i, diff, nextValue, fontSizeArray = [];
 
@@ -165,7 +183,10 @@ define([
             });
         },
 
-        //Merge the displayed tags and font ranges in single array
+        /**
+        * Merge the displayed tags and font ranges in single array
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _mergeTags: function (maxUsedTags, fontSizeArray) {
             var i;
 
@@ -188,7 +209,7 @@ define([
         templateString: template,
         nls: nls,
 
-        init: function () {
+        startup: function () {
             dojo.sortBy = dojo.configData.ApplicationSettings.sortField;
             if (query(".esriCTSortText")[0]) {
                 if ((dojo.sortBy === "modified") && (query(".esriCTSortText")[0].innerHTML !== nls.sortByViewText)) {
@@ -204,7 +225,10 @@ define([
             topic.subscribe("queryGroupItems", this._queryGroupItems);
         },
 
-        //Store the item details in an array
+        /*
+        * @memberOf widgets/leftPanel/leftPanel
+        * Store the item details in an array
+        */
         _queryGroupItems: function (nextQuery, queryString) {
             var _self = this, groupItems = [], defObj = new Deferred();
 
@@ -245,7 +269,10 @@ define([
             });
         },
 
-        //Create the categories and geographies tag cloud container
+        /**
+        * Create the categories and geographies tag cloud container
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _setLeftPanelContent: function (results) {
             var uniqueTags, tagsObj, tagCloud, displayCategoryTags, displaygeoTags, defObj, queryString;
 
@@ -282,7 +309,10 @@ define([
             this._appendLeftPanel();
             defObj = new Deferred();
             queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")';
-            //if searchString exists in the config file, perform a default serach with the specified string
+            /**
+            *if searchString exists in the config file, perform a default serach with the specified string
+            * @memberOf widgets/leftPanel/leftPanel
+            */
             if (dojo.configData.ApplicationSettings.searchString) {
                 queryString += ' AND (';
                 queryString += ' title:' + dojo.configData.ApplicationSettings.searchString;
@@ -292,7 +322,10 @@ define([
                 queryString += ' ) ';
             }
 
-            //if searchType exists in the config file, perform a default type search with the specified string
+            /**
+            * if searchType exists in the config file, perform a default type search with the specified string
+            * @memberOf widgets/leftPanel/leftPanel
+            */
             if (dojo.configData.ApplicationSettings.searchType) {
                 queryString += ' AND type:' + dojo.configData.ApplicationSettings.searchType;
             }
@@ -311,7 +344,10 @@ define([
             });
         },
 
-        //Create the required HTML for generating the tag cloud
+        /**
+        * Create the required HTML for generating the tag cloud
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         displayTagCloud: function (displayTags, node, text) {
             var i, span;
 
@@ -330,7 +366,10 @@ define([
             }
         },
 
-        //Creates a handler for a click on a tag
+        /**
+        * Creates a handler for a click on a tag
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _makeSelectedTagHandler: function () {
             var _self = this;
 
@@ -382,7 +421,10 @@ define([
             };
         },
 
-        //Executed on the click of a tag cloud and queries to fetch items containing the selected tag cloud
+        /**
+        * Executed on the click of a tag cloud and queries to fetch items containing the selected tag cloud
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _queryRelatedTags: function (tagName) {
             var defObj = new Deferred();
             dojo.queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")' + ' AND (tags: ("' + tagName + '"))';
@@ -417,7 +459,10 @@ define([
             });
         },
 
-        //Shrinks or expands the group description content on the left panel based on the click event
+        /**
+        *Shrinks or expands the group description content on the left panel based on the click event
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _expandGroupdescEvent: function (node, _self) {
             node.onclick = function () {
                 if (this.innerHTML === nls.expandGroupDescText) {
@@ -431,7 +476,10 @@ define([
             };
         },
 
-        //Sets the required group content in the containers
+        /**
+        * Sets the required group content in the containers
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         _setGroupContent: function () {
             var _self = this;
             if (dojo.configData.groupIcon) {
@@ -455,14 +503,19 @@ define([
             }
         },
 
-        //Used to set the innerHTML
+        /**
+        *Used to set the innerHTML
+        * @memberOf widgets/leftPanel/leftPanel
+        */
         setNodeText: function (node, htmlString) {
             if (node) {
                 domAttr.set(node, "innerHTML", htmlString);
             }
         },
 
-        //Append the left panel to parent container
+        /**
+        * Append the left panel to parent container
+        */
         _appendLeftPanel: function () {
             var applicationHeaderDiv = dom.byId("esriCTParentDivContainer");
             domConstruct.place(this.galleryandPannels, applicationHeaderDiv);

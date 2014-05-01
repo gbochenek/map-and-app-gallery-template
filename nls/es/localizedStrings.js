@@ -1,4 +1,5 @@
 ﻿/*global define */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -64,13 +65,21 @@ define({
         backToGalleryText: "Volver a la galería",
         backToMapButtonText: "mapa",
         showMoreResultsGalleryText: "Mostrar más resultados",
-        geolocationBtnTitle: "geolocalización",
         clearBtnTitle: "Clear",
         addressSearchBtnTitle: "Address Search",
         fullScreenBtnTitle: "pantalla completa",
         noLegendText: "No leyenda",
         detailsContentText: "Detalles",
         detailsLinkText: "Detalles del artículo",
+        title: {
+            settingsBtnTitle: "Configuración",
+            itemSearchBtnTitle: "Búsqueda de artículo",
+            infoBtnTitle: "Info",
+            sortByBtnTitle: "Ordenado por",
+            layoutBtnTitle: "Disposición",
+            signInBtnTitle: "Ingresar",
+            geolocationBtnTitle: "Geolocalización"
+        },
         errorMessages: {
             emptyGroup: "El grupo configurado es no tener ningún dato para la consulta",
             invalidSearch: "No hay resultados",

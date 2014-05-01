@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,esri */
-/*jslint browser:true,sloppy:true,nomen:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -30,8 +30,11 @@ define([
 
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
-
-        postCreate: function () {
+        /**
+        @class
+        @name:baseMapGallery
+        */
+        startup: function () {
             var baseMapUrl = 0, baseMapUrlCount = 0, baseMapLayers = dojo.configData.BaseMapLayers, i, basemapContainer, layer;
 
             for (i = 0; i < baseMapLayers.length; i++) {
@@ -53,13 +56,20 @@ define([
             }
         },
 
-        //Create BaseMap layers
+        /**
+        * Create BaseMap layers
+        * @memberOf widgets/baseMapGallery/baseMapGallery
+        */
+
         _createBaseMapLayer: function (layerURL, layerId, isVisible) {
             var layer = new esri.layers.ArcGISTiledMapServiceLayer(layerURL, { id: layerId, visible: isVisible });
             return layer;
         },
 
-        //Create BaseMap images
+        /**
+        * Create BaseMap images
+        * @memberOf widgets/baseMapGallery/baseMapGallery
+        */
         _createBaseMapElement: function (baseMapUrl, baseMapUrlCount) {
             var presentThumbNail, divContainer, imgThumbnail, presentBaseMap;
 
@@ -85,14 +95,20 @@ define([
             return divContainer;
         },
 
-        //Changes the BaseMap and hides the previous basemap
+        /**
+        * Changes the BaseMap and hides the previous basemap
+        * @memberOf widgets/baseMapGallery/baseMapGallery
+        */
         _changeBaseMap: function (spanControl) {
             this._hideMapLayers();
             var layer = this.map.getLayer(dojo.configData.BaseMapLayers[spanControl].Key);
             layer.show();
         },
 
-        //hides the BaseMap
+        /**
+        * hides the BaseMap
+        * @memberOf widgets/baseMapGallery/baseMapGallery
+        */
         _hideMapLayers: function () {
             var i, layer;
 

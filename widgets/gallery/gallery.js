@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,unescape,ItemInfoPage */
-/*jslint browser:true,sloppy:true,nomen:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -41,7 +41,10 @@ define([
     declare("ItemGallery", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
         nls: nls,
-
+        /**
+        *@class
+        *@name  widgets/gallery/gallery
+        */
         postCreate: function () {
             domConstruct.place(this.galleryView, query(".esriCTGalleryContent")[0]);
             this.own(topic.subscribe("createPods", lang.hitch(this, this.createItemPods)));
@@ -85,17 +88,25 @@ define([
             })));
 
             on(window, "resize", lang.hitch(this, function () {
+                var height, containerHeight;
                 if (domClass.contains(query(".esriCTInnerLeftPanelBottom")[0], "esriCTInnerLeftPanelBottomShift")) {
                     query(".esriCTInnerLeftPanelBottom")[0].style.height = dojo.window.getBox().h + "px";
                 }
                 if (domClass.contains(query(".esriCTInnerLeftPanelTop")[0], "displayBlock")) {
-                    var height = window.innerHeight - (domGeom.position(query(".esriCTMenuTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelBottom")[0]).h + domGeom.position(query(".esriCTLogo")[0]).h + 50) + "px";
+                    height = window.innerHeight - (domGeom.position(query(".esriCTMenuTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelBottom")[0]).h + domGeom.position(query(".esriCTLogo")[0]).h + 50) + "px";
                     domStyle.set(query(".esriCTLeftPanelDesc")[0], "maxHeight", height);
                 }
+                containerHeight = (window.innerHeight - domGeom.position(query(".esriCTMenuTab")[0]).h - 15) + "px";
+                domStyle.set(query(".esriCTInnerRightPanel")[0], "height", containerHeight);
             }));
+            var containerHeight = (window.innerHeight - domGeom.position(query(".esriCTMenuTab")[0]).h - 15) + "px";
+            domStyle.set(query(".esriCTInnerRightPanel")[0], "height", containerHeight);
         },
 
-        //Creates the gallery item pods
+        /**
+        * Creates the gallery item pods
+        * @memberOf widgets/gallery/gallery
+        */
         createItemPods: function (itemResults, clearContainerFlag) {
             var i, divPodParentList, divPodParent;
 
@@ -124,7 +135,10 @@ define([
             topic.publish("hideProgressIndicator");
         },
 
-        //Create HTML for grid layout
+        /**
+        * Create HTML for grid layout
+        * @memberOf widgets/gallery/gallery
+        */
         _createGridItemOverview: function (itemResult, divPodParent) {
             var divItemTitleRight, divItemTitleText, divItemType, spanItemType, divItemWatchEye, spanItemWatchEyeText;
 
@@ -146,7 +160,10 @@ define([
             })));
         },
 
-        //Create the thumbnails displayed for gallery items
+        /**
+        * Create the thumbnails displayed for gallery items
+        * @memberOf widgets/gallery/gallery
+        */
         _createThumbnails: function (itemResult, divPodParent) {
             var divThumbnail, divThumbnailImage, divTagContainer, divTagContent;
 
@@ -180,9 +197,12 @@ define([
             })));
         },
 
-        //Executed when user clicks on a item thumbnail or clicks the button on the item info page. It performs a query to fetch the type of the selected item.
+        /**
+        * Executed when user clicks on a item thumbnail or clicks the button on the item info page. It performs a query to fetch the type of the selected item.
+        * @memberOf widgets/gallery/gallery
+        */
         _showItemOverview: function (itemId, thumbnailUrl, itemResult, flag) {
-            var tokenString, _self = this, itemUrl, defObj;
+            var tokenString, _self = this, itemUrl, defObj, itemDetails;
 
             if (dojo.configData.ApplicationSettings.token) {
                 tokenString = "&token=" + dojo.configData.ApplicationSettings.token;
@@ -204,7 +224,8 @@ define([
                             if ((dataType === "web map") && dojo.configData.ApplicationSettings.mapViewer.toLowerCase() === "arcgis") {
                                 window.open(dojo.configData.ApplicationSettings.portalURL + '/home/item.html?id=' + itemId, "_self");
                             } else {
-                                new ItemDetails({ data: data });
+                                itemDetails = new ItemDetails({ data: data });
+                                itemDetails.startup();
                             }
                         }
                     } else {
@@ -234,7 +255,10 @@ define([
             topic.publish("queryItemInfo", itemUrl, defObj);
         },
 
-        //Create a tag on the thumbnail image to indicate the access type of the item
+        /**
+        * Create a tag on the thumbnail image to indicate the access type of the item
+        * @memberOf widgets/gallery/gallery
+        */
         _accessLogoType: function (itemResult, divTagContent) {
             var title;
             if (itemResult.access === "public") {
@@ -249,7 +273,10 @@ define([
             }
         },
 
-        //Create HTML for list layout
+        /**
+        * Create HTML for list layout
+        * @memberOf widgets/gallery/gallery
+        */
         _createItemOverviewPanel: function (itemResult, divPodParent) {
             var divContent, divTitle, divItemTitle, divItemTitleRight, divItemTitleText, divItemInfo, divItemType,
                 divRatings, numberStars, i, imgRating, divItemWatchEye, spanItemWatchEyeText, divItemContent,
@@ -305,7 +332,10 @@ define([
     });
 
     declare("ItemInfoPage", null, {
-        //Create the HTML for item info page
+        /**
+        * Create the HTML for item info page
+        * @memberOf widgets/gallery/gallery
+        */
         displayPanel: function (itemResult, _self) {
             var numberOfComments, numberOfRatings, numberOfViews, itemReviewDetails, itemDescription, accessContainer, accessInfo, defObj;
 
@@ -351,7 +381,9 @@ define([
             this._createPropertiesContent(itemResult, _self.detailsContent, defObj);
 
             if (_self._btnTryItNowHandle) {
-                // remove the click event handler if it already exists, to prevent the binding of the event multiple times
+                /**
+                * remove the click event handler if it already exists, to prevent the binding of the event multiple times
+                */
                 _self._btnTryItNowHandle.remove();
             }
             _self._btnTryItNowHandle = on(_self.btnTryItNow, "click", lang.hitch(this, function () {
@@ -362,7 +394,10 @@ define([
             }));
         },
 
-        //Extract the item info (tags, extent) and display it in the created properties container
+        /**
+        * Extract the item info (tags, extent) and display it in the created properties container
+        * @memberOf widgets/gallery/gallery
+        */
         _createPropertiesContent: function (itemResult, detailsContent, defObj) {
             var itemDeferred, _self = this, propertiesContainer, tagsContent, i, itemTags, sizeContent, extentContent, extentValue;
 
@@ -400,7 +435,10 @@ define([
             });
         },
 
-        //Create the item description container
+        /**
+        * Create the item description container
+        * @memberOf widgets/gallery/gallery
+        */
         _createItemDescription: function (itemResult, _self, itemDescription) {
             var tokenString, itemUrl, defObject, detailsContainer, divDetailsContent, numberStars, i, imgRating;
 
@@ -431,9 +469,13 @@ define([
             });
             topic.publish("queryItemInfo", itemUrl, defObject);
 
-            // if showMoreInfo flag is set to true in config file and item is of type web map
+            /**
+            * if showMoreInfo flag is set to true in config file and item is of type web map
+            */
             if (dojo.configData.ApplicationSettings.showMoreInfo && itemResult.type.toLowerCase() === "web map") {
-                // item page link
+                /**
+                * item page link
+                */
                 detailsContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder" }, _self.detailsContent);
                 domConstruct.create('div', { "class": "esriCTReviewHeader", "innerHTML": nls.detailsContentText }, detailsContainer);
                 divDetailsContent = domConstruct.create('div', { "class": "esriCTMoreInfo esriCTDivClear", "innerHTML": nls.detailsLinkText }, detailsContainer);
@@ -444,11 +486,15 @@ define([
                     window.open(dojo.configData.ApplicationSettings.portalURL + '/home/item.html?id=' + itemResult.id);
                 }));
             }
-            // if showComments flag is set to true in config file
+            /**
+            * if showComments flag is set to true in config file
+            */
             if (dojo.configData.ApplicationSettings.showComments) {
                 this._createCommentsContainer(itemResult, _self.detailsContent);
             }
-            // if showRatings flag is set to true in config file
+            /**
+            * if showRatings flag is set to true in config file
+            */
             if (dojo.configData.ApplicationSettings.showRatings) {
                 numberStars = Math.round(itemResult.avgRating);
                 for (i = 0; i < 5; i++) {
@@ -466,7 +512,10 @@ define([
             domAttr.set(_self.btnTryItNow, "selectedThumbnail", itemResult.thumbnailUrl);
         },
 
-        //Query the item to fetch comments and display the data in the comments container displayed on the item info page
+        /**
+        * Query the item to fetch comments and display the data in the comments container displayed on the item info page
+        * @memberOf widgets/gallery/gallery
+        */
         _createCommentsContainer: function (itemResult, detailsContent) {
             var reviewContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder" }, detailsContent);
             domConstruct.create('div', { "class": "esriCTReviewHeader", "innerHTML": nls.reviewText }, reviewContainer);
@@ -499,7 +548,10 @@ define([
             });
         },
 
-        //Create the extent container and display the extent data
+        /**
+        * Create the extent container and display the extent data
+        * @memberOf widgets/gallery/gallery
+        */
         _createItemExtentContent: function (divParent, firstKey, secondKey, firstValue, secondValue) {
             var extentContent, extentInnerDivFirst, extentInnerDivSecond;
 

@@ -1,4 +1,5 @@
 ﻿/*global define */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -63,13 +64,21 @@ define({
     backToGalleryText: "Gallery",
     backToMapButtonText: "Map",
     showMoreResultsGalleryText: "Show more results",
-    geolocationBtnTitle: "Geolocation",
     clearBtnTitle: "Clear",
     addressSearchBtnTitle: "Address Search",
     fullScreenBtnTitle: "Full screen",
     noLegendText: "No Legend",
     detailsContentText: "Details",
     detailsLinkText: "Item Details",
+    title: {
+        settingsBtnTitle: "Settings",
+        itemSearchBtnTitle: "Item Search",
+        infoBtnTitle: "Info",
+        sortByBtnTitle: "Sort by",
+        layoutBtnTitle: "Layout",
+        signInBtnTitle: "Sign In",
+        geolocationBtnTitle: "Geolocation"
+    },
     errorMessages: {
         emptyGroup: "The configured group is not having any data to perform query.",
         invalidSearch: "No results found.",

@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,dojoConfig,LeftPanelCollection */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -51,7 +51,7 @@ define([
                     topic.subscribe("queryGroupItem", dojo.hitch(this._portal, this.queryGroupForItems));
                     topic.subscribe("queryItemInfo", dojo.hitch(this._portal, this.queryItemInfo));
                     var leftPanelObj = new LeftPanelCollection();
-                    leftPanelObj.init();
+                    leftPanelObj.startup();
                 }));
             }));
         },
@@ -63,12 +63,16 @@ define([
             lang.mixin(dojo.configData.ApplicationSettings, settings.query);
             if (dojo.configData.ApplicationSettings.appid) {
                 arcgisUtils.getItem(dojo.configData.ApplicationSettings.appid).then(lang.hitch(this, function (response) {
-                    // check for false value strings
+                    /**
+                    * check for false value strings
+                    */
                     var appSettings = this.setFalseValues(response.itemData.values);
                     // set other config options from app id
                     lang.mixin(dojo.configData.ApplicationSettings, appSettings);
                     def.resolve();
-                    // on error
+                    /**
+                    * on error
+                    */
                 }), function (error) {
                     alert(error.message);
                     def.resolve();
@@ -82,26 +86,39 @@ define([
         setFalseValues: function (obj) {
             var key;
 
-            // for each key
+            /**
+            * for each key
+            */
             for (key in obj) {
-                // if not a prototype
+                /**
+                * if not a prototype
+                */
                 if (obj.hasOwnProperty(key)) {
-                    // if is a false value string
+                    /**
+                    * if is a false value string
+                    */
                     if (typeof obj[key] === 'string' && (obj[key].toLowerCase() === 'false' || obj[key].toLowerCase() === 'null' || obj[key].toLowerCase() === 'undefined')) {
                         // set to false bool type
                         obj[key] = false;
                     }
                 }
             }
-            // return object
+            /**
+            * return object
+            * @param {object} obj
+            */
             return obj;
         },
 
         createPortal: function () {
             var def = new Deferred();
-            // create portal
+            /**
+            * create portal
+            */
             this._portal = new portal.Portal(dojo.configData.ApplicationSettings.portalURL);
-            // portal loaded
+            /**
+            * portal loaded
+            */
             this.own(on(this._portal, "Load", function () {
                 def.resolve();
             }));
@@ -111,14 +128,20 @@ define([
         queryGroup: function () {
             var _self = this, def = new Deferred();
 
-            // query group info
+            /**
+            * query group info
+            */
             _self.queryAGOLGroupInfo({
-                // Settings
+                /**
+                * Settings
+                */
                 id_group: dojo.configData.ApplicationSettings.group
             }).then(function (data) {
                 if (data) {
                     if (data.results.length > 0) {
-                        // set group content
+                        /**
+                        * set group content
+                        */
                         _self.setGroupContent(data.results[0]);
                         def.resolve();
                     } else {
@@ -133,19 +156,27 @@ define([
         },
 
         setGroupContent: function (groupInfo) {
-            // set group id
+            /**
+            * set group id
+            */
             if (!dojo.configData.group) {
                 dojo.configData.group = groupInfo.id;
             }
-            // Set group title
+            /**
+            * Set group title
+            */
             if (!dojo.configData.groupTitle) {
                 dojo.configData.groupTitle = groupInfo.title || "";
             }
-            // Set group description
+            /**
+            * Set group description
+            */
             if (!dojo.configData.ApplicationSettings.groupDescription) {
                 dojo.configData.ApplicationSettings.groupDescription = groupInfo.description || "";
             }
-            // set footer image
+            /**
+            * set footer image
+            */
             if (!dojo.configData.groupIcon) {
                 dojo.configData.groupIcon = groupInfo.thumbnailUrl || dojoConfig.baseURL + "/themes/images/groupNoImage.png";
             }
@@ -157,14 +188,18 @@ define([
         queryAGOLGroupInfo: function (obj) {
             var _self = this, def = new Deferred(), settings;
 
-            // default values
+            /**
+            * default values
+            */
             settings = {
                 // set group id for web maps
                 id_group: '',
                 // format
                 dataType: 'json'
             };
-            // If options exist, lets merge them with our default settings
+            /**
+            * If options exist, lets merge them with our default settings
+            */
             if (obj) {
                 lang.mixin(settings, obj);
             }
@@ -186,7 +221,9 @@ define([
                     })));
                 }
             }, 1000);
-            // first, request the group to see if it's public or private
+            /**
+            * first, request the group to see if it's public or private
+            */
             esriRequest({
                 // group rest URL
                 url: dojo.configData.ApplicationSettings.portalURL + '/sharing/rest/community/groups/' + settings.id_group,
@@ -197,9 +234,13 @@ define([
                 load: function (response) {
                     var signInRequired, q, params;
 
-                    // sign-in flag
+                    /**
+                    * sign-in flag
+                    */
                     signInRequired = (response.access !== 'public') ? true : false;
-                    // if sign-in is required
+                    /**
+                    * if sign-in is required
+                    */
                     if (signInRequired) {
                         _self.portalSignIn().then(function () {
 
@@ -298,7 +339,9 @@ define([
                         domAttr.set(query(".signin")[0], "innerHTML", nls.signInText);
                         domClass.replace(query(".esriCTSignInIcon")[0], "icon-login", "icon-logout");
                         _self.globalUser = null;
-                        // query to check if the group has any public items to be displayed on sign out
+                        /**
+                        * query to check if the group has any public items to be displayed on sign out
+                        */
                         var queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")' + ' AND (access: ("' + "public" + '"))';
                         topic.publish("queryGroupItems", null, queryString);
                         def.resolve();

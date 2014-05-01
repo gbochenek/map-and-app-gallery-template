@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,esri,dojoConfig */
-/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -57,8 +57,11 @@ define([
         map: null,
         mapExtent: null,
         tempGraphicsLayerId: "esriGraphicsLayerMapSettings",
-
-        postCreate: function () {
+        /**
+        *@class
+        *@name  widgets/itemDetails/itemDetails
+        */
+        startup: function () {
             domClass.add(query(".esriCTGalleryContent")[0], "displayNoneAll");
             domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer", "esriCTCursorDefault");
             var applicationHeaderDiv = dom.byId("esriCTParentDivContainer");
@@ -110,7 +113,9 @@ define([
                     }
                 }
             }));
-            // if showMapSearch flag is set to true in config file then show textbox for map search or hide the textbox
+            /**
+            * if showMapSearch flag is set to true in config file then show textbox for map search or hide the textbox
+            */
             if (dojo.configData.ApplicationSettings.showMapSearch) {
                 this.attachLocatorEvents();
             } else {
@@ -118,7 +123,10 @@ define([
             }
         },
 
-        // Add and remove classes on switching tabs in tab container
+        /**
+        * Add and remove classes on switching tabs in tab container
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _switchTabs: function (selectedTab, firstUnselectedTab, secondUnselectedTab, selectedContainer, firstUnselectedContainer, secondUnselectedContainer) {
             if (!domClass.contains(selectedTab, "select")) {
                 domClass.add(selectedTab, "select");
@@ -134,7 +142,10 @@ define([
             domClass.replace(secondUnselectedContainer, "displayNoneAll", "displayBlockAll");
         },
 
-        // Slides in and out the legends panel on the right upon clicking the info icon. Only for smart phone devices.
+        /**
+        * Slides in and out the legends panel on the right upon clicking the info icon. Only for smart phone devices.
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _slideLegendsPanel: function () {
             if (query(".esriCTRightControlPanel")[0]) {
                 domClass.toggle(query(".esriCTBackToMapPosition")[0], "displayNoneAll");
@@ -186,7 +197,10 @@ define([
             }
         },
 
-        // Add full screen functionality.
+        /**
+        * Add full screen functionality.
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _toggleFullScreen: function () {
             var element, requestMethod, wscript;
 
@@ -207,7 +221,10 @@ define([
             }
         },
 
-        // Identify different item types
+        /**
+        * Identify different item types
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _createMapLayers: function (data) {
             var mapId = data.id, _self = this, dataType, layerType, url1, mapServiceLayerType;
 
@@ -257,7 +274,10 @@ define([
             }
         },
 
-        // Create legend
+        /**
+        * Create legend
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         createLegend: function (layerObj, itemMap, legendDiv) {
             if (domStyle.get(query(".esriMapGeoInfo")[0], "display") === "block") {
                 query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 40) + "px";
@@ -271,7 +291,10 @@ define([
             legendDijit.startup();
         },
 
-        // Fetch data from webmap
+        /**
+        * Fetch data from webmap
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         addWebMap: function (mapId) {
             topic.publish("showProgressIndicator");
             var _self = this;
@@ -281,7 +304,7 @@ define([
                     slider: true
                 }
             }).then(function (response) {
-                var i, layerInfo, graphicsLayer, home;
+                var i, layerInfo, graphicsLayer, home, geoLocation;
 
                 layerInfo = utils.getLegendLayers(response);
                 _self.map = response.map;
@@ -298,11 +321,12 @@ define([
                     //add overview map
                     _self._addOverviewMap(_self.map);
                 }
-                new GeoLocation({
+                geoLocation = new GeoLocation({
                     map: response.map,
                     basemap: response.itemInfo.itemData.baseMap.baseMapLayers[0].id,
                     graphicsLayer: graphicsLayer
                 });
+                geoLocation.startup();
                 if (response.errors.length > 0) {
                     for (i = 0; i < response.errors.length; i++) {
                         alert(response.errors[i].message);
@@ -315,9 +339,12 @@ define([
             });
         },
 
-        // Create map object for items of type "feature service","map service","kml" and "wms".
+        /**
+        * Create map object for items of type "feature service","map service","kml" and "wms".
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         addLayerToMap: function (mapId, url, title, type, data) {
-            var home, baseMapLayers, layer;
+            var home, baseMapLayers, layer, basemapGallery;
 
             topic.publish("showProgressIndicator");
             this.map = new Map(this.itemMap, {
@@ -326,14 +353,18 @@ define([
                 autoResize: true
             });
             home = this._addHomeButton();
-            // if showBasemapGallery flag is set to true in config file
+            /** if showBasemapGallery flag is set to true in config file
+            */
             if (dojo.configData.ApplicationSettings.showBasemapGallery) {
-                //add basemap widget
-                new BasemapGallery({
+                /**add basemap widget
+                */
+                basemapGallery = new BasemapGallery({
                     map: this.map
                 }, domConstruct.create("div", {}, null));
+                basemapGallery.startup();
             } else {
-                //add basemap layer
+                /**add basemap layer
+                */
                 baseMapLayers = dojo.configData.BaseMapLayers;
                 layer = new esri.layers.ArcGISTiledMapServiceLayer(baseMapLayers[0].MapURL, { id: baseMapLayers[0].Key, visible: true });
                 this.map.addLayer(layer);
@@ -342,15 +373,17 @@ define([
                 domConstruct.create("img", { "src": dojoConfig.baseURL + dojo.configData.ApplicationSettings.customLogoUrl, "class": "esriCTMapLogo" }, this.itemMap);
             }
             this.map.on("load", lang.hitch(this, function () {
-                var i, graphicsLayer;
+                var i, graphicsLayer, geolocation;
 
                 domConstruct.place(home.domNode, query(".esriSimpleSliderIncrementButton")[0], "after");
                 home.startup();
                 if (dojo.configData.ApplicationSettings.showOverviewMap) {
-                    //add overview map
+                    /**add overview map
+                    */
                     this._addOverviewMap(this.map);
                 }
-                //add graphics layer
+                /**add graphics layer
+                */
                 graphicsLayer = new GraphicsLayer();
                 graphicsLayer.id = this.tempGraphicsLayerId;
                 this.map.addLayer(graphicsLayer);
@@ -361,12 +394,12 @@ define([
                         }
                     }
                 }
-                new GeoLocation({
+                geolocation = new GeoLocation({
                     map: this.map,
                     basemap: this.basemapLayer,
                     graphicsLayer: graphicsLayer
                 });
-
+                geolocation.startup();
                 if (type === "kml") {
                     this._addKMLLayer(this.map, mapId, url, title);
                 } else if (type === "feature service") {
@@ -379,7 +412,10 @@ define([
             }));
         },
 
-        // Add overview map
+        /**
+        * Add overview map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addOverviewMap: function (map) {
             var overviewMapDijit = new OverviewMap({
                 map: map,
@@ -389,7 +425,10 @@ define([
             overviewMapDijit.startup();
         },
 
-        // Add KML layer to map
+        /**
+        * Add KML layer to map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addKMLLayer: function (map, mapId, url, title) {
             var kml, layerInfo = [];
 
@@ -405,7 +444,10 @@ define([
             topic.publish("hideProgressIndicator");
         },
 
-        // Add WMS layer to map
+        /**
+        * Add WMS layer to map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addWMSLayer: function (map, mapId, url, title, data) {
             var wmsLayer, layerInfo = [];
 
@@ -435,7 +477,10 @@ define([
             topic.publish("hideProgressIndicator");
         },
 
-        // Add Home button to the esri slider
+        /**
+        * Add Home button to the esri slider
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addHomeButton: function () {
             this.home = new HomeButton({
                 map: this.map
@@ -443,7 +488,10 @@ define([
             return this.home;
         },
 
-        // Extract the feature layer url
+        /**
+        * Extract the feature layer url
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addFeatureLayer: function (map, id, url, title) {
             var _self = this, layerInfo = [], lastIndex, dynamicLayerId, dynamicLayer, dynamicLayerUrl;
 
@@ -462,7 +510,10 @@ define([
             }
         },
 
-        // Fetch the feature layer details
+        /**
+        * Fetch the feature layer details
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _fetchFeaturelayerDetails: function (map, id, url, layerInfo) {
             var p, _self = this;
 
@@ -485,7 +536,10 @@ define([
             });
         },
 
-        // Add feature layer to map
+        /**
+        * Add feature layer to map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addFeaturelayerToMap: function (map, id, url, title, layerInfo, layerFlag) {
             var featureLayer = new esri.layers.FeatureLayer(url, {
                 mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
@@ -507,7 +561,10 @@ define([
             topic.publish("hideProgressIndicator");
         },
 
-        // Add cached and dynamic map services to map
+        /**
+        * Add cached and dynamic map services to map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _addCachedAndDynamicService: function (map, id, url, title) {
             var _self = this, url1, defObj;
 
@@ -547,7 +604,10 @@ define([
             topic.publish("queryItemInfo", url1, defObj);
         },
 
-        // Store the data to be displayed in the INFO tab of the tab container
+        /**
+        *Store the data to be displayed in the INFO tab of the tab container
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _createLayerInfoContent: function (_self, layerInfo) {
             var i, layerContainer;
 
@@ -559,7 +619,10 @@ define([
             }
         },
 
-        // Creates a handler for a click on an info item
+        /**
+        * Creates a handler for a click on an info item
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _makeSelectedInfoItemHandler: function (layerInfo) {
             return function () {
                 var index = domAttr.get(this, "index");
@@ -567,12 +630,18 @@ define([
             };
         },
 
-        // Store the data to be displayed in the LAYER tab of the tab container
+        /**
+        * Store the data to be displayed in the LAYER tab of the tab container
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _createItemDescriptionContent: function (data) {
             domAttr.set(this.layerDescription, "innerHTML", (data.description) || (nls.showNullValue));
         },
 
-        // Create the default extent of the map
+        /**
+        * Create the default extent of the map
+        * @memberOf widgets/itemDetails/itemDetails
+        */
         _setExtentForLayer: function (map, url, type) {
             var _self = this, url1 = url + "?f=json";
 

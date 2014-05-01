@@ -1,4 +1,5 @@
 ﻿/*global define */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -63,13 +64,21 @@ define({
     backToGalleryText: "galerie",
     backToMapButtonText: "carte",
     showMoreResultsGalleryText: "Afficher plus de résultats",
-    geolocationBtnTitle: "Géolocalisation",
     clearBtnTitle: "Clear",
     addressSearchBtnTitle: "Address Search",
     fullScreenBtnTitle: "plein écran",
     noLegendText: "Pas de Légende",
     detailsContentText: "détails",
     detailsLinkText: "Détails de l'article",
+     title: {
+        settingsBtnTitle: "paramètres",
+        itemSearchBtnTitle: "Recherche article",
+        infoBtnTitle: "infos",
+        sortByBtnTitle: "Trier par",
+        layoutBtnTitle: "disposition",
+        signInBtnTitle: "Identifiez-vous",
+        geolocationBtnTitle: "Géolocalisation"
+    },
     errorMessages: {
         emptyGroup: "Le groupe est configuré de ne pas avoir toutes les données de la requête",
         invalidSearch: "Aucun résultat",

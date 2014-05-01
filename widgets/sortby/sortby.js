@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -37,6 +37,7 @@ define([
         nls: nls,
 
         postCreate: function () {
+            this.domNode.title = nls.title.sortByBtnTitle;
             if (dojo.configData.ApplicationSettings.sortField === "modified") {
                 domAttr.set(this.sortByLabel, "innerHTML", nls.sortByViewText);
             } else {

@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -49,6 +49,7 @@ define([
         * @name widgets/locator/locator
         */
         postCreate: function () {
+            this.domNode.title = nls.title.itemSearchBtnTitle;
             topic.subscribe("clearDefaultText", this._clearDefaultText);
             topic.subscribe("replaceDefaultText", this._replaceDefaultText);
             domStyle.set(this.divAddressContainer, "display", "block");
@@ -187,7 +188,10 @@ define([
             });
         },
 
-        //Creates a handler for a click on a search result
+        /**
+        * Creates a handler for a click on a search result
+        * @memberOf widgets/locator/locator
+        */
         _makeSelectedSearchResultHandler: function () {
             var _self = this;
 
@@ -214,7 +218,10 @@ define([
             };
         },
 
-        //Clear the previously searched results
+        /**
+        * Clear the previously searched results
+        * @memberOf widgets/locator/locator
+        */
         _clearFilter: function (flag) {
             if (domClass.contains(this.txtItemSearch, "esriCTColorChange")) {
                 domClass.remove(this.txtItemSearch, "esriCTColorChange");

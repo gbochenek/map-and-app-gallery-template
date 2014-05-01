@@ -1,5 +1,5 @@
 ﻿/*global define,dojo */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -24,16 +24,18 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
+    "dojo/i18n!nls/localizedStrings",
     "dojo/query",
     "dojo/dom-class",
     "dojo/dom-construct"
-], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, query, domClass, domConstruct) {
+], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, query, domClass, domConstruct) {
 
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
         flag: null,
-
+        nls: nls,
         postCreate: function () {
+            this.domNode.title = nls.title.settingsBtnTitle;
             this.own(on(this.settingsIcon, "click", lang.hitch(this, function () {
                 if ((query(".esriCTSortByContainer")[0].children.length <= 0) && (query(".esriCTSortByTitle")[0])) {
                     domConstruct.place(query(".esriCTSortByTitle")[0], query(".esriCTSortByContainer")[0]);
@@ -42,7 +44,9 @@ define([
             })));
         },
 
-        // Slide in and out the left panel upon clicking the settings icon. Only for smart phone devices.
+        /**
+        * Slide in and out the left panel upon clicking the settings icon. Only for smart phone devices.
+        */
         _slideLeftPanel: function () {
             query(".esriCTInnerLeftPanelBottom")[0].style.height = dojo.window.getBox().h + "px";
             if (query(".esriCTMenuTab")[0]) {
