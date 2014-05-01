@@ -1,5 +1,4 @@
 ﻿/*global define */
-/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -70,7 +69,7 @@ define({
     noLegendText: "Pas de Légende",
     detailsContentText: "détails",
     detailsLinkText: "Détails de l'article",
-     title: {
+    title: {
         settingsBtnTitle: "paramètres",
         itemSearchBtnTitle: "Recherche article",
         infoBtnTitle: "infos",
