@@ -29,31 +29,57 @@ define([
     "dojo/dom-attr",
     "dojo/dom-class",
     "dojo/dom-style",
+    "dojo/dom-geometry",
     "esri/request",
     "esri/arcgis/utils",
     "esri/urlUtils",
     "widgets/leftPanel/leftPanel"
-], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, domAttr, domClass, domStyle, esriRequest, arcgisUtils, urlUtils) {
+], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, domAttr, domClass, domStyle, domGeom, esriRequest, arcgisUtils, urlUtils) {
 
     return declare([_WidgetBase], {
         nls: nls,
-        flag: false,
 
         postCreate: function () {
-            topic.subscribe("createPortal", lang.hitch(this, this.createPortal));
-            topic.subscribe("initializePortal", lang.hitch(this, this.initializePortal));
             topic.subscribe("portalSignIn", lang.hitch(this, this.portalSignIn));
         },
 
         initializePortal: function () {
-            this.createPortal().then(lang.hitch(this, function () {
-                this.queryGroup().then(lang.hitch(this, function () {
-                    topic.subscribe("queryGroupItem", dojo.hitch(this._portal, this.queryGroupForItems));
-                    topic.subscribe("queryItemInfo", dojo.hitch(this._portal, this.queryItemInfo));
-                    var leftPanelObj = new LeftPanelCollection();
-                    leftPanelObj.startup();
-                }));
-            }));
+            // query to check access type of the group
+            esriRequest({
+                // group rest URL
+                url: dojo.configData.ApplicationSettings.portalURL + '/sharing/rest/community/groups?q=' + dojo.configData.ApplicationSettings.group,
+                content: {
+                    'f': 'json'
+                },
+                callbackParamName: 'callback',
+                load: lang.hitch(this, function (response) {
+                    if (response.results.length > 0) {
+                        // executed if group is public
+                        dojo.isPrivateGroup = false;
+                        this.createPortal().then(lang.hitch(this, function () {
+                            this.queryGroup().then(lang.hitch(this, function () {
+                                topic.subscribe("queryGroupItem", dojo.hitch(this._portal, this.queryGroupForItems));
+                                topic.subscribe("queryItemInfo", dojo.hitch(this._portal, this.queryItemInfo));
+                                var leftPanelObj = new LeftPanelCollection();
+                                leftPanelObj.startup();
+                            }));
+                        }));
+                    } else {
+                        // executed if group is private
+                        dojo.isPrivateGroup = true;
+                        this.createPortal().then(lang.hitch(this, function () {
+                            topic.subscribe("queryGroupItem", dojo.hitch(this._portal, this.queryGroupForItems));
+                            topic.subscribe("queryItemInfo", dojo.hitch(this._portal, this.queryItemInfo));
+                            var leftPanelObj = new LeftPanelCollection();
+                            leftPanelObj.startup();
+                        }));
+                    }
+                }),
+                error: function (response) {
+                    alert(response.message);
+                    topic.publish("hideProgressIndicator");
+                }
+            });
         },
 
         fetchAppIdSettings: function () {
@@ -127,7 +153,6 @@ define([
 
         queryGroup: function () {
             var _self = this, def = new Deferred();
-
             /**
             * query group info
             */
@@ -175,7 +200,7 @@ define([
                 dojo.configData.ApplicationSettings.groupDescription = groupInfo.description || "";
             }
             /**
-            * set footer image
+            * Set group logo image
             */
             if (!dojo.configData.groupIcon) {
                 dojo.configData.groupIcon = groupInfo.thumbnailUrl || dojoConfig.baseURL + "/themes/images/groupNoImage.png";
@@ -203,24 +228,6 @@ define([
             if (obj) {
                 lang.mixin(settings, obj);
             }
-            setTimeout(function () {
-                if (query(".dijitDialogPaneContentArea")[0]) {
-                    query(".dijitDialogPaneContentArea")[0].childNodes[0].innerHTML = nls.signInDialogText;
-                }
-                if (query(".esriIdSubmit")[0]) {
-                    _self.own(on(query(".esriIdSubmit")[0], "click", lang.hitch(this, function () {
-                        if (lang.trim(query(".dijitInputInner")[0].value) === "" && lang.trim(query(".dijitInputInner")[1].value) === "") {
-                            domAttr.set(query(".esriErrorMsg")[0], "innerHTML", nls.errorMessages.emptyUsernamePassword);
-                            domStyle.set(query(".esriErrorMsg")[0], "display", "block");
-                        }
-                    })));
-                }
-                if (query(".esriIdCancel")[0]) {
-                    _self.own(on(query(".esriIdCancel")[0], "click", lang.hitch(this, function () {
-                        _self.flag = true;
-                    })));
-                }
-            }, 1000);
             /**
             * first, request the group to see if it's public or private
             */
@@ -232,41 +239,17 @@ define([
                 },
                 callbackParamName: 'callback',
                 load: function (response) {
-                    var signInRequired, q, params;
+                    var q, params;
 
-                    /**
-                    * sign-in flag
-                    */
-                    signInRequired = (response.access !== 'public') ? true : false;
-                    /**
-                    * if sign-in is required
-                    */
-                    if (signInRequired) {
-                        _self.portalSignIn().then(function () {
-
-                            // query
-                            q = 'id:"' + settings.id_group + '"';
-                            params = {
-                                q: q,
-                                v: dojo.configData.arcgisRestVersion,
-                                f: settings.dataType
-                            };
-                            _self._portal.queryGroups(params).then(function (data) {
-                                def.resolve(data);
-                            });
-                        });
-                    } else {
-                        // query
-                        q = 'id:"' + settings.id_group + '"';
-                        params = {
-                            q: q,
-                            v: 1,
-                            f: settings.dataType
-                        };
-                        _self._portal.queryGroups(params).then(function (data) {
-                            def.resolve(data);
-                        });
-                    }
+                    // query
+                    q = 'id:"' + settings.id_group + '"';
+                    params = {
+                        q: q,
+                        f: settings.dataType
+                    };
+                    _self._portal.queryGroups(params).then(function (data) {
+                        def.resolve(data);
+                    });
                 },
                 error: function (response) {
                     alert(response.message);
@@ -312,6 +295,27 @@ define([
             return defObj;
         },
 
+        setSignInContainerText: function () {
+            var _self = this;
+            setTimeout(function () {
+                if (query(".dijitDialogTitle")[0]) {
+                    query(".dijitDialogTitle")[0].innerHTML = nls.signInText;
+                }
+                if (query(".dijitDialogPaneContentArea")[0]) {
+                    query(".dijitDialogPaneContentArea")[0].childNodes[0].innerHTML = "";
+                    domStyle.set(query(".dijitDialogPaneContentArea")[0].childNodes[1], "height", "0px");
+                }
+                if (query(".esriIdSubmit")[0]) {
+                    _self.own(on(query(".esriIdSubmit")[0], "click", lang.hitch(this, function () {
+                        if (lang.trim(query(".dijitInputInner")[0].value) === "" && lang.trim(query(".dijitInputInner")[1].value) === "") {
+                            domAttr.set(query(".esriErrorMsg")[0], "innerHTML", nls.errorMessages.emptyUsernamePassword);
+                            domStyle.set(query(".esriErrorMsg")[0], "display", "block");
+                        }
+                    })));
+                }
+            }, 1000);
+        },
+
         portalSignIn: function (def) {
             var _self = this;
             if (!def) {
@@ -325,6 +329,10 @@ define([
                             if (!dojo.configData.ApplicationSettings.token) {
                                 dojo.configData.ApplicationSettings.token = loggedInUser.credential.token;
                             }
+                            _self.queryGroup().then(lang.hitch(this, function () {
+                                var leftPanelObj = new LeftPanelCollection();
+                                leftPanelObj.startup();
+                            }));
                             domAttr.set(query(".signin")[0], "innerHTML", nls.signOutText);
                             domClass.replace(query(".esriCTSignInIcon")[0], "icon-logout", "icon-login");
                             _self.globalUser = loggedInUser;
@@ -359,19 +367,11 @@ define([
                     }
                 });
             }
-            setTimeout(function () {
-                if (query(".dijitDialogPaneContentArea")[0]) {
-                    query(".dijitDialogPaneContentArea")[0].childNodes[0].innerHTML = nls.signInDialogText;
-                }
-                if (query(".esriIdSubmit")[0]) {
-                    _self.own(on(query(".esriIdSubmit")[0], "click", lang.hitch(this, function () {
-                        if (lang.trim(query(".dijitInputInner")[0].value) === "" && lang.trim(query(".dijitInputInner")[1].value) === "") {
-                            domAttr.set(query(".esriErrorMsg")[0], "innerHTML", nls.errorMessages.emptyUsernamePassword);
-                            domStyle.set(query(".esriErrorMsg")[0], "display", "block");
-                        }
-                    })));
-                }
-            }, 1000);
+            topic.publish("setDefaultTextboxValue");
+            if (domGeom.position(query(".esriCTAutoSuggest")[0]).h > 0) {
+                domClass.replace(query(".esriCTAutoSuggest")[0], "displayNoneAll", "displayBlockAll");
+            }
+            this.setSignInContainerText();
             return def;
         }
     });

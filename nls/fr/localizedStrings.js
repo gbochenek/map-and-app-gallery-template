@@ -1,4 +1,5 @@
 ﻿/*global define */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -15,8 +16,7 @@
  | limitations under the License.
  */
 define({
-    tagCategoriesHeaderText: "catégories",
-    geographicTagsHeaderText: "géographies",
+    tagHeaderText: "Mots clés",
     expandGroupDescText: "plus",
     shrinkGroupDescText: "moins",
     layoutText: "disposition",
@@ -28,7 +28,6 @@ define({
     sortByDateText: "Trier par date",
     gridViewTitle: "Mode Grille",
     listViewTitle: "Voir la liste",
-    signInDialogText: "Entrez votre nom d'utilisateur et mot de passe",
     appHeaderTitle: "maison",
     allText: "ALL",
     orgText: "ORG",
@@ -37,28 +36,20 @@ define({
     sortByTextMobile: "Trier par",
     viewTextMobile: "vues",
     dateTextMobile: "dates",
-    appCategoryText: "catégorie",
     appTypeText: "type",
-    appOwnerText: "soumis par",
+    appOwnerText: "propriétaire",
     tryItButtonText: "Essayez-le maintenant",
     downloadButtonText: "télécharger",
     appDesText: "description",
     reviewText: "commentaires",
     itemDetailsLegendTab: "LÉGENDE",
-    itemDetailsLayerTab: "COUCHE",
     itemDetailsInfoTab: "INFO",
-    propertiesText: "propriétés",
     tagsText: "Mots clés",
-    extentText: "ampleur",
     sizeText: "taille",
     accessConstraintsText: "Accès et Contraintes d'utilisation",
     numberOfCommentsText: "commentaires",
     numberOfRatingsText: "évaluations",
     numberOfViewsText: "vues",
-    extentLeftText: "gauche",
-    extentRightText: "droit",
-    extentTopText: "haut",
-    extentBottomText: "bas",
     noResultsText: "Pas de résultats trouvés.",
     backToGalleryText: "galerie",
     backToMapButtonText: "carte",
@@ -67,8 +58,9 @@ define({
     addressSearchBtnTitle: "Address Search",
     fullScreenBtnTitle: "plein écran",
     noLegendText: "Pas de Légende",
-    detailsContentText: "détails",
-    detailsLinkText: "Détails de l'article",
+    sizeUnitKB: "KB",
+    sizeUnitMB: "MB",
+    itemUnavailableText: "Article indisponible sur ce dispositif.",
     title: {
         settingsBtnTitle: "paramètres",
         itemSearchBtnTitle: "Recherche article",

@@ -27,8 +27,10 @@ define([
     "dojo/i18n!nls/localizedStrings",
     "dojo/query",
     "dojo/dom-class",
-    "dojo/dom-construct"
-], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, query, domClass, domConstruct) {
+    "dojo/dom-construct",
+    "dojo/dom-geometry"
+
+], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, query, domClass, domConstruct, domGeom) {
 
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
@@ -86,6 +88,9 @@ define([
                         if (domClass.contains(query(".esriCTNoResults")[0], "displayBlockAll")) {
                             domClass.replace(query(".esriCTNoResults")[0], "displayNoneAll", "displayBlockAll");
                         }
+                    }
+                    if (dojo.configData.ApplicationSettings.showTagCloud) {
+                        query(".esriCTPadding")[0].style.height = window.innerHeight - (domGeom.position(query(".sortByLabelMbl")[0]).h + domGeom.position(query(".esriCTCategoriesHeader")[0]).h + 40) + "px";
                     }
                     if (domClass.contains(query(".esriCTItemSearch")[0], "displayBlockAll")) {
                         this.flag = true;

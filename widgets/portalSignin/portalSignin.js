@@ -42,37 +42,26 @@ define([
             this.domNode.title = nls.title.signInBtnTitle;
             domAttr.set(this.signInLabel, "innerHTML", nls.signInText);
             /**
-            * set app ID settings and call init after
+            * executed when user clicks on sign in or sign out button
             * @memberOf widgets/portalSignin/portalSignin
             */
             this.own(on(this.signInContainer, "click", lang.hitch(this, function () {
                 var defObj, leftPanel;
 
                 if (query(".signin")[0].innerHTML === nls.signInText) {
+
                     /**
-                    * flag to check if the sign in button is clicked for a public or private group
+                    *executed on clicking of the sign in button
                     */
-                    if (this.flag) {
-                        /**
-                        * executed if the group is private
-                        */
-                        topic.publish("initializePortal");
-                    } else {
-                        /**
-                        *executed if the group is public
-                        */
-                        defObj = new Deferred();
-                        topic.publish("portalSignIn", defObj);
-                        defObj.then(function () {
-                            if (query(".esriCTGalleryContent")[0]) {
-                                domConstruct.destroy(query(".esriCTGalleryContent")[0]);
-                            }
-                            leftPanel = new LeftPanelCollection();
-                            leftPanel.startup();
-                        }, function (err) {
-                            alert(err.message);
-                        });
-                    }
+                    defObj = new Deferred();
+                    topic.publish("portalSignIn", defObj);
+                    defObj.then(function () {
+                        if (query(".esriCTGalleryContent")[0]) {
+                            domConstruct.destroy(query(".esriCTGalleryContent")[0]);
+                        }
+                    }, function (err) {
+                        alert(err.message);
+                    });
                 } else {
                     /**
                     *executed on clicking of the sign out button
