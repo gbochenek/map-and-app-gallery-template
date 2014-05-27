@@ -36,6 +36,8 @@ define([
     "esri/map",
     "widgets/geoLocation/geoLocation",
     "widgets/baseMapGallery/baseMapGallery",
+    "esri/layers/ArcGISImageServiceLayer",
+    "esri/layers/ImageServiceParameters",
     "esri/tasks/locator",
     "dojo/string",
     "esri/layers/GraphicsLayer",
@@ -45,7 +47,7 @@ define([
     "esri/request",
     "esri/dijit/OverviewMap",
     "./itemDetailsHelper"
-], function (declare, domConstruct, lang, array, domAttr, dom, template, nls, query, domClass, on, Deferred, number, topic, utils, Legend, Map, GeoLocation, BasemapGallery, Locator, string, GraphicsLayer, HomeButton, domStyle, domGeom, esriRequest, OverviewMap, itemDetailsHelper) {
+], function (declare, domConstruct, lang, array, domAttr, dom, template, nls, query, domClass, on, Deferred, number, topic, utils, Legend, Map, GeoLocation, BasemapGallery, ArcGISImageServiceLayer, ImageServiceParameters, Locator, string, GraphicsLayer, HomeButton, domStyle, domGeom, esriRequest, OverviewMap, itemDetailsHelper) {
 
     return declare([itemDetailsHelper], {
         templateString: template,
@@ -68,7 +70,10 @@ define([
             domClass.replace(query(".esriCTMenuTabRight")[0], "displayNoneAll", "displayBlockAll");
             this.itemIcon.src = this.data.thumbnailUrl;
             domConstruct.place(this.itemDetailsLeftPanel, applicationHeaderDiv);
-            domAttr.set(this.itemTitle, "innerHTML", dojo.configData.ApplicationSettings.mapTitle || (this.data.title || ""));
+            domAttr.set(this.itemTitle, "innerHTML", this.data.title || "");
+
+            domClass.add(query(".esriCTMenuTab")[0], "esriCTHeaderClick esriCTCursorPointer");
+
             this._createMapLayers(this.data);
 
             this.own(on(query(".esriCTFullScreen")[0], "click", lang.hitch(this, function () {
@@ -85,30 +90,47 @@ define([
             })));
 
             this.own(on(this.legendTab, "click", lang.hitch(this, function () {
-                this._switchTabs(this.legendTab, this.infoTab, this.layersTab, this.legendDetails, this.layerDescription, this.layerDetails);
+                this._switchTabs(this.legendTab, this.infoTab, this.legendDetails, this.layerDescription);
             })));
 
-            this.own(on(this.layersTab, "click", lang.hitch(this, function () {
-                this._switchTabs(this.layersTab, this.infoTab, this.legendTab, this.layerDetails, this.layerDescription, this.legendDetails);
+            this.own(on(query(".esriCTMenuTab")[0], "click", lang.hitch(this, function () {
+                if (query(".esriCTHeaderClick")[0]) {
+                    if (query(".esriCTitemDetails")[0]) {
+                        dojo.destroy(query(".esriCTitemDetails")[0]);
+                        domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
+                        domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");
+                    }
+                    if (query(".esriCTInnerRightPanelDetails")[0] && (!query(".esriCTNoResults")[0])) {
+                        domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
+                        domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
+                        domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
+                        domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
+                        domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");
+                    }
+                    domClass.remove(query(".esriCTMenuTab")[0], "esriCTHeaderClick esriCTCursorPointer");
+                }
             })));
 
             this.own(on(this.infoTab, "click", lang.hitch(this, function () {
-                this._switchTabs(this.infoTab, this.layersTab, this.legendTab, this.layerDescription, this.legendDetails, this.layerDetails);
+                this._switchTabs(this.infoTab, this.legendTab, this.layerDescription, this.legendDetails);
             })));
 
             on(window, "resize", lang.hitch(this, function () {
                 if (query(".esriCTLegendContainer")[0]) {
+                    var legendContainerHeight, infoLegendContainerHeight;
+                    legendContainerHeight = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 90) + "px";
+                    infoLegendContainerHeight = dojo.window.getBox().h - (domGeom.position(query(".labelLegendTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelTopMap")[0]).h + 100) + "px";
                     if (query(".esriMapGeoInfo")[0]) {
                         if (domStyle.get(query(".esriMapGeoInfo")[0], "display") === "block") {
-                            query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 40) + "px";
+                            domStyle.set(query(".esriCTLegendContainer")[0], "height", legendContainerHeight);
                         } else {
-                            query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".labelLegendTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelTopMap")[0]).h + 50) + "px";
+                            domStyle.set(query(".esriCTLegendContainer")[0], "height", infoLegendContainerHeight);
                         }
                     } else if (query(".esriCTBackToMapBtn")[0]) {
                         if (domStyle.get(query(".esriCTBackToMapBtn")[0], "display") === "block") {
-                            query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 40) + "px";
+                            domStyle.set(query(".esriCTLegendContainer")[0], "height", legendContainerHeight);
                         } else {
-                            query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".labelLegendTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelTopMap")[0]).h + 50) + "px";
+                            domStyle.set(query(".esriCTLegendContainer")[0], "height", infoLegendContainerHeight);
                         }
                     }
                 }
@@ -127,19 +149,15 @@ define([
         * Add and remove classes on switching tabs in tab container
         * @memberOf widgets/itemDetails/itemDetails
         */
-        _switchTabs: function (selectedTab, firstUnselectedTab, secondUnselectedTab, selectedContainer, firstUnselectedContainer, secondUnselectedContainer) {
+        _switchTabs: function (selectedTab, firstUnselectedTab, selectedContainer, firstUnselectedContainer) {
             if (!domClass.contains(selectedTab, "select")) {
                 domClass.add(selectedTab, "select");
             }
             if (domClass.contains(firstUnselectedTab, "select")) {
                 domClass.remove(firstUnselectedTab, "select");
             }
-            if (domClass.contains(secondUnselectedTab, "select")) {
-                domClass.remove(secondUnselectedTab, "select");
-            }
             domClass.replace(selectedContainer, "displayBlockAll", "displayNoneAll");
             domClass.replace(firstUnselectedContainer, "displayNoneAll", "displayBlockAll");
-            domClass.replace(secondUnselectedContainer, "displayNoneAll", "displayBlockAll");
         },
 
         /**
@@ -245,13 +263,9 @@ define([
                                 url: url1,
                                 handleAs: "json",
                                 load: function (jsondata) {
-                                    var j, layerUrl;
 
                                     if (jsondata.layers.length > 0) {
-                                        for (j = 0; j < jsondata.layers.length; j++) {
-                                            layerUrl = data.url + "/" + jsondata.layers[j].id;
-                                            _self.addLayerToMap(mapId, layerUrl, data.title, dataType);
-                                        }
+                                        _self.addLayerToMap(mapId, data.url, data.title, dataType, jsondata.layers);
                                     }
                                 },
                                 error: function (err) {
@@ -266,6 +280,8 @@ define([
                         } else {
                             this.addLayerToMap(mapId, data.url, data.title, dataType);
                         }
+                    } else if (dataType === "image service") {
+                        this.addLayerToMap(mapId, data.url, data.title, dataType);
                     } else if (dataType === "wms") {
                         this.addLayerToMap(mapId, data.url, data.title, dataType);
                     }
@@ -279,10 +295,12 @@ define([
         * @memberOf widgets/itemDetails/itemDetails
         */
         createLegend: function (layerObj, itemMap, legendDiv) {
-            if (domStyle.get(query(".esriMapGeoInfo")[0], "display") === "block") {
-                query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 40) + "px";
-            } else {
-                query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".labelLegendTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelTopMap")[0]).h + 50) + "px";
+            if (query(".esriMapGeoInfo")[0]) {
+                if (domStyle.get(query(".esriMapGeoInfo")[0], "display") === "block") {
+                    query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".esriCTRightControlPanel")[0]).h + domGeom.position(query(".esriCTTabList")[0]).h + 90) + "px";
+                } else {
+                    query(".esriCTLegendContainer")[0].style.height = dojo.window.getBox().h - (domGeom.position(query(".labelLegendTab")[0]).h + domGeom.position(query(".esriCTInnerLeftPanelTopMap")[0]).h + 100) + "px";
+                }
             }
             var legendDijit = new Legend({
                 map: itemMap,
@@ -313,7 +331,6 @@ define([
                 graphicsLayer.id = _self.tempGraphicsLayerId;
                 _self.map.addLayer(graphicsLayer);
                 _self.createLegend(layerInfo, response.map, _self.legendDiv);
-                _self._createLayerInfoContent(_self, layerInfo);
                 home = _self._addHomeButton();
                 domConstruct.place(home.domNode, query(".esriSimpleSliderIncrementButton")[0], "after");
                 home.startup();
@@ -343,7 +360,7 @@ define([
         * Create map object for items of type "feature service","map service","kml" and "wms".
         * @memberOf widgets/itemDetails/itemDetails
         */
-        addLayerToMap: function (mapId, url, title, type, data) {
+        addLayerToMap: function (mapId, url, title, type, layers) {
             var home, baseMapLayers, layer, basemapGallery;
 
             topic.publish("showProgressIndicator");
@@ -373,7 +390,7 @@ define([
                 domConstruct.create("img", { "src": dojoConfig.baseURL + dojo.configData.ApplicationSettings.customLogoUrl, "class": "esriCTMapLogo" }, this.itemMap);
             }
             this.map.on("load", lang.hitch(this, function () {
-                var i, graphicsLayer, geolocation;
+                var i, graphicsLayer, geolocation, layerInfo = [], layerURL, j, flag;
 
                 domConstruct.place(home.domNode, query(".esriSimpleSliderIncrementButton")[0], "after");
                 home.startup();
@@ -403,11 +420,25 @@ define([
                 if (type === "kml") {
                     this._addKMLLayer(this.map, mapId, url, title);
                 } else if (type === "feature service") {
-                    this._addFeatureLayer(this.map, mapId, url, title);
+                    if (layers) {
+                        for (j = 0; j < layers.length; j++) {
+                            layerURL = url + "/" + layers[j].id;
+                            if (j === layers.length - 1) {
+                                flag = true;
+                            } else {
+                                flag = false;
+                            }
+                            this._addFeatureLayer(this.map, layers[j].id, layerURL, layers[j].name, flag, layerInfo);
+                        }
+                    } else {
+                        this._addFeatureLayer(this.map, mapId, url, title, true, layerInfo);
+                    }
                 } else if (type === "map service") {
                     this._addCachedAndDynamicService(this.map, mapId, url, title);
+                } else if (type === "image service") {
+                    this._addImageService(this.map, mapId, url, title);
                 } else if (type === "wms") {
-                    this._addWMSLayer(this.map, mapId, url, title, data);
+                    this._addWMSLayer(this.map, mapId, url, title);
                 }
             }));
         },
@@ -440,7 +471,6 @@ define([
                 title: title
             });
             this.createLegend(layerInfo, map, this.legendDiv);
-            this._createLayerInfoContent(this, layerInfo);
             topic.publish("hideProgressIndicator");
         },
 
@@ -448,7 +478,7 @@ define([
         * Add WMS layer to map
         * @memberOf widgets/itemDetails/itemDetails
         */
-        _addWMSLayer: function (map, mapId, url, title, data) {
+        _addWMSLayer: function (map, mapId, url, title) {
             var wmsLayer, layerInfo = [];
 
             wmsLayer = new esri.layers.WMSLayer(url);
@@ -473,7 +503,6 @@ define([
                 alert(err.error);
             }));
             domAttr.set(this.legendDiv, "innerHTML", nls.noLegendText);
-            this._createLayerInfoContent(this, layerInfo);
             topic.publish("hideProgressIndicator");
         },
 
@@ -492,8 +521,8 @@ define([
         * Extract the feature layer url
         * @memberOf widgets/itemDetails/itemDetails
         */
-        _addFeatureLayer: function (map, id, url, title) {
-            var _self = this, layerInfo = [], lastIndex, dynamicLayerId, dynamicLayer, dynamicLayerUrl;
+        _addFeatureLayer: function (map, id, url, title, flag, layerInfo) {
+            var _self = this, lastIndex, dynamicLayerId, dynamicLayer, dynamicLayerUrl;
 
             lastIndex = url.lastIndexOf('/');
             dynamicLayerId = url.substr(lastIndex + 1);
@@ -506,7 +535,7 @@ define([
                     _self._fetchFeaturelayerDetails(map, id, dynamicLayerUrl, layerInfo);
                 }
             } else {
-                this._addFeaturelayerToMap(map, id, url, title, layerInfo, true);
+                this._addFeaturelayerToMap(map, id, url, title, layerInfo, flag);
             }
         },
 
@@ -524,11 +553,10 @@ define([
 
                     for (p = 0; p < data.layers.length; p++) {
                         lyr = url + data.layers[p].id;
-                        _self._addFeaturelayerToMap(map, data.layers[p].id, lyr, data.layers[p].name, layerInfo, false);
+                        _self._addFeaturelayerToMap(map, data.layers[p].name, lyr, data.layers[p].name, layerInfo, false);
                     }
                     _self.createLegend(layerInfo, map, _self.legendDiv);
                     _self._setExtentForLayer(map, url, true);
-                    _self._createLayerInfoContent(_self, layerInfo);
                 },
                 error: function (err) {
                     alert(err.message);
@@ -540,23 +568,25 @@ define([
         * Add feature layer to map
         * @memberOf widgets/itemDetails/itemDetails
         */
-        _addFeaturelayerToMap: function (map, id, url, title, layerInfo, layerFlag) {
-            var featureLayer = new esri.layers.FeatureLayer(url, {
+        _addFeaturelayerToMap: function (map, layerId, url, title, layerInfo, layerFlag) {
+            var featureLayerMap = new esri.layers.FeatureLayer(url, {
                 mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
-                id: id,
+                id: layerId,
                 outFields: ["*"]
             });
 
-            map.addLayer(featureLayer);
-            map.getLayer(featureLayer.id).show();
+            map.addLayer(featureLayerMap);
+            map.getLayer(featureLayerMap.id).show();
             layerInfo.push({
-                layer: featureLayer,
+                layer: featureLayerMap,
                 title: title
             });
             if (layerFlag) {
-                this.createLegend(layerInfo, map, this.legendDiv);
-                this._setExtentForLayer(map, url, false);
-                this._createLayerInfoContent(this, layerInfo);
+                setTimeout(lang.hitch(this, function () {
+                    this.createLegend(layerInfo, map, this.legendDiv);
+                    this._setExtentForLayer(map, url, false);
+                    topic.publish("hideProgressIndicator");
+                }), 2000);
             }
             topic.publish("hideProgressIndicator");
         },
@@ -592,7 +622,6 @@ define([
                     });
                     _self.createLegend(layerInfo, map, _self.legendDiv);
                     _self._setExtentForLayer(map, url, true);
-                    _self._createLayerInfoContent(_self, layerInfo);
                 } else {
                     alert(nls.errorMessages.layerNotFound);
                 }
@@ -602,6 +631,25 @@ define([
                 topic.publish("hideProgressIndicator");
             });
             topic.publish("queryItemInfo", url1, defObj);
+        },
+
+        _addImageService: function (map, id, url, title) {
+            var params, imageServiceLayer, layerInfo = [];
+            params = new ImageServiceParameters();
+            params.noData = 0;
+            imageServiceLayer = new ArcGISImageServiceLayer(url, {
+                imageServiceParameters: params,
+                id: id,
+                opacity: 0.75
+            });
+            map.addLayer(imageServiceLayer);
+            layerInfo.push({
+                layer: imageServiceLayer,
+                title: title
+            });
+            this.createLegend(layerInfo, map, this.legendDiv);
+            this._setExtentForLayer(map, url, true);
+            topic.publish("hideProgressIndicator");
         },
 
         /**
@@ -682,7 +730,8 @@ define([
                 "xmax": ext.xmax,
                 "ymax": ext.ymax,
                 "spatialReference": {
-                    "wkid": ext.spatialReference.wkid || ext.spatialReference.wkt
+                    "wkid": ext.spatialReference.wkid,
+                    "wkt": ext.spatialReference.wkt
                 }
             });
             return projExtent;

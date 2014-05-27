@@ -52,9 +52,9 @@ define([
             this.domNode.title = nls.title.itemSearchBtnTitle;
             topic.subscribe("clearDefaultText", this._clearDefaultText);
             topic.subscribe("replaceDefaultText", this._replaceDefaultText);
+            topic.subscribe("setDefaultTextboxValue", lang.hitch(this, this._setDefaultTextboxValue));
             domStyle.set(this.divAddressContainer, "display", "block");
             this._setDefaultTextboxValue();
-            this.txtItemSearch.value = domAttr.get(this.txtItemSearch, "defaultItem");
             this._attachItemSearchEvents();
         },
 
@@ -154,16 +154,16 @@ define([
         _locateItems: function (node, flag) {
             var _self = this, queryString, defObj;
 
-            queryString = dojo.queryString;
+
             defObj = new Deferred();
             dojo.queryString = this.txtItemSearch.value + ' AND group:("' + dojo.configData.ApplicationSettings.group + '")';
+            queryString = dojo.queryString;
             topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj);
             defObj.then(function (data) {
                 var i;
-                //var i, itemId, defObj2;
 
                 domConstruct.empty(_self.autoResults);
-                _self._clearFilter(false);
+                _self._clearFilter(false, data.results.length);
                 if (data.results.length > 0) {
                     domClass.replace(_self.autoResults, "displayBlockAll", "displayNoneAll");
                     for (i in data.results) {
@@ -222,22 +222,24 @@ define([
         * Clear the previously searched results
         * @memberOf widgets/locator/locator
         */
-        _clearFilter: function (flag) {
+        _clearFilter: function (flag, resultLength) {
             if (domClass.contains(this.txtItemSearch, "esriCTColorChange")) {
                 domClass.remove(this.txtItemSearch, "esriCTColorChange");
             }
             topic.publish("showProgressIndicator");
-            if (query(".esriCTDetailsLeftPanel")[0]) {
-                domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
-                domClass.add(query(".esriCTDetailsLeftPanel")[0], "displayNoneAll");
-                domClass.add(query(".esriCTDetailsRightPanel")[0], "displayNoneAll");
-                domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
-                domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
-                domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
+            if (resultLength > 0) {
+                if (query(".esriCTNoResults")[0]) {
+                    domConstruct.destroy(query(".esriCTNoResults")[0]);
+                }
+                if (query(".esriCTInnerRightPanelDetails")[0]) {
+                    domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
+                    domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
+                    domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
+                    domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
+                    domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
+                }
             }
-            if (query(".esriCTNoResults")[0]) {
-                domConstruct.destroy(query(".esriCTNoResults")[0]);
-            }
+
             dojo.configData.ApplicationSettings.searchString = '';
             dojo.configData.ApplicationSettings.searchType = '';
 
@@ -353,6 +355,7 @@ define([
             } else {
                 domAttr.set(this.txtItemSearch, "defaultItem", dojo.configData.ApplicationSettings.itemSearchDefaultValue);
             }
+            this.txtItemSearch.value = domAttr.get(this.txtItemSearch, "defaultItem");
         }
     });
 });

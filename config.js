@@ -38,29 +38,19 @@ define([], function () {
         // customLogoUrl: Set custom map logo path
         // itemSearchDefaultValue: Set the default value to search
         // theme: Set the application theme. If blank, default blue theme will be loaded. Supported theme keys are blueTheme, greenTheme and redTheme.
-        // showCategoriesTagCloud: Set this variable to enable or disable categories tag cloud
-        // showGeographiesTagCloud: Set this variable to enable or disable geographies tag cloud
-        // geographiesTagText: This identifies the tag for geographies tag cloud. If set to blank,
-        //                     geographies tag cloud will not be displayed irrespective of the value for showGeographiesTagCloud.
-        // geographiesPrefixText: Set this variable to trim prefix text (eg. arcgis.) from geographies tag cloud. If set to blank,
-        //                        geographies tag cloud will  be displayed as is. Case sensitive.
+        // showTagCloud: Set this variable to enable or disable tag cloud
         // enableAutoComplete: Set this variable to enable or disable autocomplete on item search
         // tagCloudFontMinValue: Set min value of the tag cloud font,
         // tagCloudFontMaxValue: set the max value of the tag cloud font,
         // tagCloudFontUnits: Set the units for the text in tag cloud. UI will be distorted if font sizes have inappropriate values
-        // showMaxTopTags: Set this variable to the maximum number of results to be displayed in geographies and categories tag clouds
         // displaySharingAttribute: If set to true, display sharing attributes ("ALL", "GRP" or "ORG").
         //                          If set to false, sharing attributes ("ALL", "GRP" or "ORG") should not be displayed in item thumbnail
         // useItemPage: If set to true then display Item Info Page
         //              If set to false and item is of type webmap then load the Item
         //              If set to false and item is of type other than webmap then download the Item
         // portalURL: Set the portal URL
+        // cityEngineWebSceneURL: Set the URL for CityEngine Web Scene items
         // geometryService: Set the URL for geometry service
-        // groupDescription:  Displayed on the left panel of the index page. Defaults to group description.
-        // mapTitle: If not specified, the ArcGIS.com map's title is used.
-        // mapSnippet: If not specified, the ArcGIS.com web map's summary is used
-        // mapItemDescription: Displayed on item details page. Defaults to map description.
-        // mapLicenseInfo: Displayed on item details page. Defaults to map licenseInfo.
         // defaultLayout: Default layout to use. "grid" or "list".
         // sortField: Order to display the group items. Valid fields are:  modified, numViews.
         // sortOrder: Order to sort the group: "asc" or "desc".
@@ -70,7 +60,6 @@ define([], function () {
         // showBasemapGallery: Show basemap gallery on map: true or false.
         // showMapSearch: Show textbox for address search on map: true or false
         // showOverviewMap: Show overview on map: true or false.
-        // showMoreInfo: Show more info link on item details page: true or false.
         // showRatings: Show ratings of items on item details page.
         // showViews: Show ratings of items on item details page.
         // showLicenseInfo: Show Use Constraints on item details page.
@@ -91,24 +80,16 @@ define([], function () {
             customLogoUrl: "",
             itemSearchDefaultValue: "Web Map",
             theme: "",
-            showCategoriesTagCloud: true,
-            showGeographiesTagCloud: true,
-            geographiesTagText: "arcgis.",
-            geographiesPrefixText: "",
+            showTagCloud: true,
             enableAutoComplete: true,
             tagCloudFontMinValue: 15,
             tagCloudFontMaxValue: 20,
             tagCloudFontUnits: "px",
-            showMaxTopTags: 10,
             displaySharingAttribute: false,
             useItemPage: false,
             portalURL: "http://www.arcgis.com",
+            cityEngineWebSceneURL: "http://www.arcgis.com/apps/CEWebViewer/viewer.html?3dWebScene=",
             geometryService: "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
-            groupDescription: "",
-            mapTitle: "",
-            mapSnippet: "",
-            mapItemDescription: "",
-            mapLicenseInfo: "",
             defaultLayout: "list",
             sortField: "numViews",
             sortOrder: "desc",
@@ -118,7 +99,6 @@ define([], function () {
             showBasemapGallery: true,
             showMapSearch: true,
             showOverviewMap: false,
-            showMoreInfo: true,
             showRatings: true,
             showViews: true,
             showLicenseInfo: true,

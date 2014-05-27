@@ -119,10 +119,9 @@ define([
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");
                 }
-                if (query(".esriCTDetailsLeftPanel")[0] && (!query(".esriCTNoResults")[0])) {
+                if (query(".esriCTInnerRightPanelDetails")[0] && (!query(".esriCTNoResults")[0])) {
                     domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsLeftPanel")[0], "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsRightPanel")[0], "displayNoneAll");
+                    domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");

@@ -25,6 +25,7 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dojo/i18n!nls/localizedStrings",
+    "esri/geometry/Extent",
     "dojo/dom-class",
     "dojo/on",
     "dojo/topic",
@@ -33,7 +34,7 @@ define([
     "dojo/dom-style",
     "dojo/dom-geometry",
     "dojo/text!./templates/itemDetails.html"
-], function (declare, domConstruct, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, domClass, on, topic, Locator, string, domStyle, domGeom) {
+], function (declare, domConstruct, lang, domAttr, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, GeometryExtent, domClass, on, topic, Locator, string, domStyle, domGeom) {
 
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         basemapLayer: null,
@@ -54,13 +55,16 @@ define([
                     this._locateAddress();
                 }
             })));
+
             this.own(on(this.txtAddressSearch, "keyup", lang.hitch(this, function (evt) {
                 domStyle.set(this.hideMapText, "display", "block");
                 this._submitAddress(evt);
             })));
+
             this.own(on(this.txtAddressSearch, "dblclick", lang.hitch(this, function (evt) {
                 topic.publish("clearDefaultText", evt);
             })));
+
             this.own(on(this.txtAddressSearch, "focus", lang.hitch(this, function () {
                 if (this.txtAddressSearch.value === '') {
                     domStyle.set(this.hideMapText, "display", "none");
@@ -69,6 +73,7 @@ define([
                 }
                 domClass.add(this.txtAddressSearch, "esriCTColorChange");
             })));
+
             this.own(on(this.hideMapText, "click", lang.hitch(this, function () {
                 this.txtAddressSearch.value = '';
                 domAttr.set(this.txtAddressSearch, "defaultAddress", this.txtAddressSearch.value);
@@ -167,8 +172,7 @@ define([
         },
 
         _showLocatedAddress: function (candidates) {
-            var s, i, j, hasValidRecords, validResult, locatorSettings, searchFields, addressFieldName, addressFieldValues;
-
+            var s, i, j, k, hasValidRecords, validResult, locatorSettings, searchFields, addressFieldName, addressFieldValues, resultsArray = [], mapDefaultExtent;
             domConstruct.empty(this.autocompleteResults);
 
             /**
@@ -201,7 +205,12 @@ define([
                                     * verify if FilterFieldName of results match with FilterFieldValues of locator settings specified in configuration file
                                     */
                                     if (candidates[i].attributes[addressFieldName].toUpperCase() === searchFields[j].toUpperCase()) {
-                                        validResult = true;
+                                        mapDefaultExtent = new GeometryExtent({ "xmin": parseFloat(candidates[i].extent.xmin), "ymin": parseFloat(candidates[i].extent.ymin), "xmax": parseFloat(candidates[i].extent.xmax), "ymax": parseFloat(candidates[i].extent.ymax), "spatialReference": { "wkid": this.map.spatialReference.wkid} });
+                                        if (this.map.extent.contains(mapDefaultExtent)) {
+                                            validResult = true;
+                                        } else {
+                                            resultsArray.push(candidates[i]);
+                                        }
                                     } else {
                                         validResult = false;
                                     }
@@ -214,6 +223,11 @@ define([
                                 }
                             }
                         }
+                    }
+                }
+                if (resultsArray.length > 0) {
+                    for (k = 0; k < resultsArray.length; k++) {
+                        hasValidRecords = this._displayValidLocations(resultsArray[k]);
                     }
                 }
                 if (!hasValidRecords) {

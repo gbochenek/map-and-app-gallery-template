@@ -21,6 +21,7 @@ define([
     "dojo/dom-construct",
     "dojo/dom-attr",
     "dojo/dom",
+    "dojo/_base/lang",
     "dojo/text!./templates/leftPanel.html",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -35,7 +36,7 @@ define([
     "dojo/_base/array",
     "dojo/NodeList-manipulate",
     "widgets/gallery/gallery"
-], function (declare, domConstruct, domAttr, dom, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, topic, Deferred, query, domClass, domStyle, domGeom, array) {
+], function (declare, domConstruct, domAttr, dom, lang, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, topic, Deferred, query, domClass, domStyle, domGeom, array) {
 
     declare("CollectUniqueTags", null, {
 
@@ -49,43 +50,23 @@ define([
         * Collect all the tags in an array
         * @memberOf widgets/leftPanel/leftPanel
         */
-        collectTags: function (results, geoTag, prefixTag) {
-            var i, j, geoTagValue, tagValue, tagsObj, groupItemsTagsdata = [], geoTagCollection = [];
+        collectTags: function (results, prefixTag) {
+            var i, j, tagsObj, groupItemsTagsdata = [];
 
-            dojo.geoTagArray = {};
             for (i = 0; i < results.length; i++) {
                 for (j = 0; j < results[i].tags.length; j++) {
-                    if (geoTag) {
-                        geoTagValue = this._searchGeoTag(results[i].tags[j], geoTag, prefixTag);
-                        if (geoTagValue === 0) {
-                            if (!geoTagCollection[results[i].tags[j]]) {
-                                tagValue = results[i].tags[j].replace(prefixTag, '');
-                                geoTagCollection[tagValue] = 1;
-                                dojo.geoTagArray[results[i].tags[j]] = { "key": results[i].tags[j], "value": tagValue };
-                            } else {
-                                geoTagCollection[results[i].tags[j]]++;
-                            }
-                        }
-                    }
-                    if (geoTagValue !== 0) {
-                        if (!groupItemsTagsdata[results[i].tags[j]]) {
-                            groupItemsTagsdata[results[i].tags[j]] = 1;
-                        } else {
-                            groupItemsTagsdata[results[i].tags[j]]++;
-                        }
+                    if (!groupItemsTagsdata[results[i].tags[j]]) {
+                        groupItemsTagsdata[results[i].tags[j]] = 1;
+                    } else {
+                        groupItemsTagsdata[results[i].tags[j]]++;
                     }
                 }
             }
-            geoTagCollection = this._sortArray(geoTagCollection);
             groupItemsTagsdata = this._sortArray(groupItemsTagsdata);
-            if (geoTagCollection.length === 0) {
-                geoTagCollection = null;
-            }
             if (groupItemsTagsdata.length === 0) {
                 groupItemsTagsdata = null;
             }
             tagsObj = {
-                "geoTagCollection": geoTagCollection,
                 "groupItemsTagsdata": groupItemsTagsdata
             };
             return tagsObj;
@@ -134,15 +115,11 @@ define([
         *Generate the Tag cloud based on the inputs provided
         * @memberOf widgets/leftPanel/leftPanel
         */
-        generateTagCloud: function (tagsCollection, maxTags) {
-            var maxUsedTags, fontSizeArray, tagCloudTags;
+        generateTagCloud: function (tagsCollection) {
+            var fontSizeArray, tagCloudTags;
 
-            if (tagsCollection.length < maxTags) {
-                maxTags = tagsCollection.length;
-            }
-            maxUsedTags = this._identifyMaxUsedTags(tagsCollection, maxTags);
-            fontSizeArray = this._generateFontSize(dojo.configData.ApplicationSettings.tagCloudFontMinValue, dojo.configData.ApplicationSettings.tagCloudFontMaxValue, maxUsedTags.length);
-            tagCloudTags = this._mergeTags(maxUsedTags, fontSizeArray);
+            fontSizeArray = this._generateFontSize(dojo.configData.ApplicationSettings.tagCloudFontMinValue, dojo.configData.ApplicationSettings.tagCloudFontMaxValue, tagsCollection.length);
+            tagCloudTags = this._mergeTags(tagsCollection, fontSizeArray);
             return tagCloudTags;
         },
 
@@ -150,10 +127,10 @@ define([
         * Identify maximum used tags
         * @memberOf widgets/leftPanel/leftPanel
         */
-        _identifyMaxUsedTags: function (tagsCollection, maxTagsToDisplay) {
+        _identifyMaxUsedTags: function (tagsCollection) {
             var i, maxUsedTags = [];
 
-            for (i = 0; i < maxTagsToDisplay; i++) {
+            for (i = 0; i < tagsCollection.length; i++) {
                 maxUsedTags.push(tagsCollection[i]);
             }
             return maxUsedTags;
@@ -194,10 +171,10 @@ define([
                 maxUsedTags[i].fontSize = fontSizeArray[i];
             }
             return maxUsedTags.sort(function (a, b) {
-                if (a.key < b.key) {
+                if (a.key.toLowerCase() < b.key.toLowerCase()) {
                     return -1;
                 }
-                if (a.key > b.key) {
+                if (a.key.toLowerCase() > b.key.toLowerCase()) {
                     return 1;
                 }
                 return 0;
@@ -216,6 +193,13 @@ define([
                     domAttr.set(query(".esriCTSortText")[0], "innerHTML", nls.sortByViewText);
                 } else if ((dojo.sortBy === "numViews") && (query(".esriCTSortText")[0].innerHTML !== nls.sortByDateText)) {
                     domAttr.set(query(".esriCTSortText")[0], "innerHTML", nls.sortByDateText);
+                }
+            }
+            if (dojo.gridView) {
+                if (dojo.gridView && (domClass.contains(query(".icon-header")[0], "icon-list"))) {
+                    domClass.replace(query(".icon-header")[0], "icon-grid", "icon-list");
+                } else if ((!dojo.gridView) && (domClass.contains(query(".icon-header")[0], "icon-grid"))) {
+                    domClass.replace(query(".icon-header")[0], "icon-list", "icon-grid");
                 }
             }
             this._setGroupContent();
@@ -274,13 +258,13 @@ define([
         * @memberOf widgets/leftPanel/leftPanel
         */
         _setLeftPanelContent: function (results) {
-            var uniqueTags, tagsObj, tagCloud, displayCategoryTags, displaygeoTags, defObj, queryString;
+            var uniqueTags, tagsObj, tagCloud, displayCategoryTags, defObj, queryString, tagContainerHeight;
 
             dojo.selectedTags = "";
             dojo.tagCloudArray = [];
-            if (dojo.configData.ApplicationSettings.showCategoriesTagCloud || dojo.configData.ApplicationSettings.showGeographiesTagCloud) {
+            if (dojo.configData.ApplicationSettings.showTagCloud) {
                 uniqueTags = new CollectUniqueTags();
-                tagsObj = uniqueTags.collectTags(results, dojo.configData.ApplicationSettings.geographiesTagText, dojo.configData.ApplicationSettings.geographiesPrefixText);
+                tagsObj = uniqueTags.collectTags(results);
                 tagCloud = new TagCloudObj();
                 if (!dojo.configData.ApplicationSettings.tagCloudFontMinValue && !dojo.configData.ApplicationSettings.tagCloudFontMaxValue && dojo.configData.ApplicationSettings.tagCloudFontUnits) {
                     dojo.configData.ApplicationSettings.tagCloudFontMinValue = 10;
@@ -291,26 +275,23 @@ define([
                     alert(nls.errorMessages.minfontSizeGreater);
                     return;
                 }
-                if (dojo.configData.ApplicationSettings.showCategoriesTagCloud && tagsObj.groupItemsTagsdata) {
+                if (dojo.configData.ApplicationSettings.showTagCloud && tagsObj.groupItemsTagsdata) {
                     domStyle.set(this.tagsCategoriesContent, "display", "block");
-                    uniqueTags.setNodeValue(this.tagsCategories, nls.tagCategoriesHeaderText);
+                    uniqueTags.setNodeValue(this.tagsCategories, nls.tagHeaderText);
 
-                    displayCategoryTags = tagCloud.generateTagCloud(tagsObj.groupItemsTagsdata, dojo.configData.ApplicationSettings.showMaxTopTags);
+                    displayCategoryTags = tagCloud.generateTagCloud(tagsObj.groupItemsTagsdata);
                     this.displayTagCloud(displayCategoryTags, this.tagsCategoriesCloud, this.tagsCategories.innerHTML);
-                }
-                if (dojo.configData.ApplicationSettings.showGeographiesTagCloud && dojo.configData.ApplicationSettings.geographiesTagText && tagsObj.geoTagCollection) {
-                    domStyle.set(this.geographicTagsContent, "display", "block");
-                    uniqueTags.setNodeValue(this.geoTagsCloudHeader, nls.geographicTagsHeaderText);
-
-                    displaygeoTags = tagCloud.generateTagCloud(tagsObj.geoTagCollection, dojo.configData.ApplicationSettings.showMaxTopTags);
-                    this.displayTagCloud(displaygeoTags, this.geoTagsCloud, this.geoTagsCloudHeader.innerHTML);
                 }
             }
             this._appendLeftPanel();
+            if (dojo.configData.ApplicationSettings.showTagCloud) {
+                tagContainerHeight = window.innerHeight - (domGeom.position(query(".esriCTCategoriesHeader")[0]).h + domGeom.position(query(".esriCTMenuTab")[0]).h + domGeom.position(this.groupPanel).h + 50) + "px";
+                domStyle.set(query(".esriCTPadding")[0], "height", tagContainerHeight);
+            }
             defObj = new Deferred();
             queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")';
             /**
-            *if searchString exists in the config file, perform a default serach with the specified string
+            *if searchString exists in the config file, perform a default search with the specified string
             * @memberOf widgets/leftPanel/leftPanel
             */
             if (dojo.configData.ApplicationSettings.searchString) {
@@ -356,9 +337,9 @@ define([
                 domClass.add(span, "esriCTTagCloud");
                 domStyle.set(span, "fontSize", displayTags[i].fontSize + dojo.configData.ApplicationSettings.tagCloudFontUnits);
                 if (i !== (displayTags.length - 1)) {
-                    domAttr.set(span, "innerHTML", displayTags[i].key + ", ");
+                    domAttr.set(span, "innerHTML", displayTags[i].key + "  ");
                 } else {
-                    domAttr.set(span, "innerHTML", displayTags[i].key + ".");
+                    domAttr.set(span, "innerHTML", displayTags[i].key);
                 }
                 domAttr.set(span, "selectedTagCloud", text);
                 domAttr.set(span, "tagCloudValue", displayTags[i].key);
@@ -374,20 +355,13 @@ define([
             var _self = this;
 
             return function () {
-                var j, val, index;
+                var val, index;
 
                 topic.publish("showProgressIndicator");
                 if (query(".esriCTNoResults")[0]) {
                     domConstruct.destroy(query(".esriCTNoResults")[0]);
                 }
                 val = domAttr.get(this, "tagCloudValue");
-                for (j in dojo.geoTagArray) {
-                    if (dojo.geoTagArray.hasOwnProperty(j)) {
-                        if (dojo.geoTagArray[j].value === val) {
-                            val = dojo.geoTagArray[j].key;
-                        }
-                    }
-                }
                 if (domClass.contains(this, "esriCTTagCloudHighlight")) {
                     domClass.remove(this, "esriCTTagCloudHighlight");
                     index = array.indexOf(dojo.tagCloudArray, val);
@@ -410,10 +384,9 @@ define([
                 }
                 _self._queryRelatedTags(dojo.selectedTags);
 
-                if (query(".esriCTDetailsLeftPanel")[0]) {
+                if (query(".esriCTInnerRightPanelDetails")[0]) {
                     domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsLeftPanel")[0], "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsRightPanel")[0], "displayNoneAll");
+                    domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
                     domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
@@ -429,21 +402,9 @@ define([
             var defObj = new Deferred();
             dojo.queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")' + ' AND (tags: ("' + tagName + '"))';
             topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj);
-            defObj.then(function (data) {
+            defObj.then(lang.hitch(this, function (data) {
                 if (data.total === 0) {
-                    if (query(".esriCTInnerRightPanel")[0]) {
-                        domClass.replace(query(".esriCTInnerRightPanel")[0], "displayNoneAll", "displayBlockAll");
-                    }
-                    if (query(".esriCTNoResults")[0]) {
-                        domConstruct.destroy(query(".esriCTNoResults")[0]);
-                    }
-                    domConstruct.create('div', { "class": "esriCTDivClear esriCTNoResults", "innerHTML": nls.noResultsText }, query(".esriCTRightPanel")[0]);
-                    if (domClass.contains(query(".esriCTInnerRightPanel")[0], "displayNone")) {
-                        domClass.replace(query(".esriCTNoResults")[0], "displayNoneAll", "displayBlockAll");
-                    } else {
-                        domClass.replace(query(".esriCTNoResults")[0], "displayBlockAll", "displayNoneAll");
-                    }
-                    topic.publish("hideProgressIndicator");
+                    this._createNoDataContainer();
                 } else {
                     if (query(".esriCTNoResults")[0]) {
                         domConstruct.destroy(query(".esriCTNoResults")[0]);
@@ -453,10 +414,26 @@ define([
                     dojo.results = data.results;
                     topic.publish("createPods", data.results, true);
                 }
-            }, function (err) {
+            }), function (err) {
                 alert(err.message);
                 topic.publish("hideProgressIndicator");
             });
+        },
+
+        _createNoDataContainer: function () {
+            if (query(".esriCTInnerRightPanel")[0]) {
+                domClass.replace(query(".esriCTInnerRightPanel")[0], "displayNoneAll", "displayBlockAll");
+            }
+            if (query(".esriCTNoResults")[0]) {
+                domConstruct.destroy(query(".esriCTNoResults")[0]);
+            }
+            domConstruct.create('div', { "class": "esriCTDivClear esriCTNoResults", "innerHTML": nls.noResultsText }, query(".esriCTRightPanel")[0]);
+            if (domClass.contains(query(".esriCTInnerRightPanel")[0], "displayNone")) {
+                domClass.replace(query(".esriCTNoResults")[0], "displayNoneAll", "displayBlockAll");
+            } else {
+                domClass.replace(query(".esriCTNoResults")[0], "displayBlockAll", "displayNoneAll");
+            }
+            topic.publish("hideProgressIndicator");
         },
 
         /**

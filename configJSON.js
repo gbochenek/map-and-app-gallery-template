@@ -1,4 +1,5 @@
-﻿/*
+﻿/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
+/*
  | Copyright 2014 Esri
  |
  | Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,45 +109,13 @@
                 },
                 {
                     "type": "boolean",
-                    "fieldName": "showCategoriesTagCloud",
+                    "fieldName": "showTagCloud",
                     "label": "Show category tag cloud",
                     "tooltip": "Enable or disable category tag cloud."
                 },
                 {
                     "type": "paragraph",
                     "value": "Check to view category tag cloud. Uncheck to hide category tag cloud."
-                },
-                {
-                    "type": "boolean",
-                    "fieldName": "showGeographiesTagCloud",
-                    "label": "Show geography tag cloud",
-                    "tooltip": "Enable or disable geography tag cloud."
-                },
-                {
-                    "type": "paragraph",
-                    "value": "Check to view geography tag cloud. Uncheck to hide geography tag cloud."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "geographiesTagText",
-                    "label": "Geography tag text:",
-                    "tooltip": "Search text to search tags in geography tag cloud.",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "The above mentioned text will be used to identify geography tag. If left blank then geography tag cloud will not be displayed even if the application is configured to display geography tag cloud."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "geographiesPrefixText",
-                    "label": "Geography prefix Text:",
-                    "tooltip": "Trim text from geography tag cloud.",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "Prefix text to be removed while displaying geography tags. This tag is case sensitive. If left blank then geography tags will be displayed as is."
                 },
                 {
                     "type": "paragraph",
@@ -178,23 +147,12 @@
                     "value": "The above font range will be used to display the tag cloud. Maximum value will be assigned to tags with maximum score. Set the units for the text in tag cloud. UI will be distorted if font sizes have inappropriate values."
                 },
                 {
-                    "type": "number",
-                    "fieldName": "showMaxTopTags",
-                    "label": "Show maximum top tags:",
-                    "tooltip": "Maximum number of results to be displayed in geography and category tag clouds.",
-                    "placeHolder": "10"
-                },
-                {
-                    "type": "paragraph",
-                    "value": "The number of tags displayed will be limited to above specified number if maximum number of distinct tags is more."
-                },
-                {
                     "type": "boolean",
                     "fieldName": "enableAutoComplete",
                     "label": "Enable autocomplete",
                     "tooltip": "Enable or disable autocomplete for search."
                 },
-                 {
+                {
                     "type": "paragraph",
                     "value": "This flag will enable or disable autocomplete for search."
                 },
@@ -231,6 +189,17 @@
                 },
                 {
                     "type": "string",
+                    "fieldName": "cityEngineWebSceneURL",
+                    "label": "CityEngine Web Scene URL:",
+                    "tooltip": "Set CityEngine Web Scene URL.",
+                    "placeHolder": "http://www.arcgis.com/apps/CEWebViewer/viewer.html?3dWebScene="
+                },
+                {
+                    "type": "paragraph",
+                    "value": "Set the URL for CityEngine Web Scene items."
+                },
+                {
+                    "type": "string",
                     "fieldName": "geometryService",
                     "label": "Geometry Service:",
                     "tooltip": "Set geometry service URL.",
@@ -256,50 +225,6 @@
                 {
                     "type": "paragraph",
                     "value": "Specify custom group description if you do not want to display group description from ArcGIS.com."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "mapTitle",
-                    "label": "Map title:",
-                    "tooltip": "Title of map",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "If not specified, title for ArcGIS item will be displayed."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "mapSnippet",
-                    "label": "Map snippet:",
-                    "tooltip": "Map Snippet.",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "If not specified, Item Summary for ArcGIS item will be displayed."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "mapItemDescription",
-                    "label": "Map Item description:",
-                    "tooltip": "Map Description.",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "If not specified, Description for ArcGIS item will be displayed."
-                },
-                {
-                    "type": "string",
-                    "fieldName": "mapLicenseInfo",
-                    "label": "License Info:",
-                    "tooltip": "Map License Information.",
-                    "placeHolder": ""
-                },
-                {
-                    "type": "paragraph",
-                    "value": "If not specified, License Info for ArcGIS item will be displayed."
                 },
                 {
                     "type": "string",
@@ -416,16 +341,6 @@
                 {
                     "type": "paragraph",
                     "value": "If checked, overview map widget will be displayed on the bottom left corner of the map."
-                },
-                {
-                    "type": "boolean",
-                    "fieldName": "showMoreInfo",
-                    "label": "Show more info link",
-                    "tooltip": "Displays More information links to the ArcGIS Online item page."
-                },
-                {
-                    "type": "paragraph",
-                    "value": "If checked, 'Item Details' link will be displayed to allow user to open ArcGIS Online item page."
                 },
                 {
                     "type": "boolean",
@@ -548,24 +463,15 @@
         "customLogoUrl": "",
         "itemSearchDefaultValue": "Web Map",
         "theme": "",
-        "showCategoriesTagCloud": true,
-        "showGeographiesTagCloud": true,
-        "geographiesTagText": "arcgis.",
-        "geographiesPrefixText": "",
+        "showTagCloud": true,
         "enableAutoComplete": true,
         "tagCloudFontMinValue": 15,
         "tagCloudFontMaxValue": 20,
         "tagCloudFontUnits": "px",
-        "showMaxTopTags": "10",
         "displaySharingAttribute": false,
         "useItemPage": false,
         "portalURL": "http://www.arcgis.com",
         "geometryService": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer",
-        "groupDescription": "",
-        "mapTitle": "",
-        "mapSnippet": "",
-        "mapItemDescription": "",
-        "mapLicenseInfo": "",
         "defaultLayout": "list",
         "sortField": "numViews",
         "sortOrder": "desc",
@@ -575,7 +481,6 @@
         "showBasemapGallery": true,
         "showMapSearch": true,
         "showOverviewMap": false,
-        "showMoreInfo": true,
         "showRatings": true,
         "showViews": true,
         "showLicenseInfo": true,
