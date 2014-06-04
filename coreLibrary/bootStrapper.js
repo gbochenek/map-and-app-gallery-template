@@ -18,10 +18,11 @@
 //============================================================================================================================//
 require([
     "coreLibrary/widgetLoader",
-    "application/config",
+    "application/appIncludes",
     "esri/config",
+    "esri/request",
     "dojo/domReady!"
-], function (WidgetLoader, config, esriConfig) {
+], function (WidgetLoader, appIncludesConfig, esriConfig, esriRequest) {
 
     try {
 
@@ -30,14 +31,24 @@ require([
         * create an object of widget loader class
         */
 
-        esriConfig.defaults.io.proxyUrl = "proxy.ashx";
-        esriConfig.defaults.io.alwaysUseProxy = false;
-        esriConfig.defaults.io.timeout = 180000;
+        var url = dojoConfig.baseURL + "/config.js";
+        esriRequest({
+            url: url,
+            handleAs: "json",
+            load: function (jsondata) {
+                dojo.configData = jsondata;
+                dojo.appConfigData = appIncludesConfig;
+                var applicationWidgetLoader = new WidgetLoader();
+                applicationWidgetLoader.startup();
 
-        dojo.configData = config;
-        var applicationWidgetLoader = new WidgetLoader();
-        applicationWidgetLoader.startup();
-
+                esriConfig.defaults.io.proxyUrl = dojoConfig.baseURL + dojo.configData.values.proxyUrl;
+                esriConfig.defaults.io.alwaysUseProxy = false;
+                esriConfig.defaults.io.timeout = 180000;
+            },
+            error: function (err) {
+                alert(err.message);
+            }
+        });
     } catch (ex) {
         alert(ex.message);
     }
