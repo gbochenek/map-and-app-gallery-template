@@ -1,4 +1,6 @@
-﻿/*
+﻿/*global */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
+/*
  | Copyright 2014 Esri
  |
  | Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,7 +61,7 @@
         // markupSymbolHeight: Set the image height in pixels for locator symbol.
         // zoomLevel: Following zoom level will be set for the map upon searching an address
         // locatorDefaultAddress: Set the default address to search.
-		// Please do not copy paste the comments while publishing the web mapping application template on AGOL
+        // Please do not copy paste the comments while publishing the web mapping application template on AGOL
  {
     "configurationSettings": [
         {
