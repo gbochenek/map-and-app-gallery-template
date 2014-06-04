@@ -72,6 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Le groupe est configuré de ne pas avoir toutes les données de la requête",
         invalidSearch: "Aucun résultat",
+        invalidBasemapQuery: "Invalid Basemap Query.",
         falseConfigParams: "Nécessitait des valeurs de clés de configuration sont soit nul ou pas exactement correspondant à des attributs de la couche, Ce message peut apparaître plusieurs fois.",
         invalidLocation: "Situation actuelle introuvable.",
         invalidProjection: "Impossible de tracer l'emplacement actuel sur la carte.",
