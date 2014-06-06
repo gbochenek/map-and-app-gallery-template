@@ -82,7 +82,7 @@ define([
                 this._fetchBasemapCollection(basemapDeferred);
                 basemapDeferred.then(lang.hitch(this, function (baseMapLayers) {
                     if (baseMapLayers.length === 0) {
-                        alert(nls.errorMessages.noBasemapLayers);
+                        alert(nls.errorMessages.invalidBasemapQuery);
                         return;
                     }
                     dojo.configData.values.baseMapLayers = baseMapLayers;
@@ -202,7 +202,7 @@ define([
             });
             groupRequest.then(function (groupInfo) {
                 if (groupInfo.results.length === 0) {
-                    alert(nls.errorMessages.noBasemapLayers);
+                    alert(nls.errorMessages.invalidBasemapQuery);
                     return;
                 }
                 //Create request using group id to fetch all the items from that group
