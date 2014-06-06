@@ -33,6 +33,7 @@ define([
     "esri/request",
     "esri/arcgis/utils",
     "esri/urlUtils",
+    "widgets/leftPanel/leftPanel",
     "dojo/domReady!"
 ], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, domAttr, domClass, domStyle, domGeom, esriRequest, arcgisUtils, urlUtils) {
 
