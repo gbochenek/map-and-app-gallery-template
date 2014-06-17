@@ -816,13 +816,6 @@
         z-index: 10017;
     }
 
-    .esriCTMapGeoLocation
-    {
-        margin-top: 70px;
-        position: absolute;
-        right: 0;
-    }
-
     .esriCTMenuTabRightMap
     {
         display: block;
@@ -1710,13 +1703,6 @@
     .esriCTBackBtn
     {
         z-index: 10017;
-    }
-
-    .esriCTMapGeoLocation
-    {
-        margin-top: 70px;
-        position: absolute;
-        right: 0;
     }
 
     .esriCTMenuTabRightMap
