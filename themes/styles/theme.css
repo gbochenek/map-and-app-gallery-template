@@ -1138,16 +1138,6 @@ font
     border: 4px solid #fff;
 }
 
-.esriCTFullScreen
-{
-    float: right;
-    margin-top: 9px;
-    margin-left: 6px;
-    width: 28px;
-    height: 28px;
-    background-color: #fff;
-}
-
 .esriCTIconContainer
 {
     float: right;

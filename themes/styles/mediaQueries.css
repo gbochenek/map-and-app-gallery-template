@@ -50,11 +50,6 @@
         width: 240px !important;
     }
 
-    .esriCTFullScreen
-    {
-        display: none;
-    }
-
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1280px)
@@ -179,11 +174,6 @@
         word-break: break-word;
     }
 
-    .esriCTFullScreen
-    {
-        display: none;
-    }
-
     .esriControlsBR
     {
         position: fixed !important;
@@ -265,11 +255,6 @@
     .esriCTListContent, .esriCTDetailsListContent
     {
         word-break: break-all;
-    }
-
-    .esriCTFullScreen
-    {
-        display: none;
     }
 
     .esriCTRightControlPanel
@@ -821,11 +806,6 @@
     {
         margin-top: 48px !important;
         overflow: hidden;
-    }
-
-    .esriCTFullScreen
-    {
-        display: none;
     }
 
     .esriCTDivLayerContainer
@@ -1722,11 +1702,6 @@
     .esriRightControlPanelLegend
     {
         top: 0px;
-    }
-
-    .esriCTFullScreen
-    {
-        display: none;
     }
 
     .esriCTDivLayerContainer
