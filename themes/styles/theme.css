@@ -707,7 +707,9 @@ font
 .icon-gps
 {
     font-weight: bold;
-    margin-left: -6px;
+    width: 32px;
+    height: 31px;
+    margin-left: -0.1em;
 }
 
 .esriCTEyeIcon
@@ -1094,13 +1096,6 @@ font
 
 .esriCTMapGeoLocation
 {
-    float: left;
-    margin-top: 9px;
-    width: 28px;
-    height: 28px;
-    margin-right: 7px;
-    margin-left: 11px;
-    background-color: #fff;
 }
 
 .esriCTDivLayerContainer
@@ -1478,7 +1473,9 @@ input[type="button"], input[type="submit"], input[type="reset"], input[type="fil
 
 .blueTheme .esriCTMapIcons, .blueTheme .esriCTGeolocationIcon
 {
-    color: #007ac2;
+    color: white;
+    background-color: #007ac2;
+    overflow:hidden;
 }
 
 .blueTheme .esriCTAutoSuggest
@@ -2095,6 +2092,7 @@ input[type="button"], input[type="submit"], input[type="reset"], input[type="fil
     font-weight: normal !important;
     width: 32px;
     height: 31px;
+    overflow: hidden;
 }
 
 .HomeButton .home, .HomeButton .home:hover
