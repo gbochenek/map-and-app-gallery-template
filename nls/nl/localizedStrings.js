@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "De geconfigureerde groep bevat geen gegevens om een query uit te voeren.",
         invalidSearch: "Geen resultaten gevonden.",
-        invalidBasemapQuery: "Ĳ_Unable to get basemaps group._ä",
+        invalidBasemapQuery: "Kan de groep met basiskaarten niet ophalen.",
         falseConfigParams: "Vereiste configuratiesleutelwaarden zijn null of komen niet exact overeen met kaartlaagattributen. Dit bericht zal mogelijk meerdere keren worden weergegeven.",
         invalidLocation: "Huidige locatie niet gevonden.",
         invalidProjection: "Kan huidige locatie niet projecteren op de kaart.",

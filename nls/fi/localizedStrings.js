@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Määritetyssä ryhmässä ei ole aineistoa, jonka perusteella kyselyn voi suorittaa.",
         invalidSearch: "Tuloksia ei löytynyt.",
-        invalidBasemapQuery: "Å_Unable to get basemaps group._ö",
+        invalidBasemapQuery: "Taustakarttojen ryhmää ei saada haettua.",
         falseConfigParams: "Pakollisten määritysavainten arvot ovat tyhjiä, tai ne eivät vastaa karttatason ominaisuusarvoja täsmällisesti. Tämä sanoma voi tulla näkyviin useita kertoja.",
         invalidLocation: "Nykyistä sijaintia ei löydy.",
         invalidProjection: "Nykyistä sijaintia ei voi projisoida karttaan.",

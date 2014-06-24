@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "已配置的组不具有任何用于执行查询的数据。",
         invalidSearch: "未找到任何结果。",
-        invalidBasemapQuery: "试_Unable to get basemaps group._验",
+        invalidBasemapQuery: "无法获取底图组。",
         falseConfigParams: "所需的配置键值为空或与图层属性不完全匹配。此消息可能会多次显示。",
         invalidLocation: "未找到当前位置。",
         invalidProjection: "无法在地图上投影当前位置。",

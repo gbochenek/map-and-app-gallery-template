@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Konfigurovaná skupina nemá k dispozici žádná data umožňující provedení dotazu.",
         invalidSearch: "Nebyly nalezeny žádné výsledky.",
-        invalidBasemapQuery: "Ř_Unable to get basemaps group._ů",
+        invalidBasemapQuery: "Nelze získat skupinu podkladových map.",
         falseConfigParams: "Vyžadované klíčové konfigurační hodnoty jsou buď prázdné nebo se přesně neshodují s atributy vrstvy. Tato zpráva se může objevit vícekrát.",
         invalidLocation: "Aktuální umístění nebylo nalezeno.",
         invalidProjection: "Aktuální umístění nelze zobrazit na mapě.",

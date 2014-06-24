@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Den konfigurerte gruppen har ingen data til å utføre spørring.",
         invalidSearch: "Fant ingen resultater.",
-        invalidBasemapQuery: "å_Unable to get basemaps group._ø",
+        invalidBasemapQuery: "Fant ikke bagrunnskartgruppen.",
         falseConfigParams: "Påkrevde nøkkelverdier for konfigurasjon er enten null eller samsvarer ikke helt med lagattributter. Det kan hende denne meldingen vises flere ganger.",
         invalidLocation: "Fant ikke gjeldende lokasjon.",
         invalidProjection: "Kan ikke projisere gjeldende lokasjon på kartet.",

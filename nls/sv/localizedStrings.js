@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Den konfigurerade gruppen innehåller inga data för att köra frågan.",
         invalidSearch: "Inga resultat hittades.",
-        invalidBasemapQuery: "Å_Unable to get basemaps group._ö",
+        invalidBasemapQuery: "Det gick inte att hämta baskartgruppen.",
         falseConfigParams: "De obligatoriska konfigurationsnyckelvärdena är antingen null eller matchar inte lagerattributen exakt. Det här meddelandet kan visas flera gånger.",
         invalidLocation: "Det gick inte att hitta aktuell plats.",
         invalidProjection: "Det gick inte att projicera den aktuella platsen på kartan.",

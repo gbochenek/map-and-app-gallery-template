@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Die konfigurierte Gruppe verfügt über keine Daten, um die Abfrage auszuführen.",
         invalidSearch: "Keine Ergebnisse gefunden.",
-        invalidBasemapQuery: "ä_Unable to get basemaps group._Ü",
+        invalidBasemapQuery: "Grundkartengruppe kann nicht abgerufen werden.",
         falseConfigParams: "Erforderliche Konfigurationsschlüsselwerte sind NULL oder stimmen nicht genau mit Layer-Attributen überein. Diese Meldung kann mehrmals angezeigt werden.",
         invalidLocation: "Aktuelle Position nicht gefunden.",
         invalidProjection: "Aktuelle Position kann nicht auf Karte projiziert werden.",

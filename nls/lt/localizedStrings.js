@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Sukonfigūruotoje grupėje nėra duomenų užklausai įvykdyti.",
         invalidSearch: "Rezultatų nerasta.",
-        invalidBasemapQuery: "Į_Unable to get basemaps group._š",
+        invalidBasemapQuery: "Nepavyko gauti pagrindo žemėlapių grupės.",
         falseConfigParams: "Būtinos konfigūracijos rakto reikšmės yra tuščios arba nevisiškai atitinka sluoksnio atributus. Šis pranešimas gali būti rodomas kelis kartus.",
         invalidLocation: "Dabartinė vieta nerasta.",
         invalidProjection: "Nepavyksta dabartinės vietos suprojektuoti ant žemėlapio.",

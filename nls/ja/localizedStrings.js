@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "構成済みのグループにクエリを実行するためのデータがありません。",
         invalidSearch: "結果が見つかりませんでした。",
-        invalidBasemapQuery: "須_Unable to get basemaps group._鷗",
+        invalidBasemapQuery: "ベースマップ グループを取得できません。",
         falseConfigParams: "必要な構成キーの値が NULL であるか、レイヤ属性と完全に一致しません。このメッセージは、複数回表示される可能性があります。",
         invalidLocation: "現在の位置が見つかりません。",
         invalidProjection: "マップ上の現在の位置を投影できません。",

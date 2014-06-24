@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "구성된 그룹에 쿼리를 수행할 데이터가 없습니다.",
         invalidSearch: "결과가 없습니다.",
-        invalidBasemapQuery: "한_Unable to get basemaps group._빠",
+        invalidBasemapQuery: "베이스맵 그룹을 가져올 수 없습니다.",
         falseConfigParams: "필요한 구성 키 값이 null이거나 레이어 속성과 정확히 일치하지 않습니다. 이 메시지는 여러 번 나타날 수 있습니다.",
         invalidLocation: "현재 위치를 찾을 수 없습니다.",
         invalidProjection: "현재 위치를 맵에 투영할 수 없습니다.",

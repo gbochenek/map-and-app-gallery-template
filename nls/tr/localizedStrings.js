@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Yapılandırılan grup için sorgu uygulanabilecek veri yok.",
         invalidSearch: "Hiçbir sonuç bulunamadı.",
-        invalidBasemapQuery: "ı_Unable to get basemaps group._İ",
+        invalidBasemapQuery: "Altlık haritası grubu alınamıyor.",
         falseConfigParams: "Gerekli olan yapılandırma anahtarı değerleri boş ya da katman öznitelikleriyle tam olarak eşleşmiyor. Bu mesaj birkaç kez görüntülenebilir.",
         invalidLocation: "Geçerli konum bulunamadı.",
         invalidProjection: "Geçerli konum haritada tahmin edilemiyor.",

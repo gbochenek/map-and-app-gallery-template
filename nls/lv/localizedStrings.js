@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Konfigurētajā grupā nav nekādu datu, lai veiktu vaicājumu.",
         invalidSearch: "Nav atrasti rezultāti.",
-        invalidBasemapQuery: "ķ_Unable to get basemaps group._ū",
+        invalidBasemapQuery: "Nevar iegūt pamatkaršu grupu.",
         falseConfigParams: "Nepieciešamās konfigurācijas atslēgas vērtības ir vai nu nulle, vai tām nav tiešas atbilstības slāņa atribūtiem. Šis ziņojums var tikt rādīts vairākas reizes.",
         invalidLocation: "Pašreizējais izvietojums nav atrasts.",
         invalidProjection: "Nevar projektēt pašreizējo izvietojumu kartē.",

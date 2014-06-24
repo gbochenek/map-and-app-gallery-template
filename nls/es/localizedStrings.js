@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "El grupo configurado no tiene datos para realizar la consulta.",
         invalidSearch: "No se encontraron resultados.",
-        invalidBasemapQuery: "á_Unable to get basemaps group._Ó",
+        invalidBasemapQuery: "No se puede obtener el grupo de mapas base.",
         falseConfigParams: "Los valores clave de configuración requeridos son nulos o no coinciden exactamente con los atributos de las capas. Este mensaje puede aparecer muchas veces.",
         invalidLocation: "La ubicación actual no se puede encontrar.",
         invalidProjection: "No se puede proyectar la ubicación actual en el mapa.",

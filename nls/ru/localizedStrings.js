@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "В указанной группе нет данных для выполнения запроса.",
         invalidSearch: "Результаты не найдены.",
-        invalidBasemapQuery: "Ж_Unable to get basemaps group._Я",
+        invalidBasemapQuery: "Невозможно получить группу базовых карты.",
         falseConfigParams: "Необходимые значения ключей конфигурации либо null, либо не точно совпадают с атрибутами слоя. Это сообщение может появляться много раз.",
         invalidLocation: "Текущее местоположение не найдено.",
         invalidProjection: "Невозможно отобразить текущее местоположение на карте.",

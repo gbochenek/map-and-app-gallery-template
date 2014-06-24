@@ -62,7 +62,7 @@ define({
     itemUnavailableText: "Üksus pole selles seadmes saadaval.",
     title: {
         settingsBtnTitle: "Seaded",
-        itemSearchBtnTitle: "Üksuseotsing",
+        itemSearchBtnTitle: "Sisu otsing",
         infoBtnTitle: "Info",
         sortByBtnTitle: "Sorteeri:",
         layoutBtnTitle: "Kujundus",
@@ -72,15 +72,15 @@ define({
     errorMessages: {
         emptyGroup: "Konfigureeritud rühmas pole päringu sooritamiseks andmeid.",
         invalidSearch: "Tulemusi ei leitud.",
-        invalidBasemapQuery: "Š_Unable to get basemaps group._ä",
+        invalidBasemapQuery: "Aluskaartide gruppi ei saa hankida.",
         falseConfigParams: "Nõutavate konfiguratsioonivõtmete väärtused on kas tühjad või ei vasta täpselt kihiatribuutidele. Seda teadet võite näha korduvalt.",
         invalidLocation: "Praegust asukohta ei leitud.",
         invalidProjection: "Praegust asukohta ei saa kaardile kanda.",
         widgetNotLoaded: "Vidinaid ei saanud laadida.",
-        minfontSizeGreater: "Fondisuuruse miinimumväärtus on konfiguratsiooniseadetes maksimumväärtusest suurem.",
+        minfontSizeGreater: "Fondi suuruse miinimumväärtus on konfiguratsiooniseadetes maksimumväärtusest suurem.",
         layerNotFound: "Kihtidest ei saa andmeid tuua.",
         unableToOpenItem: "Üksust ei saa avada.",
-        wmsSpatialReferenceError: "WMS-i kihi koordinaatsüsteem ei vasta kaardi koordinaatsüsteemile.",
+        wmsSpatialReferenceError: "WMS-kihi koordinaatsüsteem ei vasta kaardi koordinaatsüsteemile.",
         noPublicItems: "Konfigureeritud rühmas pole avalikke üksusi.",
         emptyUsernamePassword: "Sisestage kasutajanimi ja parool.",
         noFullScreenSupport: "Praegune brauser ei toeta täisekraanrežiimi."

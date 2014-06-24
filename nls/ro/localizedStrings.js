@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Grupul configurat nu are nicio dată pentru a efectua interogarea.",
         invalidSearch: "Nu a fost găsit niciun rezultat.",
-        invalidBasemapQuery: "Ă_Unable to get basemaps group._ș",
+        invalidBasemapQuery: "Nu se poate obţine grupul de hărţi fundal.",
         falseConfigParams: "Valorile cheie obligatorii pentru configuraţie fie sunt nule, fie nu corespund exact cu atributele stratului tematic. Acest mesaj poate apărea de mai multe ori.",
         invalidLocation: "Locaţia actuală nu a fost găsită.",
         invalidProjection: "Locaţia actuală nu poate fi proiectată pe hartă.",

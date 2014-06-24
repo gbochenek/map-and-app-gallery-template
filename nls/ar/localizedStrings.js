@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "الطبقة التي يتم تكوينها ليس بها أي بيانات للقيام بالاستعلام.",
         invalidSearch: "لم يتم العثور على نتائج.",
-        invalidBasemapQuery: "بيت_Unable to get basemaps group._لاحقة",
+        invalidBasemapQuery: "يتعذر الحصول على مجموعة خرائط الأساس.",
         falseConfigParams: "تكون قيم التكوين الأساسية المطلوبة إما صفر أو غير متطابقة مع البيانات الجدولية للطبقة. يمكن أن تظهر هذه الرسالة عدة مرات.",
         invalidLocation: "يتعذر إيجاد الموقع الحالي.",
         invalidProjection: "يتعذر إسقاط الموقع الحالي على الخريطة.",

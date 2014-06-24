@@ -72,7 +72,7 @@ define({
     errorMessages: {
         emptyGroup: "Den konfigurerede gruppe har ikke nogen data til kørsel af en forespørgsel.",
         invalidSearch: "Ingen resultater fundet.",
-        invalidBasemapQuery: "ø_Unable to get basemaps group._å",
+        invalidBasemapQuery: "Kan ikke hente baggrundskortgruppe.",
         falseConfigParams: "De krævede konfigurationsnøgleværdier er enten nul eller matcher ikke lagattributterne præcist. Denne meddelelse bliver muligvis vist mange gange.",
         invalidLocation: "Den aktuelle position blev ikke fundet.",
         invalidProjection: "Kan ikke projicere den aktuelle position på kortet.",
