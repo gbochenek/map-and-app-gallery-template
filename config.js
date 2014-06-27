@@ -82,12 +82,6 @@
                     "tooltip": "Icon in top left corner of application. Icon should be 48px high."
                 },
                 {
-                    "label": "Bookmark Icon URL",
-                    "fieldName": "applicationFavicon",
-                    "type": "string",
-                    "tooltip": "URL for the bookmark image"
-                },
-                {
                     "label": "Color Scheme",
                     "fieldName": "theme",
                     "type": "string",
