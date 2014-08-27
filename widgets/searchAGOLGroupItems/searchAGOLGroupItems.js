@@ -140,7 +140,7 @@ define([
         * @memberOf widgets/searchAGOLGroupItems/searchAGOLGroupItems
         */
         fetchAppIdSettings: function () {
-            var def = new Deferred(), settings, info;
+            var def = new Deferred(), settings, info, appSettings;
 
             settings = urlUtils.urlToObject(window.location.href);
             lang.mixin(dojo.configData.values, settings.query);
@@ -162,14 +162,19 @@ define([
                     /**
                     * check for false value strings
                     */
-                    var appSettings = this.setFalseValues(response.itemData.values);
+                    if (response.itemData && response.itemData.values) {
+                        appSettings = this.setFalseValues(response.itemData.values);
+                    }
                     domStyle.set(dom.byId("esriCTParentDivContainer"), "display", "block");
                     if (IdentityManager.credentials[0]) {
                         dojo.configData.values.token = IdentityManager.credentials[0].token;
                     }
                     IdentityManager.checkSignInStatus(dojo.configData.values.portalURL).then(lang.hitch(this, function () {
                         this._setSignInBtnText();
-                    }));
+                    })).otherwise(function (err) {
+                        // To handle when user is not signed-in
+                        query(".signin");
+                    });
                     // set other config options from app id
                     dojo.configPrev = lang.clone(dojo.configData.values);
                     lang.mixin(dojo.configData.values, appSettings);
@@ -496,7 +501,7 @@ define([
                         }, function (e) {
                             if (e.httpCode === 403) {
                                 alert(nls.errorMessages.notMemberOfOrg);
-                                IdentityManager.credentials = [];
+                                IdentityManager.destroyCredentials();
                             }
                         });
                     }));
@@ -506,7 +511,6 @@ define([
                             dojo.configData.values.token = null;
                         }
                         IdentityManager.destroyCredentials();
-                        //  _self._portal.id = null;
                         if (dojo.isPrivateGroup) {
                             dojo.configData.groupTitle = null;
                             dojo.configData.groupDescription = null;

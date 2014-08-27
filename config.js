@@ -42,7 +42,6 @@
         "tagCloudFontMinValue": 15,
         "tagCloudFontMaxValue": 20,
         "tagCloudFontUnits": "px",
-        "useItemPage": true,
         "showLicenseInfo": true,
         "showAttribution": true,
         "showComments": false,
@@ -169,12 +168,6 @@
                     "fieldName": "showTagCloud",
                     "type": "boolean",
                     "tooltip": "Enable to show a tag cloud for filtering gallery content"
-                },
-                {
-                    "label": "Show Item Details",
-                    "fieldName": "useItemPage",
-                    "type": "boolean",
-                    "tooltip": "Enable to show the item details page when an item is selected"
                 }
             ]
         },
