@@ -64,6 +64,8 @@ define([
                 load: lang.hitch(this, function (response) {
                     dojo.locatorURL = response.helperServices.geocode[0].url;
                     dojo.configData.values.geometryService = response.helperServices.geometry.url;
+                    dojo.privateBaseMapGroup = true;
+                    dojo.BaseMapGroupQuery = response.basemapGalleryGroupQuery;
                     // check if 'suggest' property is available for geocoder services
                     if (response.helperServices.geocode[0].suggest) {
                         dojo.enableGeocodeSuggest = response.helperServices.geocode[0].suggest;
@@ -145,13 +147,11 @@ define([
             settings = urlUtils.urlToObject(window.location.href);
             lang.mixin(dojo.configData.values, settings.query);
             if (dojo.configData.values.appid) {
+                //If there's an oauth appid specified register it
                 if (dojo.configData.values.oauthappid) {
                     info = new ArcGISOAuthInfo({
                         appId: dojo.configData.values.oauthappid,
                         portalUrl: dojo.configData.values.portalURL,
-                        // Uncomment this line to prevent the user's signed in state from being shared
-                        // with other apps on the same domain with the same authNamespace value.
-                        //authNamespace: "portal_oauth_inline",
                         popup: false
                     });
                     IdentityManager.registerOAuthInfos([info]);
@@ -169,10 +169,11 @@ define([
                     if (IdentityManager.credentials[0]) {
                         dojo.configData.values.token = IdentityManager.credentials[0].token;
                     }
+                    // check sign-in status
                     IdentityManager.checkSignInStatus(dojo.configData.values.portalURL).then(lang.hitch(this, function () {
                         this._setSignInBtnText();
                     })).otherwise(function (err) {
-                        // To handle when user is not signed-in
+                        // handle when user is not signed-in
                         query(".signin");
                     });
                     // set other config options from app id
@@ -192,6 +193,10 @@ define([
             return def;
         },
 
+        /**
+        * change sign-in button text when user is authenticated through oauth
+        * @memberOf widgets/searchAGOLGroupItems/searchAGOLGroupItems
+        */
         _setSignInBtnText: function () {
             this._portal = new portal.Portal(dojo.configData.values.portalURL);
             this.own(on(this._portal, "Load", lang.hitch(this, function () {
@@ -518,6 +523,7 @@ define([
                         }
 
                         dojo.privateBaseMapGroup = false;
+                        dojo.configData.values.baseMapLayers = null;
                         domAttr.set(query(".signin")[0], "innerHTML", nls.signInText);
                         domClass.replace(query(".esriCTSignInIcon")[0], "icon-login", "icon-logout");
                         _self.globalUser = null;

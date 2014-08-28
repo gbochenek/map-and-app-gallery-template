@@ -38,6 +38,8 @@ define([
     "widgets/geoLocation/geoLocation",
     "widgets/baseMapGallery/baseMapGallery",
     "esri/layers/ArcGISImageServiceLayer",
+    "esri/layers/ArcGISTiledMapServiceLayer",
+    "esri/layers/OpenStreetMapLayer",
     "esri/layers/ImageServiceParameters",
     "esri/tasks/locator",
     "dojo/string",
@@ -50,7 +52,7 @@ define([
     "esri/dijit/OverviewMap",
     "esri/dijit/BasemapGallery",
     "./itemDetailsHelper"
-], function (declare, domConstruct, lang, array, domAttr, dom, template, nls, query, domClass, on, Deferred, DeferredList, number, topic, utils, Legend, Map, GeoLocation, BasemapGallery, ArcGISImageServiceLayer, ImageServiceParameters, Locator, string, GraphicsLayer, HomeButton, domStyle, domGeom, esriRequest, arcgisUtils, OverviewMap, ArcGISBasemapGallery, itemDetailsHelper) {
+], function (declare, domConstruct, lang, array, domAttr, dom, template, nls, query, domClass, on, Deferred, DeferredList, number, topic, utils, Legend, Map, GeoLocation, BasemapGallery, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, OpenStreetMapLayer, ImageServiceParameters, Locator, string, GraphicsLayer, HomeButton, domStyle, domGeom, esriRequest, arcgisUtils, OverviewMap, ArcGISBasemapGallery, itemDetailsHelper) {
 
     return declare([itemDetailsHelper], {
         templateString: template,
@@ -205,6 +207,7 @@ define([
                 agolBasemapsCollection = new ArcGISBasemapGallery({
                     showArcGISBasemaps: true
                 });
+                this.searchPortalURL = "http://www.arcgis.com";
                 dojo.connect(agolBasemapsCollection, "onLoad", function () {
                     /**
                     * onLoad, loop through each basemaps in the basemap gallery and push it into "baseMapArray"
@@ -337,6 +340,9 @@ define([
                 bmLayerData = [];
                 bmLayerData.push(bmLayers);
             }
+            if (bmLayerData[0].layerType === "OpenStreetMap") {
+                bmLayerData[0].url = bmLayerData[0].id;
+            }
             if (this._isUniqueBasemap(baseMapArray, bmLayerData, isItemBasemap)) {
 
                 if (bmLayerData[0].visibility || isItemBasemap) {
@@ -427,7 +433,8 @@ define([
                     ThumbnailSource: thumbnailSrc,
                     Name: bmLayer.title,
                     MapURL: bmLayer.url,
-                    isItemBasemap: bmLayer.isItemBasemap
+                    isItemBasemap: bmLayer.isItemBasemap,
+                    layerType: bmLayer.layerType
                 });
             }
         },
@@ -740,7 +747,7 @@ define([
         * @memberOf widgets/itemDetails/itemDetails
         */
         addLayerToMap: function (mapId, url, title, type, layers) {
-            var home, layer;
+            var home, layer, i;
             dojo.selectedBasemapIndex = null;
             topic.publish("showProgressIndicator");
             this.map = new Map(this.itemMap, {
@@ -750,15 +757,20 @@ define([
             });
             home = this._addHomeButton();
 
-            if (dojo.configData.values.baseMapLayers[0].length > 1) {
-                array.forEach(dojo.configData.values.baseMapLayers[0], lang.hitch(this, function (basemapLayer, index) {
-                    layer = new esri.layers.ArcGISTiledMapServiceLayer(basemapLayer.MapURL, { id: "defaultBasemap" + index, visible: true });
-                    this.map.addLayer(layer);
-                }));
+            if (!dojo.configData.values.baseMapLayers[0].length) {
+                if (dojo.configData.values.baseMapLayers[0].layerType === "OpenStreetMap") {
+                    layer = new OpenStreetMapLayer({ id: "defaultBasemap", visible: true });
+                } else {
+                    layer = new ArcGISTiledMapServiceLayer(dojo.configData.values.baseMapLayers[0].MapURL, { id: "defaultBasemap", visible: true });
+                }
+                this.map.addLayer(layer, 0);
             } else {
-                layer = new esri.layers.ArcGISTiledMapServiceLayer(dojo.configData.values.baseMapLayers[0].MapURL, { id: "defaultBasemap", visible: true });
-                this.map.addLayer(layer);
+                for (i = 0; i < dojo.configData.values.baseMapLayers[0].length; i++) {
+                    layer = new ArcGISTiledMapServiceLayer(dojo.configData.values.baseMapLayers[0][i].MapURL, { id: "defaultBasemap" + i, visible: true });
+                    this.map.addLayer(layer, i);
+                }
             }
+            dojo.selectedBasemapIndex = 0;
 
             this.map.on("load", lang.hitch(this, function () {
                 var graphicsLayer, geolocation, layerInfo = [], layerURL, j, flag, basemapGallery;
@@ -978,7 +990,7 @@ define([
 
                 if (data) {
                     if (data.singleFusedMapCache) {
-                        mapServiceLayer = new esri.layers.ArcGISTiledMapServiceLayer(url, {
+                        mapServiceLayer = new ArcGISTiledMapServiceLayer(url, {
                             id: id
                         });
                     } else {
