@@ -95,7 +95,7 @@ define([
                 array.forEach(basemapLayers, lang.hitch(this, function (layer, index) {
                     basemap = this.map.getLayer(basemapLayerId + index);
                     if (basemap) {
-                        if (index == basemapLayers.length - 1) {
+                        if (index === basemapLayers.length - 1) {
                             this.enableToggling = true;
                         }
                         this.map.removeLayer(basemap);

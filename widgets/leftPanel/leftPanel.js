@@ -376,10 +376,7 @@ define([
                     domClass.add(this, "esriCTTagCloudHighlight");
                     dojo.tagCloudArray.push(val);
                 }
-
-                if (domGeom.position(query(".esriCTAutoSuggest")[0]).h > 0) {
-                    domClass.replace(query(".esriCTAutoSuggest")[0], "displayNoneAll", "displayBlockAll");
-                }
+                topic.publish("hideText");
 
                 if (dojo.selectedTags !== "") {
                     dojo.selectedTags = dojo.tagCloudArray.join('"' + " AND " + '"');
@@ -394,6 +391,7 @@ define([
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
                     domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
+                    domClass.add(query(".esriCTBackBtn")[0], "displayNoneAll");
                 }
             };
         },

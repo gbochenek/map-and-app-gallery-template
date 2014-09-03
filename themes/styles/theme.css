@@ -303,11 +303,15 @@ font
 {
     float: left;
     width: 65px;
+    height:50px;
 }
 
-.esriCTLogo img
+.esriCTLogoContainer
 {
-    width: 65px;
+    height: 48px;
+    background-size: 100% 100% !important;
+    background-position: top !important;
+    background-position-x: 0px !important; /*ie8*/
 }
 
 .esriCTLeftPanelHeader
@@ -748,7 +752,7 @@ font
 
 .esriCTNoThumbnailImage
 {
-    background-image: url('../images/thumbnailNotAvailable.png');
+    background-image: url('../images/thumbnailNotAvailable.png') !important;
     background-repeat: no-repeat;
     background-position: center center;
 }

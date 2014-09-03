@@ -406,6 +406,7 @@ define([
                 domStyle.set(query(".esriCTInnerRightPanelDetails")[0], "height", containerHeight);
 
                 if (itemResult.thumbnailUrl) {
+                    domClass.remove(_self.appThumbnail, "esriCTNoThumbnailImage");
                     domStyle.set(_self.appThumbnail, "background", 'url(' + itemResult.thumbnailUrl + ') no-repeat center center');
                 } else {
                     domClass.add(_self.appThumbnail, "esriCTNoThumbnailImage");

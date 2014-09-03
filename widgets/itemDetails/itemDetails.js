@@ -75,7 +75,11 @@ define([
             domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer", "esriCTCursorDefault");
             applicationHeaderDiv = dom.byId("esriCTParentDivContainer");
             domClass.replace(query(".esriCTMenuTabRight")[0], "displayNoneAll", "displayBlockAll");
-            this.itemIcon.src = this.data.thumbnailUrl;
+            if (this.data.thumbnailUrl && this.data.thumbnailUrl !== 'null') {
+                domStyle.set(this.itemIcon, "background", 'url(' + this.data.thumbnailUrl + ') no-repeat center center');
+            } else {
+                domClass.add(this.itemIcon, "esriCTNoThumbnailImage");
+            }
             domConstruct.place(this.itemDetailsLeftPanel, applicationHeaderDiv);
             domAttr.set(this.itemTitle, "innerHTML", this.data.title || "");
 
