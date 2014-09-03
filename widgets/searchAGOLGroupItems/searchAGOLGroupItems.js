@@ -26,6 +26,7 @@ define([
     "dojo/i18n!nls/localizedStrings",
     "dojo/query",
     "dojo/on",
+    "dojo/dom",
     "dojo/dom-attr",
     "dojo/dom-class",
     "dojo/dom-style",
@@ -34,9 +35,10 @@ define([
     "esri/arcgis/utils",
     "esri/urlUtils",
     "esri/IdentityManager",
+    "esri/arcgis/OAuthInfo",
     "widgets/leftPanel/leftPanel",
     "dojo/domReady!"
-], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, domAttr, domClass, domStyle, domGeom, esriRequest, arcgisUtils, urlUtils, IdentityManager) {
+], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, dom, domAttr, domClass, domStyle, domGeom, esriRequest, arcgisUtils, urlUtils, IdentityManager, ArcGISOAuthInfo) {
 
     return declare([_WidgetBase], {
         nls: nls,
@@ -61,6 +63,9 @@ define([
                 callbackParamName: 'callback',
                 load: lang.hitch(this, function (response) {
                     dojo.locatorURL = response.helperServices.geocode[0].url;
+                    dojo.configData.values.geometryService = response.helperServices.geometry.url;
+                    dojo.privateBaseMapGroup = true;
+                    dojo.BaseMapGroupQuery = response.basemapGalleryGroupQuery;
                     // check if 'suggest' property is available for geocoder services
                     if (response.helperServices.geocode[0].suggest) {
                         dojo.enableGeocodeSuggest = response.helperServices.geocode[0].suggest;
@@ -137,20 +142,42 @@ define([
         * @memberOf widgets/searchAGOLGroupItems/searchAGOLGroupItems
         */
         fetchAppIdSettings: function () {
-            var def = new Deferred(), settings;
+            var def = new Deferred(), settings, info, appSettings;
 
             settings = urlUtils.urlToObject(window.location.href);
             lang.mixin(dojo.configData.values, settings.query);
             if (dojo.configData.values.appid) {
+                //If there's an oauth appid specified register it
+                if (dojo.configData.values.oauthappid) {
+                    info = new ArcGISOAuthInfo({
+                        appId: dojo.configData.values.oauthappid,
+                        portalUrl: dojo.configData.values.portalURL,
+                        popup: false
+                    });
+                    IdentityManager.registerOAuthInfos([info]);
+                }
+
+                domStyle.set(dom.byId("esriCTParentDivContainer"), "display", "none");
                 arcgisUtils.getItem(dojo.configData.values.appid).then(lang.hitch(this, function (response) {
                     /**
                     * check for false value strings
                     */
-                    var appSettings = this.setFalseValues(response.itemData.values);
+                    if (response.itemData && response.itemData.values) {
+                        appSettings = this.setFalseValues(response.itemData.values);
+                    }
+                    domStyle.set(dom.byId("esriCTParentDivContainer"), "display", "block");
                     if (IdentityManager.credentials[0]) {
                         dojo.configData.values.token = IdentityManager.credentials[0].token;
                     }
+                    // check sign-in status
+                    IdentityManager.checkSignInStatus(dojo.configData.values.portalURL).then(lang.hitch(this, function () {
+                        this._setSignInBtnText();
+                    })).otherwise(function (err) {
+                        // handle when user is not signed-in
+                        query(".signin");
+                    });
                     // set other config options from app id
+                    dojo.configPrev = lang.clone(dojo.configData.values);
                     lang.mixin(dojo.configData.values, appSettings);
                     def.resolve();
                     /**
@@ -164,6 +191,21 @@ define([
                 def.resolve();
             }
             return def;
+        },
+
+        /**
+        * change sign-in button text when user is authenticated through oauth
+        * @memberOf widgets/searchAGOLGroupItems/searchAGOLGroupItems
+        */
+        _setSignInBtnText: function () {
+            this._portal = new portal.Portal(dojo.configData.values.portalURL);
+            this.own(on(this._portal, "Load", lang.hitch(this, function () {
+                this._portal.signIn().then(function (loggedInUser) {
+                    domAttr.set(query(".esriCTSignIn")[0], "title", nls.title.signOutBtnTitle);
+                    domAttr.set(query(".signin")[0], "innerHTML", nls.signOutText);
+                    domClass.replace(query(".esriCTSignInIcon")[0], "icon-logout", "icon-login");
+                });
+            })));
         },
 
         /**
@@ -464,7 +506,7 @@ define([
                         }, function (e) {
                             if (e.httpCode === 403) {
                                 alert(nls.errorMessages.notMemberOfOrg);
-                                IdentityManager.credentials = [];
+                                IdentityManager.destroyCredentials();
                             }
                         });
                     }));
@@ -473,6 +515,7 @@ define([
                         if (dojo.configData.values.token) {
                             dojo.configData.values.token = null;
                         }
+                        IdentityManager.destroyCredentials();
                         if (dojo.isPrivateGroup) {
                             dojo.configData.groupTitle = null;
                             dojo.configData.groupDescription = null;
@@ -480,19 +523,24 @@ define([
                         }
 
                         dojo.privateBaseMapGroup = false;
+                        dojo.configData.values.baseMapLayers = null;
                         domAttr.set(query(".signin")[0], "innerHTML", nls.signInText);
                         domClass.replace(query(".esriCTSignInIcon")[0], "icon-login", "icon-logout");
                         _self.globalUser = null;
-                        if (flag) {
-                            _self.portalSignIn(def, true);
+                        if (dojo.configPrev) {
+                            dojo.configData.values = dojo.configPrev;
+                        }
+                        if (dojo.configData.values.appid) {
+                            _self.fetchAppIdSettings();
                         } else {
-                            /**
-                            * query to check if the group has any public items to be displayed on sign out
-                            */
-
-                            var queryString = 'group:("' + dojo.configData.values.group + '")' + ' AND (access: ("' + "public" + '"))';
-                            topic.publish("queryGroupItems", null, queryString);
-                            def.resolve();
+                            if (flag) {
+                                _self.portalSignIn(def, true);
+                            } else {
+                                /**
+                                * query to check if the group has any public items to be displayed on sign out
+                                */
+                                def.resolve();
+                            }
                         }
                     });
                 }

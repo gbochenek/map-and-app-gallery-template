@@ -215,26 +215,19 @@ define([
         * Executed when user clicks on a item thumbnail or clicks the button on the item info page. It performs a query to fetch the type of the selected item.
         * @memberOf widgets/gallery/gallery
         */
-        _showItemOverview: function (itemId, thumbnailUrl, itemResult, flag, data) {
-            var _self = this, itemDetails, dataType, tokenString2, downloadPath;
+        _showItemOverview: function (itemId, thumbnailUrl, itemResult, data) {
+            var itemDetails, dataType, tokenString2, downloadPath;
 
             if (data) {
                 data.thumbnailUrl = thumbnailUrl;
                 dataType = data.type.toLowerCase();
                 if ((dataType === "map service") || (dataType === "web map") || (dataType === "feature service") || (dataType === "image service") || (dataType === "kml") || (dataType === "wms")) {
-                    if (dojo.configData.values.useItemPage && flag) {
-                        _self.showInfoPage(_self, itemResult, true);
-                        if (!(dataType === "web map")) {
-                            topic.publish("filterRedundantBasemap", itemResult);
-                        }
+                    if ((dataType === "web map") && dojo.configData.values.mapViewer.toLowerCase() === "arcgis") {
+                        topic.publish("hideProgressIndicator");
+                        window.open(dojo.configData.values.portalURL + '/home/webmap/viewer.html?webmap=' + itemId, "_self");
                     } else {
-                        if ((dataType === "web map") && dojo.configData.values.mapViewer.toLowerCase() === "arcgis") {
-                            topic.publish("hideProgressIndicator");
-                            window.open(dojo.configData.values.portalURL + '/home/item.html?id=' + itemId, "_self");
-                        } else {
-                            itemDetails = new ItemDetails({ data: data });
-                            itemDetails.startup();
-                        }
+                        itemDetails = new ItemDetails({ data: data });
+                        itemDetails.startup();
                     }
                     if (dojo.downloadWindow) {
                         dojo.downloadWindow.close();
@@ -257,12 +250,8 @@ define([
                         } else {
                             tokenString2 = '';
                         }
-                        if (dojo.configData.values.useItemPage && flag) {
-                            _self.showInfoPage(_self, itemResult, true);
-                        } else {
-                            downloadPath = dojo.configData.values.portalURL + "/sharing/content/items/" + itemId + "/data" + tokenString2;
-                            dojo.downloadWindow.location = downloadPath;
-                        }
+                        downloadPath = dojo.configData.values.portalURL + "/sharing/content/items/" + itemId + "/data" + tokenString2;
+                        dojo.downloadWindow.location = downloadPath;
                     } else {
                         alert(nls.errorMessages.unableToOpenItem);
                     }
@@ -388,7 +377,7 @@ define([
                     if (itemFlag) {
                         this._createPropertiesContent(data, _self.detailsContent);
                     } else {
-                        _self._showItemOverview(itemResult.id, itemResult.thumbnailUrl, itemResult, true, dataArray);
+                        _self._showItemOverview(itemResult.id, itemResult.thumbnailUrl, itemResult, dataArray);
                     }
 
                     /**
@@ -417,6 +406,7 @@ define([
                 domStyle.set(query(".esriCTInnerRightPanelDetails")[0], "height", containerHeight);
 
                 if (itemResult.thumbnailUrl) {
+                    domClass.remove(_self.appThumbnail, "esriCTNoThumbnailImage");
                     domStyle.set(_self.appThumbnail, "background", 'url(' + itemResult.thumbnailUrl + ') no-repeat center center');
                 } else {
                     domClass.add(_self.appThumbnail, "esriCTNoThumbnailImage");
@@ -487,7 +477,7 @@ define([
             topic.publish("showProgressIndicator");
             itemId = domAttr.get(container, "selectedItem");
             thumbnailUrl = domAttr.get(container, "selectedThumbnail");
-            _self._showItemOverview(itemId, thumbnailUrl, itemResult, false, dataArray);
+            _self._showItemOverview(itemId, thumbnailUrl, itemResult, dataArray);
         },
 
         /**
