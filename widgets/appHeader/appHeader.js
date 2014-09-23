@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,dojoConfig */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -41,7 +41,7 @@ define([
         /**
         * create header panel
         *
-        * @param {string} dojo.configData.ApplicationSettings.applicationName Application name specified in configuration file
+        * @param {string} dojo.configData.values.applicationName Application name specified in configuration file
         *
         * @class
         * @name widgets/appHeader/appHeader
@@ -68,8 +68,8 @@ define([
             * @private
             * @memberOf widgets/appHeader/appHeader
             */
-            document.title = dojo.configData.ApplicationSettings.applicationName;
-            domAttr.set(this.applicationHeaderName, "innerHTML", dojo.configData.ApplicationSettings.applicationName);
+            document.title = dojo.configData.values.applicationName;
+            domAttr.set(this.applicationHeaderName, "innerHTML", dojo.configData.values.applicationName);
         },
 
         /**
@@ -99,19 +99,19 @@ define([
         */
         _loadApplicationHeaderIcon: function () {
             topic.publish("showProgressIndicator");
-            this._loadIcons("shortcut icon", dojo.configData.ApplicationSettings.applicationFavicon);
-            this._loadIcons("apple-touch-icon-precomposed", dojo.configData.ApplicationSettings.applicationIcon);
-            this._loadIcons("apple-touch-icon", dojo.configData.ApplicationSettings.applicationIcon);
+            this._loadIcons("shortcut icon", dojo.configData.values.applicationFavicon);
+            this._loadIcons("apple-touch-icon-precomposed", dojo.configData.values.applicationIcon);
+            this._loadIcons("apple-touch-icon", dojo.configData.values.applicationIcon);
             /**
             * applicationHeaderIcon contains application icon for header panel widgets
             * @member {img} applicationHeaderIcon
             * @private
             * @memberOf widgets/appHeader/appHeader
             */
-            if (dojo.configData.ApplicationSettings.applicationIcon.indexOf("http") === 0) {
-                domAttr.set(this.applicationHeaderIcon, "src", dojo.configData.ApplicationSettings.applicationIcon);
+            if (dojo.configData.values.applicationIcon.indexOf("http") === 0) {
+                domAttr.set(this.applicationHeaderIcon, "src", dojo.configData.values.applicationIcon);
             } else {
-                domAttr.set(this.applicationHeaderIcon, "src", dojoConfig.baseURL + dojo.configData.ApplicationSettings.applicationIcon);
+                domAttr.set(this.applicationHeaderIcon, "src", dojoConfig.baseURL + dojo.configData.values.applicationIcon);
             }
             this.own(on(this.applicationHeaderIcon, "click", lang.hitch(this, function () {
                 if (query(".esriCTitemDetails")[0]) {
@@ -119,17 +119,23 @@ define([
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");
                 }
-                if (query(".esriCTDetailsLeftPanel")[0] && (!query(".esriCTNoResults")[0])) {
+                if (query(".esriCTInnerRightPanelDetails")[0] && (!query(".esriCTNoResults")[0])) {
                     domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsLeftPanel")[0], "displayNoneAll");
-                    domClass.add(query(".esriCTDetailsRightPanel")[0], "displayNoneAll");
+                    domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
                     domClass.remove(query(".esriCTApplicationIcon")[0], "esriCTCursorPointer");
+                    domClass.add(query(".esriCTBackBtn")[0], "displayNoneAll");
                 }
             })));
         },
 
+        /**
+        * load Application shortcut icons
+        * @param {object} icon type
+        * @param {object} icon path
+        * @memberOf widgets/appHeader/appHeader
+        */
         _loadIcons: function (rel, iconPath) {
             var icon = domConstruct.create("link");
             icon.rel = rel;
@@ -142,10 +148,18 @@ define([
             document.getElementsByTagName('head')[0].appendChild(icon);
         },
 
+        /**
+        * show loading indicator
+        * @memberOf widgets/appHeader/appHeader
+        */
         showProgressIndicator: function () {
             domClass.replace(this.divLoadingIndicator, "displayBlockAll", "displayNoneAll");
         },
 
+        /**
+        * hide loading indicator
+        * @memberOf widgets/appHeader/appHeader
+        */
         hideProgressIndicator: function () {
             domClass.replace(this.divLoadingIndicator, "displayNoneAll", "displayBlockAll");
         }

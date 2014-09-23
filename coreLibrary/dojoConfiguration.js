@@ -1,5 +1,5 @@
 ﻿/*global location,dojoConfig:true */
-/*jslint browser:true,sloppy:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -24,7 +24,6 @@ dojoConfig = {
     parseOnLoad: true,
     async: true,
     baseURL: root,
-    locale: location.search.match(/locale=([\w\-]+)/) ? RegExp.$1 : "en-us",
     packages: [{
         name: "application",
         location: root

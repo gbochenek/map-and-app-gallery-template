@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -49,11 +49,13 @@ define([
         * @name widgets/locator/locator
         */
         postCreate: function () {
+            this.itemSearchIcon.title = nls.title.itemSearchBtnTitle;
             topic.subscribe("clearDefaultText", this._clearDefaultText);
+            topic.subscribe("hideText", lang.hitch(this, this._hideText));
             topic.subscribe("replaceDefaultText", this._replaceDefaultText);
+            topic.subscribe("setDefaultTextboxValue", lang.hitch(this, this._setDefaultTextboxValue));
             domStyle.set(this.divAddressContainer, "display", "block");
             this._setDefaultTextboxValue();
-            this.txtItemSearch.value = domAttr.get(this.txtItemSearch, "defaultItem");
             this._attachItemSearchEvents();
         },
 
@@ -81,6 +83,7 @@ define([
             })));
             this.own(on(this.hideText, "click", lang.hitch(this, function () {
                 this._hideText();
+                this._clearFilter(true);
             })));
         },
 
@@ -96,7 +99,7 @@ define([
                         this._locateItems(this.autoResults, true);
                     }
                 }
-                if (dojo.configData.ApplicationSettings.enableAutoComplete) {
+                if (dojo.configData.values.enableAutoComplete) {
 
                     /**
                     * do not perform auto complete search if alphabets,
@@ -142,27 +145,27 @@ define([
         //Clears the text in the textbox
         _hideText: function () {
             this.txtItemSearch.value = '';
+            domStyle.set(this.hideText, "display", "none");
             domAttr.set(this.txtItemSearch, "defaultItem", this.txtItemSearch.value);
             if (domGeom.position(this.autoResults).h > 0) {
                 domClass.replace(this.autoResults, "displayNoneAll", "displayBlockAll");
             }
-            this._clearFilter(true);
         },
 
         //Locate the searched item
         _locateItems: function (node, flag) {
             var _self = this, queryString, defObj;
 
-            queryString = dojo.queryString;
+
             defObj = new Deferred();
-            dojo.queryString = this.txtItemSearch.value + ' AND group:("' + dojo.configData.ApplicationSettings.group + '")';
-            topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj);
+            dojo.queryString = this.txtItemSearch.value + ' AND group:("' + dojo.configData.values.group + '")';
+            queryString = dojo.queryString;
+            topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.values.sortOrder.toLowerCase(), defObj);
             defObj.then(function (data) {
                 var i;
-                //var i, itemId, defObj2;
 
                 domConstruct.empty(_self.autoResults);
-                _self._clearFilter(false);
+                _self._clearFilter(false, data.results.length);
                 if (data.results.length > 0) {
                     domClass.replace(_self.autoResults, "displayBlockAll", "displayNoneAll");
                     for (i in data.results) {
@@ -187,7 +190,10 @@ define([
             });
         },
 
-        //Creates a handler for a click on a search result
+        /**
+        * Creates a handler for a click on a search result
+        * @memberOf widgets/locator/locator
+        */
         _makeSelectedSearchResultHandler: function () {
             var _self = this;
 
@@ -200,8 +206,8 @@ define([
                 }
                 itemId = domAttr.get(this, "searchedItem");
                 defObj2 = new Deferred();
-                dojo.queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")' + ' AND (id: ("' + itemId + '"))';
-                topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj2);
+                dojo.queryString = 'group:("' + dojo.configData.values.group + '")' + ' AND (id: ("' + itemId + '"))';
+                topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.values.sortOrder.toLowerCase(), defObj2);
                 defObj2.then(function (data) {
                     dojo.results = data.results;
                     topic.publish("createPods", data.results, true);
@@ -214,34 +220,39 @@ define([
             };
         },
 
-        //Clear the previously searched results
-        _clearFilter: function (flag) {
+        /**
+        * Clear the previously searched results
+        * @memberOf widgets/locator/locator
+        */
+        _clearFilter: function (flag, resultLength) {
             if (domClass.contains(this.txtItemSearch, "esriCTColorChange")) {
                 domClass.remove(this.txtItemSearch, "esriCTColorChange");
             }
             topic.publish("showProgressIndicator");
-            if (query(".esriCTDetailsLeftPanel")[0]) {
-                domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
-                domClass.add(query(".esriCTDetailsLeftPanel")[0], "displayNoneAll");
-                domClass.add(query(".esriCTDetailsRightPanel")[0], "displayNoneAll");
-                domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
-                domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
-                domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
+            if (resultLength > 0) {
+                if (query(".esriCTNoResults")[0]) {
+                    domConstruct.destroy(query(".esriCTNoResults")[0]);
+                }
+                if (query(".esriCTInnerRightPanelDetails")[0]) {
+                    domClass.replace(query(".esriCTMenuTabRight")[0], "displayBlockAll", "displayNoneAll");
+                    domClass.add(query(".esriCTInnerRightPanelDetails")[0], "displayNoneAll");
+                    domClass.remove(query(".esriCTGalleryContent")[0], "displayNoneAll");
+                    domClass.remove(query(".esriCTInnerRightPanel")[0], "displayNoneAll");
+                    domClass.replace(query(".esriCTApplicationIcon")[0], "esriCTCursorDefault", "esriCTCursorPointer");
+                }
             }
-            if (query(".esriCTNoResults")[0]) {
-                domConstruct.destroy(query(".esriCTNoResults")[0]);
-            }
-            dojo.configData.ApplicationSettings.searchString = '';
-            dojo.configData.ApplicationSettings.searchType = '';
+
+            dojo.configData.values.searchString = '';
+            dojo.configData.values.searchType = '';
 
             if (flag) {
                 var defObj = new Deferred();
                 if (dojo.selectedTags !== "") {
-                    dojo.queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")' + ' AND (tags: ("' + dojo.selectedTags + '"))';
+                    dojo.queryString = 'group:("' + dojo.configData.values.group + '")' + ' AND (tags: ("' + dojo.selectedTags + '"))';
                 } else {
-                    dojo.queryString = 'group:("' + dojo.configData.ApplicationSettings.group + '")';
+                    dojo.queryString = 'group:("' + dojo.configData.values.group + '")';
                 }
-                topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj);
+                topic.publish("queryGroupItem", dojo.queryString, dojo.sortBy, dojo.configData.values.sortOrder.toLowerCase(), defObj);
                 defObj.then(function (data) {
                     if (data.total === 0) {
                         if (query(".esriCTInnerRightPanel")[0]) {
@@ -341,11 +352,12 @@ define([
             * @private
             * @memberOf widgets/locator/locator
             */
-            if (dojo.configData.ApplicationSettings.searchString) {
-                domAttr.set(this.txtItemSearch, "defaultItem", dojo.configData.ApplicationSettings.searchString);
+            if (dojo.configData.values.searchString) {
+                domAttr.set(this.txtItemSearch, "defaultItem", dojo.configData.values.searchString);
             } else {
-                domAttr.set(this.txtItemSearch, "defaultItem", dojo.configData.ApplicationSettings.itemSearchDefaultValue);
+                domAttr.set(this.txtItemSearch, "defaultItem", dojo.configData.values.itemSearchDefaultValue);
             }
+            this.txtItemSearch.value = domAttr.get(this.txtItemSearch, "defaultItem");
         }
     });
 });

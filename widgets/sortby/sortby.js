@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -37,49 +37,63 @@ define([
         nls: nls,
 
         postCreate: function () {
-            if (dojo.configData.ApplicationSettings.sortField === "modified") {
+            this.domNode.title = nls.title.sortByBtnTitle;
+            if (dojo.configData.values.sortField === "modified") {
                 domAttr.set(this.sortByLabel, "innerHTML", nls.sortByViewText);
             } else {
                 domAttr.set(this.sortByLabel, "innerHTML", nls.sortByDateText);
             }
             this.own(on(this.sortByLabel, "click", lang.hitch(this, function () {
                 topic.publish("showProgressIndicator");
-                if (dojo.sortBy === dojo.configData.ApplicationSettings.sortField) {
+                if (dojo.sortBy === dojo.configData.values.sortField) {
                     this._sortByDate(this.sortByLabel);
                 } else {
                     this._sortByViews(this.sortByLabel);
                 }
             })));
-            this.own(on(this.sortByViewMbl, "click", lang.hitch(this, function () {
-                this._sortByViews(this.sortByLabel);
-            })));
-            this.own(on(this.sortByDateMbl, "click", lang.hitch(this, function () {
-                this._sortByDate(this.sortByLabel);
-            })));
+            topic.subscribe("sortByViews", lang.hitch(this, this._sortByViews));
+            topic.subscribe("sortByDate", lang.hitch(this, this._sortByDate));
         },
 
         _sortByDate: function (sortByLabel) {
             dojo.sortBy = "modified";
             this._sortPodOrder(dojo.sortBy, sortByLabel, nls.sortByViewText);
-            domClass.remove(query(".esriCTListSelected")[0], "esriCTListSelected");
-            domClass.add(query(".sortByDateMbl")[0], "esriCTListSelected");
         },
 
         _sortByViews: function (sortByLabel) {
-            dojo.sortBy = dojo.configData.ApplicationSettings.sortField;
+            dojo.sortBy = dojo.configData.values.sortField;
             this._sortPodOrder(dojo.sortBy, sortByLabel, nls.sortByDateText);
-            domClass.remove(query(".esriCTListSelected")[0], "esriCTListSelected");
-            domClass.add(query(".sortByViewMbl")[0], "esriCTListSelected");
         },
 
         _sortPodOrder: function (sortField, sortByLabel, text) {
-            var defObj = new Deferred();
-            topic.publish("queryGroupItem", dojo.queryString, sortField, dojo.configData.ApplicationSettings.sortOrder.toLowerCase(), defObj);
+            var defObj = new Deferred(), tagNameArray, i, j, resultFilter;
+            topic.publish("queryGroupItem", dojo.queryString, sortField, dojo.configData.values.sortOrder.toLowerCase(), defObj);
             defObj.then(function (data) {
                 domAttr.set(sortByLabel, "innerHTML", text);
-                dojo.results = data.results;
-                dojo.nextQuery = data.nextQueryParams;
-                topic.publish("createPods", data.results, true);
+                if (data.results.length > 0) {
+                    tagNameArray = dojo.selectedTags.split('" AND "');
+                    if (tagNameArray.length > 0 && tagNameArray[0] !== "") {
+                        /**
+                        * Compare dojo.selectedTags with tags
+                        * Check if tag matches with the tags inside data.results.tags
+                        * If it does not match then skip it else add the result item to resultFilter array
+                        */
+                        resultFilter = [];
+                        for (i = 0; i < data.results.length; i++) {
+                            for (j = 0; j < data.results[i].tags.length; j++) {
+                                if (data.results[i].tags[j] === tagNameArray[0]) {
+                                    resultFilter.push(data.results[i]);
+                                }
+                            }
+                        }
+                        data.results = resultFilter;
+                    }
+                    dojo.results = data.results;
+                    dojo.nextQuery = data.nextQueryParams;
+                    topic.publish("createPods", data.results, true);
+                } else {
+                    topic.publish("hideProgressIndicator");
+                }
             }, function (err) {
                 alert(err.message);
                 defObj.resolve();

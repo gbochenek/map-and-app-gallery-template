@@ -1,5 +1,5 @@
 ﻿/*global define,dojo */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -35,9 +35,13 @@ define([
         nls: nls,
 
         postCreate: function () {
-            // gets executed on the click of the layout button in the header panel. It switches the layout from list view to grid view and vice versa.
+            /**
+            * gets executed on the click of the layout button in the header panel. It switches the layout from list view to grid view and vice versa.
+            * @memberOf widgets/layout/layout
+            */
+            this.domNode.title = nls.title.layoutBtnTitle;
             domAttr.set(this.layoutLabel, "innerHTML", nls.layoutText);
-            if (dojo.configData.ApplicationSettings.defaultLayout.toLowerCase() === "list") {
+            if (dojo.configData.values.defaultLayout.toLowerCase() === "list") {
                 domClass.add(this.layoutTitle, "icon-grid");
             } else {
                 domClass.add(this.layoutTitle, "icon-list");

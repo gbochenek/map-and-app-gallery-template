@@ -1,5 +1,5 @@
 ﻿/*global define,dojo */
-/*jslint browser:true,sloppy:true,nomen:true,plusplus:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -24,20 +24,29 @@ define([
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
+    "dojo/i18n!nls/localizedStrings",
     "dojo/query",
     "dojo/dom-class"
-], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, query, domClass) {
+], function (declare, lang, on, template, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, nls, query, domClass) {
 
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
-
+        nls: nls,
+        /**
+        *@class
+        *@name  widgets/info/info
+        */
         postCreate: function () {
+            this.domNode.title = nls.title.infoBtnTitle;
             this.own(on(this.infoIcon, "click", lang.hitch(this, function () {
                 this._slideRightPanel();
             })));
         },
 
-        // Slide in and out the right panel upon clicking the info icon. Only for smart phone devices.
+        /**
+        * Slide in and out the right panel upon clicking the info icon. Only for smart phone devices.
+        * @memberOf widgets/info/info
+        */
         _slideRightPanel: function () {
             domClass.add(query(".esriCTInnerLeftPanelBottom")[0], "displayNone");
             if (query(".esriCTMenuTab")[0]) {
@@ -62,9 +71,11 @@ define([
             if (query(".esriCTMenuTabLeft")[0]) {
                 if (domClass.contains(query(".esriCTMenuTabLeft")[0], "displayBlock")) {
                     domClass.replace(query(".esriCTMenuTabLeft")[0], "displayNone", "displayBlock");
+                    domClass.replace(query(".esriCTHomeIcon")[0], "displayNone", "displayBlock");
                     domClass.replace(query(".esriCTSignIn")[0], "displayNone", "displayBlock");
                 } else {
                     domClass.replace(query(".esriCTMenuTabLeft")[0], "displayBlock", "displayNone");
+                    domClass.replace(query(".esriCTHomeIcon")[0], "displayBlock", "displayNone");
                     domClass.replace(query(".esriCTSignIn")[0], "displayBlock", "displayNone");
                 }
             }

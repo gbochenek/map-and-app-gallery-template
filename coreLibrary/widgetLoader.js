@@ -1,5 +1,5 @@
 ﻿/*global define,dojo,alert,require */
-/*jslint browser:true,sloppy:true,nomen:true */
+/*jslint browser:true,sloppy:true,nomen:true,unparam:true,plusplus:true,indent:4 */
 /*
  | Copyright 2014 Esri
  |
@@ -44,29 +44,21 @@ define([
         startup: function () {
             /**
             * create an object with widgets specified in Header Widget Settings of configuration file
-            * @param {array} dojo.configData.AppHeaderWidgets Widgets specified in configuration file
+            * @param {array} dojo.appConfigData.AppHeaderWidgets Widgets specified in configuration file
             */
             this._applicationThemeLoader();
-
-            // set app ID settings and call init after
-            var portalSigninWidgetLoader = new PortalSignin();
-            portalSigninWidgetLoader.fetchAppIdSettings().then(function () {
-                portalSigninWidgetLoader.initializePortal();
-            });
-            this._setAppIdSettings();
+            this.loadWidgets();
         },
 
         loadWidgets: function () {
             var widgets = {},
                 deferredArray = [];
-            array.forEach(dojo.configData.AppHeaderWidgets, function (widgetConfig) {
+            array.forEach(dojo.appConfigData.AppHeaderWidgets, function (widgetConfig) {
                 var deferred = new Deferred();
                 widgets[widgetConfig.WidgetPath] = null;
                 require([widgetConfig.WidgetPath], function (Widget) {
 
-                    widgets[widgetConfig.WidgetPath] = new Widget({
-                        title: widgetConfig.Title
-                    });
+                    widgets[widgetConfig.WidgetPath] = new Widget();
 
                     deferred.resolve(widgetConfig.WidgetPath);
                 });
@@ -79,7 +71,13 @@ define([
                     * create application header
                     */
                     this._createApplicationHeader(widgets);
-
+                    var self = this, portalSigninWidgetLoader;
+                    // set app ID settings and call init after
+                    portalSigninWidgetLoader = new PortalSignin();
+                    portalSigninWidgetLoader.fetchAppIdSettings().then(function () {
+                        portalSigninWidgetLoader.initializePortal();
+                        self._applicationThemeLoader();
+                    });
                 } catch (ex) {
                     alert(nls.errorMessages.widgetNotLoaded);
                 }
@@ -94,34 +92,6 @@ define([
         _createApplicationHeader: function (widgets) {
             var applicationHeader = new AppHeader();
             applicationHeader.loadHeaderWidgets(widgets);
-        },
-
-        // Query appid to fetch configuration settings
-        _setAppIdSettings: function () {
-            var def = new Deferred(), settings;
-
-            settings = urlUtils.urlToObject(window.location.href);
-            lang.mixin(dojo.configData.ApplicationSettings, settings.query);
-            if (dojo.configData.ApplicationSettings.appid) {
-                arcgisUtils.getItem(dojo.configData.ApplicationSettings.appid).then(lang.hitch(this, function (response) {
-                    // check for false value strings
-                    var appSettings = this.setFalseValues(response.itemData.values);
-                    // set other config options from app id
-                    lang.mixin(dojo.configData.ApplicationSettings, appSettings);
-                    // callback function
-                    this._applicationThemeLoader();
-                    this.loadWidgets();
-                    def.resolve();
-                    // on error
-                }), function (error) {
-                    alert(error.message);
-                    def.resolve();
-                });
-            } else {
-                this.loadWidgets();
-                def.resolve();
-            }
-            return def.promise;
         },
 
         setFalseValues: function (obj) {
@@ -144,10 +114,10 @@ define([
 
         _applicationThemeLoader: function () {
             var rootNode = query("html")[0];
-            if (!dojo.configData.ApplicationSettings.theme) {
-                dojo.configData.ApplicationSettings.theme = "blueTheme";
+            if (!dojo.configData.values.theme) {
+                dojo.configData.values.theme = "blueTheme";
             }
-            domClass.add(rootNode, dojo.configData.ApplicationSettings.theme);
+            domClass.add(rootNode, dojo.configData.values.theme);
         }
 
     });
