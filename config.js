@@ -17,7 +17,7 @@
 
     "documentation":[
         "For help configuring this application, see:",
-        "http://solutions.arcgis.com/local-government/help/maps-and-apps-gallery/"
+        "http://links.esri.com/localgovernment/help/MapsAndAppsGallery"
      ],
 
     "values": {
