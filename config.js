@@ -25,7 +25,7 @@
         "appid": "",
         "oauthappid": "",
         "applicationName": "Gallery",
-        "applicationIcon": "/themes/images/logo.png",
+        "applicationIcon": "",
         "applicationFavicon": "/themes/images/favicon.ico",
         "theme": "blueTheme",
         "defaultLayout": "list",
