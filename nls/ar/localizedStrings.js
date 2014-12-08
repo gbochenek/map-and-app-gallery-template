@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "علامات",
         expandGroupDescText: "المزيد",
         shrinkGroupDescText: "أقل",
@@ -23,8 +24,10 @@ define({
         signOutText: "تسجيل الخروج",
         showNullValue: "غير معروف",
         detailsDisplayText: "التفاصيل",
-        sortByViewText: "الفرز تبعًا للعرض",
-        sortByDateText: "الفرز تبعًا للتاريخ",
+        sortByText: "الفرز حسب",
+        sortByViewText: "المشاهدات",
+        sortByDateText: "التاريخ",
+        sortByNameText: "الاسم",
         gridViewTitle: "عرض الشبكة",
         listViewTitle: "عرض القائمة",
         appHeaderTitle: "الصفحة الرئيسية",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "شعار المجموعة",
-        sortByTextMobile: "الفرز حسب",
-        viewTextMobile: "المشاهدات",
-        dateTextMobile: "التاريخ",
         appTypeText: "نوع",
         appOwnerText: "المالك",
-        tryItButtonText: "جربها الآن",
+        tryItButtonText: "عرض",
         downloadButtonText: "تنزيل",
         appDesText: "الوصف",
         reviewText: "تعليقات",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "تصنيفات",
         numberOfViewsText: "المشاهدات",
         noResultsText: "لم يتم العثور على نتائج.",
-        backToGalleryText: "المعرض",
         backToMapButtonText: "خريطة",
         showMoreResultsGalleryText: "إظهار المزيد من النتائج",
         clearBtnTitle: "مسح",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "الفرز حسب",
             layoutBtnTitle: "المخطط",
             signInBtnTitle: "تسجيل الدخول",
-            signOutBtnTitle: "بيت_Sign Out_لاحقة",
+            signOutBtnTitle: "تسجيل الخروج",
             geolocationBtnTitle: "الموقع الجغرافي"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "يتعذر الحصول على الطبقات من الطبقات.",
             unableToOpenItem: "يتعذر فتح العنصر.",
             wmsSpatialReferenceError: "لا يتطابق الإسناد المكاني لطبقة WMS مع الإسناد المكاني للخريطة.",
-            noPublicItems: "بيت_There are no public items in the configured group or no items have been shared with this group yet._لاحقة",
+            noPublicItems: "لا توجد عناصر عامة في المجموعة التي تم تكوينها أو لم يتم مشاركة العناصر مع هذه المجموعة بعد.",
             emptyUsernamePassword: "الرجاء إدخال اسم المستخدم وكلمة المرور.",
             noFullScreenSupport: "لا يدعم المستعرض الحالي وضع ملء الشاشة.",
-            notMemberOfOrg: "بيت_You are not a member of this organization_لاحقة"
+            notMemberOfOrg: "لست عضو في هذه المؤسسة"
         }
-});
+    })
+);

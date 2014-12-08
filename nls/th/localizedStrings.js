@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "แท็กส์",
         expandGroupDescText: "เพิ่มเติม",
         shrinkGroupDescText: "น้อยกว่า",
@@ -23,8 +24,10 @@ define({
         signOutText: "ลงชื่อออก",
         showNullValue: "ไม่ระบุ",
         detailsDisplayText: "รายละเอียด",
-        sortByViewText: "จัดเรียงโดยยอดเข้าชม",
-        sortByDateText: "จัดเรียงโดยวันที่",
+        sortByText: "จัดลำดับตาม",
+        sortByViewText: "ยอดเข้าชม",
+        sortByDateText: "วันที่",
+        sortByNameText: "ชื่อ",
         gridViewTitle: "มุมมองพร้อมเส้นกริด",
         listViewTitle: "รายการยอดเข้าชม",
         appHeaderTitle: "หน้าหลัก",
@@ -32,9 +35,6 @@ define({
         orgText: "องค์กร",
         grpText: "กลุ่ม",
         groupLogoText: "โลโก้กลุ่ม",
-        sortByTextMobile: "จัดลำดับตาม",
-        viewTextMobile: "ยอดเข้าชม",
-        dateTextMobile: "วันที่",
         appTypeText: "ชนิด",
         appOwnerText: "เจ้าของ",
         tryItButtonText: "ลองเดี๋ยวนี้",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "คะแนน",
         numberOfViewsText: "ยอดเข้าชม",
         noResultsText: "ไม่พบข้อมูล",
-        backToGalleryText: "แกลเลอรี",
         backToMapButtonText: "แผนที่",
         showMoreResultsGalleryText: "แสดงมากกว่าผลลัพธ์",
         clearBtnTitle: "เคลียร์",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "จัดลำดับตาม",
             layoutBtnTitle: "แบบร่าง",
             signInBtnTitle: "ลงชื่อเข้า",
-            signOutBtnTitle: "ก้_Sign Out_ษฺ",
+            signOutBtnTitle: "ลงชื่อออก",
             geolocationBtnTitle: "ตำแหน่งเชิงพื้นที่"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "ไม่สามารถได้รับข้อมูลจากชั้นข้อมูล",
             unableToOpenItem: "ไม่สามารถเปิดรายการ",
             wmsSpatialReferenceError: "ค่าอ้างอิงเชิงพื้นที่ของชั้นข้อมูล WMS ไม่สอดคล้องกับค่าอ้างอิงบนแผนที่",
-            noPublicItems: "ก้_There are no public items in the configured group or no items have been shared with this group yet._ษฺ",
+            noPublicItems: "ไม่มีรายการสาธารณะในกลุ่มการกำหนดค่า",
             emptyUsernamePassword: "กรุณากรอกชื่อผู้ใช้งานและรหัสผ่าน",
             noFullScreenSupport: "เบราว์เซอร์ปัจจุบันไม่สนับสนุนการแสดงผลแบบเต็มหน้าจอ",
-            notMemberOfOrg: "ก้_You are not a member of this organization_ษฺ"
+            notMemberOfOrg: "คุณไม่ได้เป็นสมาชิกขององค์กรนี้"
         }
-});
+    })
+);

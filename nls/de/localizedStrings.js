@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Tags",
         expandGroupDescText: "Weitere Informationen",
         shrinkGroupDescText: "Weniger",
@@ -23,8 +24,10 @@ define({
         signOutText: "Abmelden",
         showNullValue: "N/A",
         detailsDisplayText: "Details",
-        sortByViewText: "Nach Ansichten sortieren",
-        sortByDateText: "Nach Datum sortieren",
+        sortByText: "Sortieren nach",
+        sortByViewText: "Aufrufe",
+        sortByDateText: "Datum",
+        sortByNameText: "Name",
         gridViewTitle: "Tabellenansicht",
         listViewTitle: "Listenansicht",
         appHeaderTitle: "Startseite",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Gruppenlogo",
-        sortByTextMobile: "Sortieren nach",
-        viewTextMobile: "Aufrufe",
-        dateTextMobile: "Datum",
         appTypeText: "Typ",
         appOwnerText: "Besitzer",
-        tryItButtonText: "Jetzt testen",
+        tryItButtonText: "Ansicht",
         downloadButtonText: "Herunterladen",
         appDesText: "Beschreibung",
         reviewText: "Kommentare",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Bewertungen",
         numberOfViewsText: "Aufrufe",
         noResultsText: "Keine Ergebnisse gefunden.",
-        backToGalleryText: "Galerie",
         backToMapButtonText: "Karte",
         showMoreResultsGalleryText: "Mehr Ergebnisse anzeigen",
         clearBtnTitle: "Löschen",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sortieren nach",
             layoutBtnTitle: "Layout",
             signInBtnTitle: "Anmelden",
-            signOutBtnTitle: "ä_Sign Out_Ü",
+            signOutBtnTitle: "Abmelden",
             geolocationBtnTitle: "Geolocation"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Daten können nicht aus Layer abgerufen werden.",
             unableToOpenItem: "Element kann nicht geöffnet werden.",
             wmsSpatialReferenceError: "Raumbezug des WMS-Layers stimmt nicht mit dem Raumbezug der Karte überein.",
-            noPublicItems: "ä_There are no public items in the configured group or no items have been shared with this group yet._Ü",
+            noPublicItems: "Die konfigurierte Gruppe enthält keine öffentlichen Elemente, oder es wurden noch keine Elemente für diese Gruppe freigegeben.",
             emptyUsernamePassword: "Geben Sie den Benutzernamen und das Kennwort ein.",
             noFullScreenSupport: "Vollbildmodus wird von aktuellem Browser nicht unterstützt.",
-            notMemberOfOrg: "ä_You are not a member of this organization_Ü"
+            notMemberOfOrg: "Sie sind kein Mitglied der Organisation"
         }
-});
+    })
+);

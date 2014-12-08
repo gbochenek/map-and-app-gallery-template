@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Tagi",
         expandGroupDescText: "Vairāk",
         shrinkGroupDescText: "Mazāk",
@@ -23,8 +24,10 @@ define({
         signOutText: "Izrakstīties",
         showNullValue: "Nav pieejams",
         detailsDisplayText: "Detaļas",
-        sortByViewText: "Kārtot pēc skatiem",
-        sortByDateText: "Kārtot pēc datuma",
+        sortByText: "Kārtot pēc",
+        sortByViewText: "Skati",
+        sortByDateText: "Datums",
+        sortByNameText: "Nosaukums",
         gridViewTitle: "Režģa skats",
         listViewTitle: "Saraksta skats",
         appHeaderTitle: "Mājas",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Grupas logotips",
-        sortByTextMobile: "Sortēt pēc",
-        viewTextMobile: "Skati",
-        dateTextMobile: "Datums",
         appTypeText: "Tips",
         appOwnerText: "Īpašnieks",
-        tryItButtonText: "Izmēģiniet tūlīt",
+        tryItButtonText: "Skats",
         downloadButtonText: "Lejupielāde",
         appDesText: "Apraksts",
         reviewText: "Komentāri",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Novērtējumi",
         numberOfViewsText: "Skati",
         noResultsText: "Nav atrasti rezultāti.",
-        backToGalleryText: "Galerija",
         backToMapButtonText: "Karte",
         showMoreResultsGalleryText: "Rādīt vairāk rezultātu",
         clearBtnTitle: "Notīrīt",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Kārtot pēc",
             layoutBtnTitle: "Izkārtojums",
             signInBtnTitle: "Pierakstīties",
-            signOutBtnTitle: "ķ_Sign Out_ū",
+            signOutBtnTitle: "Izrakstīties",
             geolocationBtnTitle: "Ģeoizvietojums"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Nevar iegūt datus no slāņiem.",
             unableToOpenItem: "Nevar atvērt vienību.",
             wmsSpatialReferenceError: "WMS slāņa telpiskā atsauce neatbilst kartes telpiskajai atsaucei.",
-            noPublicItems: "ķ_There are no public items in the configured group or no items have been shared with this group yet._ū",
+            noPublicItems: "Konfigurētajā grupā nav nevienas publiskas vienības vai arī ar šo grupu pagaidām nav kopīgota neviena vienība.",
             emptyUsernamePassword: "Lūdzu, ievadiet lietotājvārdu un paroli.",
             noFullScreenSupport: "Pašreizējā pārlūkā pilnekrāna režīms nav atbalstīts.",
-            notMemberOfOrg: "ķ_You are not a member of this organization_ū"
+            notMemberOfOrg: "Jūs neesat šīs organizācijas dalībnieks"
         }
-});
+    })
+);

@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "タグ",
         expandGroupDescText: "詳細",
         shrinkGroupDescText: "折りたたむ",
@@ -23,8 +24,10 @@ define({
         signOutText: "サイン アウト",
         showNullValue: "N/A",
         detailsDisplayText: "詳細",
-        sortByViewText: "ビューで並べ替え",
-        sortByDateText: "日付で並べ替え",
+        sortByText: "並べ替え",
+        sortByViewText: "ビュー",
+        sortByDateText: "日付",
+        sortByNameText: "名前",
         gridViewTitle: "グリッド ビュー",
         listViewTitle: "リスト ビュー",
         appHeaderTitle: "ホーム",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "グループのロゴ",
-        sortByTextMobile: "並べ替え",
-        viewTextMobile: "ビュー",
-        dateTextMobile: "日付",
         appTypeText: "タイプ",
         appOwnerText: "所有者",
-        tryItButtonText: "いますぐ試す",
+        tryItButtonText: "表示",
         downloadButtonText: "ダウンロード",
         appDesText: "説明",
         reviewText: "コメント",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "評価",
         numberOfViewsText: "ビュー",
         noResultsText: "結果が見つかりませんでした。",
-        backToGalleryText: "ギャラリー",
         backToMapButtonText: "マップ",
         showMoreResultsGalleryText: "その他の結果を表示",
         clearBtnTitle: "消去",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "並べ替え",
             layoutBtnTitle: "レイアウト",
             signInBtnTitle: "サイン イン",
-            signOutBtnTitle: "須_Sign Out_鷗",
+            signOutBtnTitle: "サイン アウト",
             geolocationBtnTitle: "ジオロケーション"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "レイヤからデータを取得できません。",
             unableToOpenItem: "アイテムを開けません。",
             wmsSpatialReferenceError: "WMS レイヤの空間参照がマップの空間参照と一致しません。",
-            noPublicItems: "須_There are no public items in the configured group or no items have been shared with this group yet._鷗",
+            noPublicItems: "構成済みのグループにパブリック アイテムがないか、またはこのグループでアイテムが共有されていません。",
             emptyUsernamePassword: "ユーザ名とパスワードを入力してください。",
             noFullScreenSupport: "現在のブラウザは、全画面モードをサポートしていません。",
-            notMemberOfOrg: "須_You are not a member of this organization_鷗"
+            notMemberOfOrg: "この組織のメンバーではありません"
         }
-});
+    })
+);

@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Raktažodžiai",
         expandGroupDescText: "Daugiau",
         shrinkGroupDescText: "Mažiau",
@@ -23,8 +24,10 @@ define({
         signOutText: "Atsijungti",
         showNullValue: "Neturima",
         detailsDisplayText: "Detali informacija",
-        sortByViewText: "Rūšiuoti pagal peržiūras",
-        sortByDateText: "Rūšiuoti pagal datą",
+        sortByText: "Rūšiuoti pagal",
+        sortByViewText: "Peržiūros",
+        sortByDateText: "Data",
+        sortByNameText: "Pavadinimas",
         gridViewTitle: "Tinklelio vaizdas",
         listViewTitle: "Sąrašo vaizdas",
         appHeaderTitle: "Pradžia",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Grupės logotipas",
-        sortByTextMobile: "Rūšiuoti pagal",
-        viewTextMobile: "Peržiūros",
-        dateTextMobile: "Data",
         appTypeText: "Tipas",
         appOwnerText: "Savininkas",
-        tryItButtonText: "Išbandykite dabar",
+        tryItButtonText: "Peržiūrėti",
         downloadButtonText: "Atsiųsti",
         appDesText: "Aprašas",
         reviewText: "Komentarai",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Vertinimai",
         numberOfViewsText: "Peržiūros",
         noResultsText: "Rezultatų nerasta.",
-        backToGalleryText: "Galerija",
         backToMapButtonText: "Žemėlapis",
         showMoreResultsGalleryText: "Rodyti daugiau rezultatų",
         clearBtnTitle: "Valyti",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Rūšiuoti pagal",
             layoutBtnTitle: "Maketas",
             signInBtnTitle: "Prisijungti",
-            signOutBtnTitle: "Į_Sign Out_š",
+            signOutBtnTitle: "Atsijungti",
             geolocationBtnTitle: "Geolokacija"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Nepavyksta gauti duomenų iš sluoksnių.",
             unableToOpenItem: "Nepavyksta atidaryti elemento.",
             wmsSpatialReferenceError: "WMS sluoksnio erdvinė charakteristika neatitinka žemėlapio erdvinės charakteristikos.",
-            noPublicItems: "Į_There are no public items in the configured group or no items have been shared with this group yet._š",
+            noPublicItems: "Sukonfigūruotoje grupėje nėra viešų elementų arba jokie elementai dar nebendrinti šiai grupei.",
             emptyUsernamePassword: "Įveskite vartotojo vardą ir slaptažodį.",
             noFullScreenSupport: "Esamoje naršyklėje viso ekrano režimas neveikia.",
-            notMemberOfOrg: "Į_You are not a member of this organization_š"
+            notMemberOfOrg: "Nesate šios organizacijos narys."
         }
-});
+    })
+);

@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Tag",
         expandGroupDescText: "Altro",
         shrinkGroupDescText: "Meno",
@@ -23,8 +24,10 @@ define({
         signOutText: "Disconnetti",
         showNullValue: "N/D",
         detailsDisplayText: "Dettagli",
-        sortByViewText: "Ordina per viste",
-        sortByDateText: "Ordina per data",
+        sortByText: "Ordina per",
+        sortByViewText: "Viste",
+        sortByDateText: "Data",
+        sortByNameText: "Nome",
         gridViewTitle: "Vista griglia",
         listViewTitle: "Vista elenco",
         appHeaderTitle: "Home",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRUPPO",
         groupLogoText: "Logo gruppo",
-        sortByTextMobile: "Ordina per",
-        viewTextMobile: "Viste",
-        dateTextMobile: "Data",
         appTypeText: "Tipo",
         appOwnerText: "Proprietario",
-        tryItButtonText: "Prova ora",
+        tryItButtonText: "Visualizza",
         downloadButtonText: "Download",
         appDesText: "Descrizione",
         reviewText: "Commenti",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Valutazioni",
         numberOfViewsText: "Viste",
         noResultsText: "Nessun risultato trovato.",
-        backToGalleryText: "Galleria",
         backToMapButtonText: "Mappa",
         showMoreResultsGalleryText: "Mostra altri risultati",
         clearBtnTitle: "Cancella",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Ordina per",
             layoutBtnTitle: "Layout",
             signInBtnTitle: "Accedi",
-            signOutBtnTitle: "é_Sign Out_È",
+            signOutBtnTitle: "Disconnetti",
             geolocationBtnTitle: "Geoposizione"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Impossibile ottenere dati dai layer.",
             unableToOpenItem: "Impossibile aprire l\'elemento.",
             wmsSpatialReferenceError: "Il riferimento spaziale del layer WMS non corrisponde a quello della mappa.",
-            noPublicItems: "é_There are no public items in the configured group or no items have been shared with this group yet._È",
+            noPublicItems: "Non sono disponibili elementi pubblici nel gruppo configurato oppure non sono stati ancora condivisi elementi con il gruppo.",
             emptyUsernamePassword: "Immettere nome utente e password.",
             noFullScreenSupport: "Il browser in uso non supporta la modalità a schermo intero.",
-            notMemberOfOrg: "é_You are not a member of this organization_È"
+            notMemberOfOrg: "L\'utente non appartiene a questa organizzazione"
         }
-});
+    })
+);

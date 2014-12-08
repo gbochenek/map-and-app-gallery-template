@@ -15,7 +15,7 @@
  | limitations under the License.
  */
 define({
-    root: {
+    root: ({
         tagHeaderText: "Tags",
         expandGroupDescText: "More",
         shrinkGroupDescText: "Less",
@@ -24,8 +24,10 @@ define({
         signOutText: "Sign Out",
         showNullValue: "N/A",
         detailsDisplayText: "Details",
-        sortByViewText: "Sort by Views",
-        sortByDateText: "Sort by Date",
+        sortByText: "Sort by",
+        sortByViewText: "Views",
+        sortByDateText: "Date",
+        sortByNameText: "Name",
         gridViewTitle: "Grid view",
         listViewTitle: "List view",
         appHeaderTitle: "Home",
@@ -33,9 +35,6 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Group Logo",
-        sortByTextMobile: "Sort by",
-        viewTextMobile: "Views",
-        dateTextMobile: "Date",
         appTypeText: "Type",
         appOwnerText: "Owner",
         tryItButtonText: "View",
@@ -51,7 +50,6 @@ define({
         numberOfRatingsText: "Ratings",
         numberOfViewsText: "Views",
         noResultsText: "No results found.",
-        backToGalleryText: "Gallery",
         backToMapButtonText: "Map",
         showMoreResultsGalleryText: "Show more results",
         clearBtnTitle: "Clear",
@@ -88,7 +86,7 @@ define({
             noFullScreenSupport: "Current browser does not support full screen mode.",
             notMemberOfOrg: "You are not a member of this organization"
         }
-    },
+    }),
     "ar": 1,
     "cs": 1,
     "da": 1,
@@ -114,5 +112,6 @@ define({
     "sv": 1,
     "th": 1,
     "tr": 1,
+    "vi": 1,
     "zh-cn": 1
 });

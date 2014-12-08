@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Taggar",
         expandGroupDescText: "Mer",
         shrinkGroupDescText: "Mindre",
@@ -23,8 +24,10 @@ define({
         signOutText: "Logga ut",
         showNullValue: "Inget standardvärde",
         detailsDisplayText: "Information",
-        sortByViewText: "Sortera efter vyer",
-        sortByDateText: "Sortera efter datum",
+        sortByText: "Sortera efter",
+        sortByViewText: "Visningar",
+        sortByDateText: "Datum",
+        sortByNameText: "Namn",
         gridViewTitle: "Rutnätsvy",
         listViewTitle: "Listvy",
         appHeaderTitle: "Hem",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Grupplogo",
-        sortByTextMobile: "Sortera efter",
-        viewTextMobile: "Visningar",
-        dateTextMobile: "Datum",
         appTypeText: "Typ",
         appOwnerText: "Ägare",
-        tryItButtonText: "Prova nu",
+        tryItButtonText: "Visa",
         downloadButtonText: "Hämta",
         appDesText: "Beskrivning",
         reviewText: "Kommentarer",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Betyg",
         numberOfViewsText: "Visningar",
         noResultsText: "Inga resultat hittades.",
-        backToGalleryText: "Galleri",
         backToMapButtonText: "Karta",
         showMoreResultsGalleryText: "Visa fler resultat",
         clearBtnTitle: "Rensa",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sortera efter",
             layoutBtnTitle: "Layout",
             signInBtnTitle: "Logga in",
-            signOutBtnTitle: "Å_Sign Out_ö",
+            signOutBtnTitle: "Logga ut",
             geolocationBtnTitle: "Geolokalisering"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Det gick inte att hämta data från lager.",
             unableToOpenItem: "Det gick inte att öppna objektet.",
             wmsSpatialReferenceError: "Den geografiska referensen för WMS-lagret matchar inte kartans geografiska referens.",
-            noPublicItems: "Å_There are no public items in the configured group or no items have been shared with this group yet._ö",
+            noPublicItems: "Det finns inga publika objekt i den konfigurerade gruppen, eller så har inga objekt delats med gruppen ännu.",
             emptyUsernamePassword: "Ange användarnamn och lösenord.",
             noFullScreenSupport: "Den aktuella webbläsaren har inte stöd för helskärmsläge.",
-            notMemberOfOrg: "Å_You are not a member of this organization_ö"
+            notMemberOfOrg: "Du är inte medlem av den här organisationen"
         }
-});
+    })
+);

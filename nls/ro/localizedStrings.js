@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Etichete",
         expandGroupDescText: "Mai mult",
         shrinkGroupDescText: "Mai puţin",
@@ -23,8 +24,10 @@ define({
         signOutText: "Ieşire",
         showNullValue: "N/A",
         detailsDisplayText: "Detalii",
-        sortByViewText: "Sortare după vizualizări",
-        sortByDateText: "Sortare după dată",
+        sortByText: "Sortare după",
+        sortByViewText: "Vizualizări",
+        sortByDateText: "Dată",
+        sortByNameText: "Nume",
         gridViewTitle: "Vizualizare tip grilă",
         listViewTitle: "Vizualizare tip listă",
         appHeaderTitle: "Prima pagină",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Siglă grup",
-        sortByTextMobile: "Sortare după",
-        viewTextMobile: "Vizualizări",
-        dateTextMobile: "Dată",
         appTypeText: "Tip",
         appOwnerText: "Proprietar",
-        tryItButtonText: "ÎNCERCARE DIN NOU",
+        tryItButtonText: "Vizualizare",
         downloadButtonText: "Descărcare",
         appDesText: "Descriere",
         reviewText: "Comentarii",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Calificative",
         numberOfViewsText: "Vizualizări",
         noResultsText: "Nu a fost găsit niciun rezultat.",
-        backToGalleryText: "Galerie",
         backToMapButtonText: "Hartă",
         showMoreResultsGalleryText: "Afişare mai multe rezultate",
         clearBtnTitle: "Golire",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sortare după",
             layoutBtnTitle: "Configuraţie",
             signInBtnTitle: "Autentificare",
-            signOutBtnTitle: "Ă_Sign Out_ș",
+            signOutBtnTitle: "Ieşire",
             geolocationBtnTitle: "Geolocaţie"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Nu se pot obţine date de la straturile tematice.",
             unableToOpenItem: "Nu se poate deschide elementul.",
             wmsSpatialReferenceError: "Referinţa spaţială a stratului tematic WMS nu corespunde cu referinţa spaţială a hărţii.",
-            noPublicItems: "Ă_There are no public items in the configured group or no items have been shared with this group yet._ș",
+            noPublicItems: "Nu există elemente publice în grupul configurat sau niciun element nu a fost încă partajat cu grupul.",
             emptyUsernamePassword: "Introduceţi numele de utilizator şi parola.",
             noFullScreenSupport: "Browserul actual nu suportă modul pe tot ecranul.",
-            notMemberOfOrg: "Ă_You are not a member of this organization_ș"
+            notMemberOfOrg: "Nu sunteţi membru al acestei organizaţii"
         }
-});
+    })
+);

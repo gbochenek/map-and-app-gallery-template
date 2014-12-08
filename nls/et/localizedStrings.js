@@ -14,17 +14,20 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Märksõnad",
         expandGroupDescText: "Rohkem",
         shrinkGroupDescText: "Vähem",
         layoutText: "Kujundus",
         signInText: "Logi sisse",
         signOutText: "Logi välja",
-        showNullValue: "P/S",
+        showNullValue: "N/A",
         detailsDisplayText: "Detailid",
-        sortByViewText: "Sorteeri vaadete järgi",
-        sortByDateText: "Sorteeri kuupäeva järgi",
+        sortByText: "Sorteeri:",
+        sortByViewText: "Vaatamist",
+        sortByDateText: "Kuupäev",
+        sortByNameText: "Nimi",
         gridViewTitle: "Ruudustikuvaade",
         listViewTitle: "Loendivaade",
         appHeaderTitle: "Esileht",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Rühma logo",
-        sortByTextMobile: "Sorteeri:",
-        viewTextMobile: "Vaatamist",
-        dateTextMobile: "Kuupäev",
         appTypeText: "Tüüp",
         appOwnerText: "Omanik",
-        tryItButtonText: "Proovi kohe",
+        tryItButtonText: "Vaata",
         downloadButtonText: "Laadi alla",
         appDesText: "Kirjeldus",
         reviewText: "Kommentaarid",
@@ -50,13 +50,12 @@ define({
         numberOfRatingsText: "Hinnangut",
         numberOfViewsText: "Vaatamist",
         noResultsText: "Tulemusi ei leitud.",
-        backToGalleryText: "Galerii",
         backToMapButtonText: "Kaart",
         showMoreResultsGalleryText: "Kuva veel tulemusi",
         clearBtnTitle: "Puhasta",
-        addressSearchBtnTitle: "Aadressiotsing",
+        addressSearchBtnTitle: "Aadressotsing",
         fullScreenBtnTitle: "Täisekraan",
-        noLegendText: "Legendi pole",
+        noLegendText: "Legend puudub",
         sizeUnitKB: "kB",
         sizeUnitMB: "MB",
         itemUnavailableText: "Üksus pole selles seadmes saadaval.",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sorteeri:",
             layoutBtnTitle: "Kujundus",
             signInBtnTitle: "Logi sisse",
-            signOutBtnTitle: "Š_Sign Out_ä",
+            signOutBtnTitle: "Logi välja",
             geolocationBtnTitle: "Geoasukoht"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Kihtidest ei saa andmeid tuua.",
             unableToOpenItem: "Üksust ei saa avada.",
             wmsSpatialReferenceError: "WMS-kihi koordinaatsüsteem ei vasta kaardi koordinaatsüsteemile.",
-            noPublicItems: "Š_There are no public items in the configured group or no items have been shared with this group yet._ä",
+            noPublicItems: "Konfigureeritud grupis pole avalikke objekte või selle grupiga pole jagatud ühtegi objekti.",
             emptyUsernamePassword: "Sisestage kasutajanimi ja parool.",
             noFullScreenSupport: "Praegune brauser ei toeta täisekraanrežiimi.",
-            notMemberOfOrg: "Š_You are not a member of this organization_ä"
+            notMemberOfOrg: "Te ei ole selle organisatsiooni liige"
         }
-});
+    })
+);

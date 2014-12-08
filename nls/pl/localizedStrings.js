@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Znaczniki",
         expandGroupDescText: "Więcej",
         shrinkGroupDescText: "Mniej",
@@ -23,8 +24,10 @@ define({
         signOutText: "Wyloguj się",
         showNullValue: "Nie dotyczy",
         detailsDisplayText: "Szczegóły",
-        sortByViewText: "Sortuj wg liczby wyświetleń",
-        sortByDateText: "Sortuj wg daty",
+        sortByText: "Sortuj według",
+        sortByViewText: "Liczba wyświetleń",
+        sortByDateText: "Data",
+        sortByNameText: "Nazwa",
         gridViewTitle: "Widok siatki",
         listViewTitle: "Widok listy",
         appHeaderTitle: "Start",
@@ -32,12 +35,9 @@ define({
         orgText: "INSTYTUCJA",
         grpText: "GRUPA",
         groupLogoText: "Logo grupy",
-        sortByTextMobile: "Sortuj według",
-        viewTextMobile: "Liczba wyświetleń",
-        dateTextMobile: "Data",
         appTypeText: "Typ",
         appOwnerText: "Właściciel",
-        tryItButtonText: "Wypróbuj teraz",
+        tryItButtonText: "Wyświetl",
         downloadButtonText: "Pobierz",
         appDesText: "Opis",
         reviewText: "Komentarze",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Oceny",
         numberOfViewsText: "Liczba wyświetleń",
         noResultsText: "Nie znaleziono wyników.",
-        backToGalleryText: "Galeria",
         backToMapButtonText: "Mapa",
         showMoreResultsGalleryText: "Pokaż więcej wyników",
         clearBtnTitle: "Wyczyść",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sortuj według",
             layoutBtnTitle: "Układ",
             signInBtnTitle: "Zaloguj się",
-            signOutBtnTitle: "ł_Sign Out_ą",
+            signOutBtnTitle: "Wyloguj się",
             geolocationBtnTitle: "Geolokalizacja"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Nie można pobrać danych z warstw.",
             unableToOpenItem: "Nie można otworzyć elementu.",
             wmsSpatialReferenceError: "Odniesienie przestrzenne warstwy WMS nie jest zgodne z odniesieniem przestrzennym mapy.",
-            noPublicItems: "ł_There are no public items in the configured group or no items have been shared with this group yet._ą",
+            noPublicItems: "Skonfigurowana grupa nie zawiera elementów publicznych lub żadne elementy nie zostały tej grupie jeszcze udostępnione.",
             emptyUsernamePassword: "Wprowadź nazwę użytkownika i hasło.",
             noFullScreenSupport: "Używana obecnie przeglądarka nie obsługuje trybu pełnoekranowego.",
-            notMemberOfOrg: "ł_You are not a member of this organization_ą"
+            notMemberOfOrg: "Nie jesteś członkiem tej instytucji"
         }
-});
+    })
+);

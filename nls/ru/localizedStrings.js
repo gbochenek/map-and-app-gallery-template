@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Теги",
         expandGroupDescText: "Больше",
         shrinkGroupDescText: "Меньше",
@@ -23,8 +24,10 @@ define({
         signOutText: "Выйти",
         showNullValue: "НЕДОСТУПНО",
         detailsDisplayText: "Детали",
-        sortByViewText: "Сортировать по числу просмотров",
-        sortByDateText: "Сортировать по дате",
+        sortByText: "Сортировать по",
+        sortByViewText: "Просмотров",
+        sortByDateText: "Дата",
+        sortByNameText: "Имя",
         gridViewTitle: "Таблица",
         listViewTitle: "Список",
         appHeaderTitle: "На главную",
@@ -32,12 +35,9 @@ define({
         orgText: "ОРГ",
         grpText: "ГРП",
         groupLogoText: "Логотип группы",
-        sortByTextMobile: "Сортировать по",
-        viewTextMobile: "Просмотров",
-        dateTextMobile: "Дата",
         appTypeText: "Тип",
         appOwnerText: "Владелец",
-        tryItButtonText: "Попробуйте сейчас",
+        tryItButtonText: "Просмотр",
         downloadButtonText: "Загрузить",
         appDesText: "Описание",
         reviewText: "Комментарии",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Рейтингу",
         numberOfViewsText: "Просмотров",
         noResultsText: "Результаты не найдены.",
-        backToGalleryText: "Галерея",
         backToMapButtonText: "Карта",
         showMoreResultsGalleryText: "Показать больше результатов",
         clearBtnTitle: "Очистить",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Сортировать по",
             layoutBtnTitle: "Компоновка",
             signInBtnTitle: "Войти",
-            signOutBtnTitle: "Ж_Sign Out_Я",
+            signOutBtnTitle: "Выйти",
             geolocationBtnTitle: "Геолокация"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Невозможно получить данные слоёв.",
             unableToOpenItem: "Невозможно открыть элемент.",
             wmsSpatialReferenceError: "Пространственная привязка слоя WMS не совпадает с привязкой карты.",
-            noPublicItems: "Ж_There are no public items in the configured group or no items have been shared with this group yet._Я",
+            noPublicItems: "В указанной группе нет публичных элементов, или элементов, которые были опубликованы для этой группы ранее.",
             emptyUsernamePassword: "Пожалуйста, введите Имя пользователя и Пароль.",
             noFullScreenSupport: "Текущий браузер не поддерживает полноэкранный режим отображения.",
-            notMemberOfOrg: "Ж_You are not a member of this organization_Я"
+            notMemberOfOrg: "Вы не являетесь участником этой организации"
         }
-});
+    })
+);

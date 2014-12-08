@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Nøgleord",
         expandGroupDescText: "Mere",
         shrinkGroupDescText: "Mindre",
@@ -23,8 +24,10 @@ define({
         signOutText: "Log ud",
         showNullValue: "I/T",
         detailsDisplayText: "Detaljer",
-        sortByViewText: "Sortér efter visninger",
-        sortByDateText: "Sortér efter dato",
+        sortByText: "Sortér efter",
+        sortByViewText: "Visninger",
+        sortByDateText: "Dato",
+        sortByNameText: "Navn",
         gridViewTitle: "Gittervisning",
         listViewTitle: "Listevisning",
         appHeaderTitle: "Hjem",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Gruppelogo",
-        sortByTextMobile: "Sortér efter",
-        viewTextMobile: "Visninger",
-        dateTextMobile: "Dato",
         appTypeText: "Type",
         appOwnerText: "Ejer",
-        tryItButtonText: "Prøv den nu",
+        tryItButtonText: "Vis",
         downloadButtonText: "Hent",
         appDesText: "Beskrivelse",
         reviewText: "Kommentarer",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Vurderinger",
         numberOfViewsText: "Visninger",
         noResultsText: "Ingen resultater fundet.",
-        backToGalleryText: "Galleri",
         backToMapButtonText: "Kort",
         showMoreResultsGalleryText: "Vis flere resultater",
         clearBtnTitle: "Ryd",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sortér efter",
             layoutBtnTitle: "Layout",
             signInBtnTitle: "Log ind",
-            signOutBtnTitle: "ø_Sign Out_å",
+            signOutBtnTitle: "Log ud",
             geolocationBtnTitle: "Geoplacering"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Kan ikke hente data fra lag.",
             unableToOpenItem: "Kan ikke åbne element.",
             wmsSpatialReferenceError: "Den spatiale reference for WMS-laget svarer ikke til kortets spatiale reference.",
-            noPublicItems: "ø_There are no public items in the configured group or no items have been shared with this group yet._å",
+            noPublicItems: "Der er ingen offentlige elementer i den konfigurerede gruppe, eller ingen elementer er delt med denne gruppe endnu.",
             emptyUsernamePassword: "Angiv brugernavn og adgangskode.",
             noFullScreenSupport: "Den aktuelle browser understøtter ikke fuldskærmstilstand.",
-            notMemberOfOrg: "ø_You are not a member of this organization_å"
+            notMemberOfOrg: "Du er ikke medlem af denne organisation."
         }
-});
+    })
+);

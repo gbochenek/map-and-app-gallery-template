@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Merker",
         expandGroupDescText: "Mer",
         shrinkGroupDescText: "Mindre",
@@ -23,8 +24,10 @@ define({
         signOutText: "Logg ut",
         showNullValue: "Ikke tilgjengelig",
         detailsDisplayText: "Detaljer",
-        sortByViewText: "Sorter etter visninger",
-        sortByDateText: "Sorter etter dato",
+        sortByText: "Sorter etter",
+        sortByViewText: "Visninger",
+        sortByDateText: "Dato",
+        sortByNameText: "Navn",
         gridViewTitle: "Rutenettvisning",
         listViewTitle: "Listevisning",
         appHeaderTitle: "Hjem",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Gruppelogo",
-        sortByTextMobile: "Sorter etter",
-        viewTextMobile: "Visninger",
-        dateTextMobile: "Dato",
         appTypeText: "Type",
         appOwnerText: "Eier",
-        tryItButtonText: "Prøv det nå",
+        tryItButtonText: "Vis",
         downloadButtonText: "Last ned",
         appDesText: "Beskrivelse",
         reviewText: "Kommentarer",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Vurderinger",
         numberOfViewsText: "Visninger",
         noResultsText: "Fant ingen resultater.",
-        backToGalleryText: "Galleri",
         backToMapButtonText: "Kart",
         showMoreResultsGalleryText: "Vis flere resultater",
         clearBtnTitle: "Fjern",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sorter etter",
             layoutBtnTitle: "Utforming",
             signInBtnTitle: "Logg inn",
-            signOutBtnTitle: "å_Sign Out_ø",
+            signOutBtnTitle: "Logg ut",
             geolocationBtnTitle: "Geolokasjon"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Kan ikke hente data fra lag.",
             unableToOpenItem: "Kan ikke åpne elementet.",
             wmsSpatialReferenceError: "WMS-lagets geografiske referanse samsvarer ikke med kartets geografiske referanse.",
-            noPublicItems: "å_There are no public items in the configured group or no items have been shared with this group yet._ø",
+            noPublicItems: "Det finnes ingen offentlige elementer i den konfigurerte gruppen, eller ingen elementer er delt med denne gruppen ennå.",
             emptyUsernamePassword: "Du må angi brukernavn og passord.",
             noFullScreenSupport: "Den gjeldende webleseren støtter ikke fullskjermsmodus.",
-            notMemberOfOrg: "å_You are not a member of this organization_ø"
+            notMemberOfOrg: "Du er ikke medlem av denne organisasjonen"
         }
-});
+    })
+);

@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "Labels",
         expandGroupDescText: "Meer",
         shrinkGroupDescText: "Minder",
@@ -23,8 +24,10 @@ define({
         signOutText: "Afmelden",
         showNullValue: "NVT",
         detailsDisplayText: "Details",
-        sortByViewText: "Sorteren op Weergaven",
-        sortByDateText: "Sorteren op Datum",
+        sortByText: "Sorteren op",
+        sortByViewText: "Weergaven",
+        sortByDateText: "Datum",
+        sortByNameText: "Naam",
         gridViewTitle: "Rasterweergave",
         listViewTitle: "Lijstweergave",
         appHeaderTitle: "Home",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "Groepslogo",
-        sortByTextMobile: "Sorteren op",
-        viewTextMobile: "Weergaven",
-        dateTextMobile: "Datum",
         appTypeText: "Type",
         appOwnerText: "Eigenaar",
-        tryItButtonText: "Nu proberen",
+        tryItButtonText: "Weergeven",
         downloadButtonText: "Downloaden",
         appDesText: "Beschrijving",
         reviewText: "Opmerkingen",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "Beoordelingen",
         numberOfViewsText: "Weergaven",
         noResultsText: "Geen resultaten gevonden.",
-        backToGalleryText: "Galerij",
         backToMapButtonText: "Kaart",
         showMoreResultsGalleryText: "Meer resultaten weergeven",
         clearBtnTitle: "Wissen",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "Sorteren op",
             layoutBtnTitle: "Lay-out",
             signInBtnTitle: "Aanmelden",
-            signOutBtnTitle: "Ĳ_Sign Out_ä",
+            signOutBtnTitle: "Afmelden",
             geolocationBtnTitle: "Geografische locatie"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "Kan geen gegevens ophalen van kaartlagen.",
             unableToOpenItem: "Kan item niet openen.",
             wmsSpatialReferenceError: "Ruimtelijke referentie van de WMS-laag komt niet overeen met ruimtelijke referentie van de kaart.",
-            noPublicItems: "Ĳ_There are no public items in the configured group or no items have been shared with this group yet._ä",
+            noPublicItems: "Er zijn geen openbare items in de geconfigureerde groep of er worden nog geen items gedeeld met deze groep.",
             emptyUsernamePassword: "Voer gebruikersnaam en wachtwoord in.",
             noFullScreenSupport: "De huidige browser biedt geen ondersteuning voor de volledig-schermmodus.",
-            notMemberOfOrg: "Ĳ_You are not a member of this organization_ä"
+            notMemberOfOrg: "U bent geen lid van deze organisatie"
         }
-});
+    })
+);

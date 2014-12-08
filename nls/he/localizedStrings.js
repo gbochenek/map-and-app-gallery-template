@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "תגיות",
         expandGroupDescText: "עוד",
         shrinkGroupDescText: "פחות",
@@ -23,8 +24,10 @@ define({
         signOutText: "התנתק",
         showNullValue: "לא זמין",
         detailsDisplayText: "פרטים",
-        sortByViewText: "מיון על ידי תצוגות",
-        sortByDateText: "מיון על ידי תאריך",
+        sortByText: "מיון על ידי",
+        sortByViewText: "צפיות",
+        sortByDateText: "תאריך",
+        sortByNameText: "שם",
         gridViewTitle: "תצוגת רשת",
         listViewTitle: "תצוגת רשימה",
         appHeaderTitle: "דף הבית",
@@ -32,12 +35,9 @@ define({
         orgText: "ORG",
         grpText: "GRP",
         groupLogoText: "לוגו של הקבוצה",
-        sortByTextMobile: "מיון על ידי",
-        viewTextMobile: "צפיות",
-        dateTextMobile: "תאריך",
         appTypeText: "סוג",
         appOwnerText: "יוצר",
-        tryItButtonText: "נסה עכשיו",
+        tryItButtonText: "צפה",
         downloadButtonText: "הורדה",
         appDesText: "תיאור",
         reviewText: "הערות",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "דירוגים",
         numberOfViewsText: "צפיות",
         noResultsText: "לא נמצאו תוצאות.",
-        backToGalleryText: "גלריה",
         backToMapButtonText: "מפה",
         showMoreResultsGalleryText: "הצג תוצאות נוספות",
         clearBtnTitle: "נקה",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "מיון על ידי",
             layoutBtnTitle: "תצוגה",
             signInBtnTitle: "התחבר",
-            signOutBtnTitle: "כן_Sign Out_ש",
+            signOutBtnTitle: "התנתק",
             geolocationBtnTitle: "מיקום מרחבי"
         },
         errorMessages: {
@@ -77,14 +76,15 @@ define({
             falseConfigParams: "ערכי מפתחות קונפיגורציה נדרשים ריקים או לא תואמים למאפייני השכבה. הודעה זו עלולה להופיע מספר פעמים.",
             invalidLocation: "המיקום הנוכחי לא נמצא.",
             invalidProjection: "לא ניתן להטיל את המיקום הנוכחי במפה.",
-            widgetNotLoaded: "נכשל בטעינת widgets.",
+            widgetNotLoaded: "נכשל בטעינת הוידג\'ט.",
             minfontSizeGreater: "גודל מינימלי של ערך פונט בהגדרות גדול מהערך המקסימלי.",
             layerNotFound: "לא ניתן לקבל נתונים מהשכבות.",
             unableToOpenItem: "לא ניתן לפתוח פריט.",
             wmsSpatialReferenceError: "היחוס המרחבי של שכבת WMS לא תואם ליחוס המרחבי של המפה.",
-            noPublicItems: "כן_There are no public items in the configured group or no items have been shared with this group yet._ש",
+            noPublicItems: "לא קיימים פריטים ציבוריים בקבוצה שהוגדרה או שלא שותפו עדיין פריטים עם קבוצה זו.",
             emptyUsernamePassword: "אנא הקלד שם משתמש וסיסמה",
             noFullScreenSupport: "הדפדפן הנוכחי אינו תומך במסך מלא.",
-            notMemberOfOrg: "כן_You are not a member of this organization_ש"
+            notMemberOfOrg: "אינך חבר בארגון זה"
         }
-});
+    })
+);

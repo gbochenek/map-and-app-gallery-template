@@ -14,7 +14,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define({
+define(
+     ({
         tagHeaderText: "标签",
         expandGroupDescText: "更多",
         shrinkGroupDescText: "小于",
@@ -23,8 +24,10 @@ define({
         signOutText: "登出",
         showNullValue: "N/A",
         detailsDisplayText: "详细信息",
-        sortByViewText: "按查看次数排序",
-        sortByDateText: "按日期排序",
+        sortByText: "排序方式",
+        sortByViewText: "查看次数",
+        sortByDateText: "日期",
+        sortByNameText: "名称",
         gridViewTitle: "格网视图",
         listViewTitle: "列表视图",
         appHeaderTitle: "主页",
@@ -32,12 +35,9 @@ define({
         orgText: "组织",
         grpText: "组",
         groupLogoText: "组徽标",
-        sortByTextMobile: "排序方式",
-        viewTextMobile: "查看次数",
-        dateTextMobile: "日期",
         appTypeText: "类型",
         appOwnerText: "所有者",
-        tryItButtonText: "立即试用",
+        tryItButtonText: "查看",
         downloadButtonText: "下载",
         appDesText: "描述",
         reviewText: "评论",
@@ -50,7 +50,6 @@ define({
         numberOfRatingsText: "评级",
         numberOfViewsText: "查看次数",
         noResultsText: "未找到任何结果。",
-        backToGalleryText: "图库",
         backToMapButtonText: "地图",
         showMoreResultsGalleryText: "显示更多结果",
         clearBtnTitle: "清除",
@@ -67,7 +66,7 @@ define({
             sortByBtnTitle: "排序方式",
             layoutBtnTitle: "布局",
             signInBtnTitle: "登录",
-            signOutBtnTitle: "试_Sign Out_验",
+            signOutBtnTitle: "登出",
             geolocationBtnTitle: "地理位置"
         },
         errorMessages: {
@@ -82,9 +81,10 @@ define({
             layerNotFound: "无法从图层获取数据。",
             unableToOpenItem: "无法打开项目。",
             wmsSpatialReferenceError: "WMS 图层的空间参考与地图的空间参考不匹配。",
-            noPublicItems: "试_There are no public items in the configured group or no items have been shared with this group yet._验",
+            noPublicItems: "已配置组中没有任何公共项目或尚未与该组共享任何项目。",
             emptyUsernamePassword: "请输入用户名和密码。",
             noFullScreenSupport: "当前浏览器不支持全屏模式。",
-            notMemberOfOrg: "试_You are not a member of this organization_验"
+            notMemberOfOrg: "您不是该组织成员"
         }
-});
+    })
+);
