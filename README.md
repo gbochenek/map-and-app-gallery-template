@@ -31,7 +31,7 @@ The Map and App Gallery is a web application template to create a configurable, 
 * ArcGIS Online subscription or ArcGIS Portal
 
 ### Browser Compatibility
-* The application is optimized for display on desktops and tablet devices using [all browsers supported by ArcGIS Online][supported browsers]. 
+* The application is optimized for display on smartphones, desktops, and tablet devices using [all browsers supported by ArcGIS Online][supported browsers]. 
 
 ## Instructions
 
