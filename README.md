@@ -76,6 +76,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 A copy of the license is available in the repository's [LICENSE.txt][] file.
 
-[](Esri Tags: Local-Government Local Government Online Apps Parcel Viewer)
+[](Esri Tags: ArcGISSolutions Local-Government Local Government Online Apps Parcel Viewer)
 [](Esri Language: JavaScript)
 
