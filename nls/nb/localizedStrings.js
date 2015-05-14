@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Utforming",
             signInBtnTitle: "Logg inn",
             signOutBtnTitle: "Logg ut",
-            geolocationBtnTitle: "Geolokasjon"
+            geolocationBtnTitle: "Geolokasjon",
+            ascendingSort: "@nb@ Ascending",
+            descendingSort: "@nb@ Descending"
         },
         errorMessages: {
             emptyGroup: "Den konfigurerte gruppen har ingen data til å utføre spørring.",

@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "試_Layout_驗",
             signInBtnTitle: "試_Sign In_驗",
             signOutBtnTitle: "試_Sign Out_驗",
-            geolocationBtnTitle: "試_Geolocation_驗"
+            geolocationBtnTitle: "試_Geolocation_驗",
+            ascendingSort: "@zh-tw@ Ascending",
+            descendingSort: "@zh-tw@ Descending"
         },
         errorMessages: {
             emptyGroup: "試_The configured group is not having any data to perform query_驗.",

@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "레이아웃",
             signInBtnTitle: "로그인",
             signOutBtnTitle: "로그아웃",
-            geolocationBtnTitle: "지오로케이션"
+            geolocationBtnTitle: "지오로케이션",
+            ascendingSort: "@ko@ Ascending",
+            descendingSort: "@ko@ Descending"
         },
         errorMessages: {
             emptyGroup: "구성된 그룹에 쿼리를 수행할 데이터가 없습니다.",

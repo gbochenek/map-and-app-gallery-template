@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Rozvržení",
             signInBtnTitle: "Přihlásit",
             signOutBtnTitle: "Odhlásit",
-            geolocationBtnTitle: "Geolokace"
+            geolocationBtnTitle: "Geolokace",
+            ascendingSort: "@cs@ Ascending",
+            descendingSort: "@cs@ Descending"
         },
         errorMessages: {
             emptyGroup: "Konfigurovaná skupina nemá k dispozici žádná data umožňující provedení dotazu.",

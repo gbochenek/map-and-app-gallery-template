@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Düzen",
             signInBtnTitle: "Oturum Aç",
             signOutBtnTitle: "Oturumu Kapat",
-            geolocationBtnTitle: "Coğrafi Konum"
+            geolocationBtnTitle: "Coğrafi Konum",
+            ascendingSort: "@tr@ Ascending",
+            descendingSort: "@tr@ Descending"
         },
         errorMessages: {
             emptyGroup: "Yapılandırılan grup için sorgu uygulanabilecek veri yok.",
