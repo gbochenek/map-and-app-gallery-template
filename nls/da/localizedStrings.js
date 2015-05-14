@@ -67,9 +67,7 @@ define(
             layoutBtnTitle: "Layout",
             signInBtnTitle: "Log ind",
             signOutBtnTitle: "Log ud",
-            geolocationBtnTitle: "Geoplacering",
-            ascendingSort: "@da@ Ascending",
-            descendingSort: "@da@ Descending"
+            geolocationBtnTitle: "Geoplacering"
         },
         errorMessages: {
             emptyGroup: "Den konfigurerede gruppe har ikke nogen data til kørsel af en forespørgsel.",

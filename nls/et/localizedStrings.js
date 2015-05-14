@@ -67,9 +67,7 @@ define(
             layoutBtnTitle: "Kujundus",
             signInBtnTitle: "Logi sisse",
             signOutBtnTitle: "Logi välja",
-            geolocationBtnTitle: "Geoasukoht",
-            ascendingSort: "@et@ Ascending",
-            descendingSort: "@et@ Descending"
+            geolocationBtnTitle: "Geoasukoht"
         },
         errorMessages: {
             emptyGroup: "Konfigureeritud rühmas pole päringu sooritamiseks andmeid.",

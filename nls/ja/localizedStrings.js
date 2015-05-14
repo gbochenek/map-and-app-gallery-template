@@ -67,9 +67,7 @@ define(
             layoutBtnTitle: "レイアウト",
             signInBtnTitle: "サイン イン",
             signOutBtnTitle: "サイン アウト",
-            geolocationBtnTitle: "ジオロケーション",
-            ascendingSort: "@ja@ Ascending",
-            descendingSort: "@ja@ Descending"
+            geolocationBtnTitle: "ジオロケーション"
         },
         errorMessages: {
             emptyGroup: "構成済みのグループにクエリを実行するためのデータがありません。",

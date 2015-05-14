@@ -67,9 +67,7 @@ define(
             layoutBtnTitle: "Mise en page",
             signInBtnTitle: "Se connecter",
             signOutBtnTitle: "Se déconnecter",
-            geolocationBtnTitle: "Géolocalisation",
-            ascendingSort: "@fr@ Ascending",
-            descendingSort: "@fr@ Descending"
+            geolocationBtnTitle: "Géolocalisation"
         },
         errorMessages: {
             emptyGroup: "Le groupe configuré ne possède aucune donnée pour réaliser la requête.",
