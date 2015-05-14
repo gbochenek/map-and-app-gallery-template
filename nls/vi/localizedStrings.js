@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Bố cục",
             signInBtnTitle: "Đăng nhập",
             signOutBtnTitle: "Đăng xuất",
-            geolocationBtnTitle: "Vị trí địa lý"
+            geolocationBtnTitle: "Vị trí địa lý",
+            ascendingSort: "@vi@ Ascending",
+            descendingSort: "@vi@ Descending"
         },
         errorMessages: {
             emptyGroup: "Nhóm được cấu hình không có bất kỳ dữ liệu nào để thực hiện truy vấn.",

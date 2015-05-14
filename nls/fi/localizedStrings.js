@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Asettelu",
             signInBtnTitle: "Kirjaudu sisään",
             signOutBtnTitle: "Kirjaudu ulos",
-            geolocationBtnTitle: "Geosijainti"
+            geolocationBtnTitle: "Geosijainti",
+            ascendingSort: "@fi@ Ascending",
+            descendingSort: "@fi@ Descending"
         },
         errorMessages: {
             emptyGroup: "Määritetyssä ryhmässä ei ole aineistoa, jonka perusteella kyselyn voi suorittaa.",
