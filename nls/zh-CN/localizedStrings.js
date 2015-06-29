@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "布局",
             signInBtnTitle: "登录",
             signOutBtnTitle: "登出",
-            geolocationBtnTitle: "地理位置"
+            geolocationBtnTitle: "地理位置",
+            ascendingSort: "升序",
+            descendingSort: "降序"
         },
         errorMessages: {
             emptyGroup: "已配置的组不具有任何用于执行查询的数据。",

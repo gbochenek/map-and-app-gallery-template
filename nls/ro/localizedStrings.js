@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Configuraţie",
             signInBtnTitle: "Autentificare",
             signOutBtnTitle: "Ieşire",
-            geolocationBtnTitle: "Geolocaţie"
+            geolocationBtnTitle: "Geolocaţie",
+            ascendingSort: "Ascendent",
+            descendingSort: "Descendent"
         },
         errorMessages: {
             emptyGroup: "Grupul configurat nu are nicio dată pentru a efectua interogarea.",

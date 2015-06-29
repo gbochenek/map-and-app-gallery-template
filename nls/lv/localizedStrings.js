@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Izkārtojums",
             signInBtnTitle: "Pierakstīties",
             signOutBtnTitle: "Izrakstīties",
-            geolocationBtnTitle: "Ģeoizvietojums"
+            geolocationBtnTitle: "Ģeoizvietojums",
+            ascendingSort: "Pieaugoši",
+            descendingSort: "Dilstošā secībā"
         },
         errorMessages: {
             emptyGroup: "Konfigurētajā grupā nav nekādu datu, lai veiktu vaicājumu.",
