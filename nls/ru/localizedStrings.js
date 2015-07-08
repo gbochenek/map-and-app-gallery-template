@@ -67,7 +67,9 @@ define(
             layoutBtnTitle: "Компоновка",
             signInBtnTitle: "Войти",
             signOutBtnTitle: "Выйти",
-            geolocationBtnTitle: "Геолокация"
+            geolocationBtnTitle: "Геолокация",
+            ascendingSort: "По возрастанию",
+            descendingSort: "По убыванию"
         },
         errorMessages: {
             emptyGroup: "В указанной группе нет данных для выполнения запроса.",
