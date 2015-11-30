@@ -57,7 +57,7 @@
         "basemapGroupTitle": "",
         "basemapGroupOwner": "",
         "noThumbnail": "themes/images/thumbnailNotAvailable.png",
-        "portalURL": "",
+        "portalURL": "http://www.arcgis.com",
         "geometryService": "",
         "proxyUrl": "/proxy/proxy.ashx"
     },
