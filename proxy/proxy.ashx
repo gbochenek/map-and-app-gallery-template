@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using System.Web.Caching;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text;                      // for StringBuilder
 
 public class proxy : IHttpHandler {
 
@@ -164,6 +165,20 @@ public class proxy : IHttpHandler {
                 }
                 context.Application["rateMap_cleanup_counter"] = cnt;
             }
+        }
+
+        //correct malformed uri
+        string[] uriParts = uri.Split('?');
+        if (uriParts.Length > 2)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(uriParts[0] + "?" + uriParts[1]);
+            for (int i = 2; i < uriParts.Length; ++i)
+            {
+                sb.Append("&");
+                sb.Append(uriParts[i]);
+            }
+            uri = sb.ToString();
         }
 
         //readying body (if any) of POST request
