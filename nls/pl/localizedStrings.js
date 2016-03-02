@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Wyloguj się",
             geolocationBtnTitle: "Geolokalizacja",
             ascendingSort: "Rosnąco",
-            descendingSort: "Malejąco"
+            descendingSort: "Malejąco",
+            viewBtnTitle: "@pl@ View",
+            backButtonTitle: "@pl@ Back"
         },
         errorMessages: {
             emptyGroup: "Skonfigurowana grupa nie zawiera danych, których można użyć do wykonania zapytania.",

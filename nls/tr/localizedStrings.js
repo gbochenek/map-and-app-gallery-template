@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Oturumu Kapat",
             geolocationBtnTitle: "Coğrafi Konum",
             ascendingSort: "Artan",
-            descendingSort: "Azalan"
+            descendingSort: "Azalan",
+            viewBtnTitle: "@tr@ View",
+            backButtonTitle: "@tr@ Back"
         },
         errorMessages: {
             emptyGroup: "Yapılandırılan grup için sorgu uygulanabilecek veri yok.",
