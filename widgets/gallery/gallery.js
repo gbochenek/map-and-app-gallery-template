@@ -305,7 +305,7 @@ define([
             if (dojo.configData.values.displaySharingAttribute) {
                 this._accessLogoType(itemResult, divTagContent);
             }
-            if (window.hasOwnProperty && window.hasOwnProperty('orientation')) {
+            if (dojo.gridView && window.hasOwnProperty && window.hasOwnProperty('orientation')) {
                 if (divItemSnippet) {
                     on(divThumbnail, tap.hold, lang.hitch(this, function (e) {
                         domClass.add(divItemSnippet, "esriCTItemSnippetHover");

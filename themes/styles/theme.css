@@ -1754,9 +1754,14 @@ input[type="button"], input[type="submit"], input[type="reset"], input[type="fil
     cursor: pointer;
 }
 
-.esriCTItemInfoIcon:before, .esriCTItemViewIcon:before, .esriCTBackToGalleryBtn:before, .esriCTOpenItemBtn:before
+.esriCTItemViewIcon:before, .esriCTBackToGalleryBtn:before, .esriCTOpenItemBtn:before
 {
     margin: 0px !important;
+}
+
+.esriCTItemInfoIcon:before
+{
+    margin-right: 0px !important;
 }
 
 .esriCTItemViewIcon, .esriCTItemDetailsIcon
