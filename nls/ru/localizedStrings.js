@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Выйти",
             geolocationBtnTitle: "Геолокация",
             ascendingSort: "По возрастанию",
-            descendingSort: "По убыванию"
+            descendingSort: "По убыванию",
+            viewBtnTitle: "@ru@ View",
+            backButtonTitle: "@ru@ Back"
         },
         errorMessages: {
             emptyGroup: "В указанной группе нет данных для выполнения запроса.",

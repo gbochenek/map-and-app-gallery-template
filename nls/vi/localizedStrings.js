@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Đăng xuất",
             geolocationBtnTitle: "Vị trí địa lý",
             ascendingSort: "Tăng dần",
-            descendingSort: "Giảm dần"
+            descendingSort: "Giảm dần",
+            viewBtnTitle: "@vi@ View",
+            backButtonTitle: "@vi@ Back"
         },
         errorMessages: {
             emptyGroup: "Nhóm được cấu hình không có bất kỳ dữ liệu nào để thực hiện truy vấn.",

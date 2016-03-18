@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "تسجيل الخروج",
             geolocationBtnTitle: "الموقع الجغرافي",
             ascendingSort: "تصاعدي",
-            descendingSort: "تنازليًا"
+            descendingSort: "تنازليًا",
+            viewBtnTitle: "@ar@ View",
+            backButtonTitle: "@ar@ Back"
         },
         errorMessages: {
             emptyGroup: "الطبقة التي يتم تكوينها ليس بها أي بيانات للقيام بالاستعلام.",

@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Ieşire",
             geolocationBtnTitle: "Geolocaţie",
             ascendingSort: "Ascendent",
-            descendingSort: "Descendent"
+            descendingSort: "Descendent",
+            viewBtnTitle: "@ro@ View",
+            backButtonTitle: "@ro@ Back"
         },
         errorMessages: {
             emptyGroup: "Grupul configurat nu are nicio dată pentru a efectua interogarea.",

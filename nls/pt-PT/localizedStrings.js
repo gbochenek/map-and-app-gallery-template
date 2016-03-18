@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Terminar sessão",
             geolocationBtnTitle: "Geolocalização",
             ascendingSort: "Ascendente",
-            descendingSort: "Decrescente"
+            descendingSort: "Decrescente",
+            viewBtnTitle: "@pt-pt@ View",
+            backButtonTitle: "@pt-pt@ Back"
         },
         errorMessages: {
             emptyGroup: "O grupo configurado não tem quaisquer dados para efetuar a pesquisa.",

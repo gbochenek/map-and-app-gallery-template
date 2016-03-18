@@ -69,7 +69,9 @@ define(
             signOutBtnTitle: "Logi välja",
             geolocationBtnTitle: "Geoasukoht",
             ascendingSort: "Kahanev",
-            descendingSort: "Kahanev"
+            descendingSort: "Kahanev",
+            viewBtnTitle: "@et@ View",
+            backButtonTitle: "@et@ Back"
         },
         errorMessages: {
             emptyGroup: "Konfigureeritud rühmas pole päringu sooritamiseks andmeid.",
