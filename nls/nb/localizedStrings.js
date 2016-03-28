@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "Logg ut",
             geolocationBtnTitle: "Geolokasjon",
             ascendingSort: "Stigende",
-            descendingSort: "Synkende",
-            viewBtnTitle: "@nb@ View",
-            backButtonTitle: "@nb@ Back"
+            descendingSort: "Synkende"
         },
         errorMessages: {
             emptyGroup: "Den konfigurerte gruppen har ingen data til å utføre spørring.",

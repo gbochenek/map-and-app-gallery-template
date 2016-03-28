@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "Kirjaudu ulos",
             geolocationBtnTitle: "Geosijainti",
             ascendingSort: "Nouseva",
-            descendingSort: "Laskeva",
-            viewBtnTitle: "@fi@ View",
-            backButtonTitle: "@fi@ Back"
+            descendingSort: "Laskeva"
         },
         errorMessages: {
             emptyGroup: "Määritetyssä ryhmässä ei ole aineistoa, jonka perusteella kyselyn voi suorittaa.",

@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "登出",
             geolocationBtnTitle: "地理位置",
             ascendingSort: "升冪",
-            descendingSort: "降冪",
-            viewBtnTitle: "@zh-tw@ View",
-            backButtonTitle: "@zh-tw@ Back"
+            descendingSort: "降冪"
         },
         errorMessages: {
             emptyGroup: "已設定的群組沒有任何用於執行查詢的資料。",

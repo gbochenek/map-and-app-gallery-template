@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "Se déconnecter",
             geolocationBtnTitle: "Géolocalisation",
             ascendingSort: "Croissant",
-            descendingSort: "Décroissant",
-            viewBtnTitle: "@fr@ View",
-            backButtonTitle: "@fr@ Back"
+            descendingSort: "Décroissant"
         },
         errorMessages: {
             emptyGroup: "Le groupe configuré ne possède aucune donnée pour réaliser la requête.",

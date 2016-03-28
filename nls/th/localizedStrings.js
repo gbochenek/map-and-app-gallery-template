@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "ลงชื่อออก",
             geolocationBtnTitle: "ตำแหน่งเชิงพื้นที่",
             ascendingSort: "เรียงจากน้อยไปมาก",
-            descendingSort: "เรียงจากมากไปน้อย",
-            viewBtnTitle: "@th@ View",
-            backButtonTitle: "@th@ Back"
+            descendingSort: "เรียงจากมากไปน้อย"
         },
         errorMessages: {
             emptyGroup: "กลุ่มการกำหนดค่าไม่ได้มีข้อมูลใด ๆ ที่จะดำเนินการแบบสอบถาม",

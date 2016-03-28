@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "Disconnetti",
             geolocationBtnTitle: "Geoposizione",
             ascendingSort: "Ascendente",
-            descendingSort: "Decrescente",
-            viewBtnTitle: "@it@ View",
-            backButtonTitle: "@it@ Back"
+            descendingSort: "Decrescente"
         },
         errorMessages: {
             emptyGroup: "Per il gruppo configurato non sono disponibili dati per eseguire interrogazioni.",

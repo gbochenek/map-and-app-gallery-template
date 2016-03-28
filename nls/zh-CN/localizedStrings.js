@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "登出",
             geolocationBtnTitle: "地理位置",
             ascendingSort: "升序",
-            descendingSort: "降序",
-            viewBtnTitle: "@zh-cn@ View",
-            backButtonTitle: "@zh-cn@ Back"
+            descendingSort: "降序"
         },
         errorMessages: {
             emptyGroup: "已配置的组不具有任何用于执行查询的数据。",

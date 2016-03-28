@@ -69,9 +69,7 @@ define(
             signOutBtnTitle: "Sair",
             geolocationBtnTitle: "Geolocalização",
             ascendingSort: "Crescente",
-            descendingSort: "Descendente",
-            viewBtnTitle: "@pt-br@ View",
-            backButtonTitle: "@pt-br@ Back"
+            descendingSort: "Descendente"
         },
         errorMessages: {
             emptyGroup: "O grupo configurado não tem quaisquer dados para executar a consulta.",
