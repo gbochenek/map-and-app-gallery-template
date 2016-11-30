@@ -160,9 +160,11 @@ define([
                     var signedIn = IdentityManager.checkSignInStatus(dojo.configData.values.portalURL + "/sharing");
                     // resolve regardless of signed in or not.
                     signedIn.promise.always(lang.hitch(this, function (res) {
-                        // set other config options from app id
+                        // set other config options (except portalURL) from app id
                         dojo.configPrev = lang.clone(dojo.configData.values);
+                        var portalURL = dojo.configData.values.portalURL;
                         lang.mixin(dojo.configData.values, appSettings);
+                        dojo.configData.values.portalURL = portalURL;
                         def.resolve(res);
                     }));
                     /**
