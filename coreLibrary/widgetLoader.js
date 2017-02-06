@@ -34,12 +34,39 @@ define([
     "dojo/text!themes/mediaQueries-template.css",
     "esri/urlUtils",
     "esri/arcgis/utils",
-    "widgets/searchAGOLGroupItems/searchAGOLGroupItems"
-], function (declare, _WidgetBase, AppHeader, array, lang, Deferred, all, topic, nls, query, domClass, domConstruct, string, ThemeCss, MediaThemeCss, urlUtils, arcgisUtils, PortalSignin) {
-
+    "esri/Color",
+    "esri/graphic",
+    "widgets/searchAGOLGroupItems/searchAGOLGroupItems",
+    "dojo/_base/Color",
+    "dojo/colors",
+    "dojox/color"
+], function (
+    declare,
+    _WidgetBase,
+    AppHeader,
+    array,
+    lang,
+    Deferred,
+    all,
+    topic,
+    nls,
+    query,
+    domClass,
+    domConstruct,
+    string,
+    ThemeCss,
+    MediaThemeCss,
+    urlUtils,
+    arcgisUtils,
+    Color,
+    Graphic,
+    PortalSignin,
+    baseColor,
+    Colors,
+    dojoxColor
+) {
     return declare([_WidgetBase], {
         nls: nls,
-
         /**
         * load widgets specified in Header Widget Settings of configuration file
         *
@@ -120,14 +147,39 @@ define([
             return obj;
         },
 
+        /**
+         * This function is used set the theming according to org theming
+         * @memberOf coreLibrary/widgetLoader
+         */
+        _setOrgTheme: function () {
+            dojo.configData.appTheme = {
+                "header": {
+                    "background": dojo.configData.values.headerBackgroundColor,
+                    "text": dojo.configData.values.headerTextColor
+                },
+                "body": {
+                    "text": dojo.configData.values.bodyTextColor
+                }
+            };
+            //if logo is not configured by user and in org properties we have valid logo then only use the logo from org
+            if (!dojo.configData.applicationIcon && dojo.configData.appTheme.logo && dojo.configData.appTheme.logo.small) {
+                dojo.configData.applicationIcon = dojo.configData.appTheme.logo.small;
+            }
+        },
+
         _applicationThemeLoader: function () {
-            var cssString, mediaCssString, headNode, styleNode, mediaStyleNode;
+            var cssString, head, style, link, mediaCssString, headNode, styleNode, mediaStyleNode;
+
             //if theme is configured
             if (dojo.configData.values.theme) {
                 this._setConfiguredColor();
+                this._setOrgTheme();
                 //substitute theme color values in theme template
                 cssString = string.substitute(ThemeCss, {
-                    SelectedThemeColor: dojo.configData.values.theme
+                    SelectedThemeColor: dojo.configData.values.theme,
+                    BodyTextColor: dojo.configData.appTheme.body.text,
+                    HeaderBackgroundColor: dojo.configData.appTheme.header.background,
+                    HeaderTextColor: dojo.configData.appTheme.header.text
                 });
                 mediaCssString = string.substitute(MediaThemeCss, {
                     SelectedThemeColor: dojo.configData.values.theme
@@ -185,6 +237,5 @@ define([
                 dojo.configData.values.theme = "#028d6a";
             }
         }
-
     });
 });

@@ -50,7 +50,7 @@ define([
                 console.log('navigator.geolocation requires a secure origin.');
             } else {
                 this.domNode = domConstruct.create("div", { "class": "esriCTMapGeoLocation", "title": nls.title.geolocationBtnTitle });
-                domConstruct.create("span", { "class": "icon-gps esriCTGeolocationIcon" }, this.domNode);
+                domConstruct.create("span", { "class": "icon-gps esriCTGeolocationIcon esriCTHeaderTextColor esriCTHeaderBackgroundColor" }, this.domNode);
                 this.own(on(this.domNode, "click", lang.hitch(this, function () {
                     this._showCurrentLocation();
                 })));

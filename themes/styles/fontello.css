@@ -19,6 +19,7 @@
  | OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  | THE SOFTWARE.
  */
+
 @font-face {
   font-family: 'fontello';
   src: url('font/fontello.eot?69417275');
@@ -96,3 +97,31 @@
 .icon-back-arrow:before { content: '\e813'; } /* '' */
 .icon-item-open:before { content: '\e811'; } /* '' */
 .icon-download:before { content: '\e814'; } /* '' */
+
+
+
+/*new Icon Add SVG*/
+
+@font-face {
+  font-family: "fontello-1";
+  src:url("font/fontello-1.eot");
+  src:url("font/fontello-1.eot?#iefix") format("embedded-opentype"),
+    url("font/fontello-1.woff") format("woff"),
+    url("font/fontello-1.ttf") format("truetype"),
+    url("font/fontello-1.svg#fontello-1") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    }
+.icon-angle-up:before {
+  content: "\61";
+    font-family: "fontello-1" !important ;
+}
+.icon-angle-down:before {
+  content: "\62";
+   font-family: "fontello-1" !important ;
+}
+.home:before {
+  content: "\65";
+   font-family: "fontello-1" !important ;
+   font-size: 18px;
+}

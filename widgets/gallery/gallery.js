@@ -234,8 +234,8 @@ define([
             var divItemTitleRight, divItemTitleText, divItemType, spanItemType, divItemWatchEye, spanItemWatchEyeText, divItemDetailsIcon, dataType;
 
             divItemTitleRight = domConstruct.create('div', { "class": "esriCTDivClear" }, divPodParent);
-            divItemTitleText = domConstruct.create('div', { "class": "esriCTListAppTitle esriCTGridTitleContent esriCTCursorPointer" }, divItemTitleRight);
-            divItemDetailsIcon = domConstruct.create('div', { "class": "esriCTItemInfoIcon" }, divItemTitleRight);
+            divItemTitleText = domConstruct.create('div', { "class": "esriCTListAppTitle esriCTGridTitleContent esriCTCursorPointer esriCTHeaderBackgroundColorAsTextColor " }, divItemTitleRight);
+            divItemDetailsIcon = domConstruct.create('div', { "class": "esriCTItemInfoIcon esriCTHeaderBackgroundColor" }, divItemTitleRight);
             domAttr.set(divItemTitleText, "innerHTML", (itemResult.title) || (nls.showNullValue));
             domAttr.set(divItemTitleText, "title", (itemResult.title) || (nls.showNullValue));
             divItemType = domConstruct.create('div', { "class": "esriCTGridItemType" }, divItemTitleRight);
@@ -287,7 +287,7 @@ define([
                 }
             }
 
-            divThumbnailImage = domConstruct.create('div', { "class": "esriCTAppImage" }, divThumbnail);
+            divThumbnailImage = domConstruct.create('div', { "class": "esriCTAppImage esriCTHeaderBackgroundColorAsBorder" }, divThumbnail);
             if (itemResult.thumbnailUrl) {
                 if (dojo.configData.values.proxyUrl) {
                     thumbnailUrl = dojo.configData.values.proxyUrl + "?" + itemResult.thumbnailUrl;
@@ -458,7 +458,7 @@ define([
 
             divItemTitle = domConstruct.create('div', { "class": "esriCTAppListTitleRight" }, divTitle);
             divItemTitleRight = domConstruct.create('div', { "class": "esriCTDivClear" }, divItemTitle);
-            divItemTitleText = domConstruct.create('div', { "class": "esriCTListAppTitle esriCTCursorPointer" }, divItemTitleRight);
+            divItemTitleText = domConstruct.create('div', { "class": "esriCTListAppTitle  esriCTCursorPointer esriCTHeaderBackgroundColorAsTextColor" }, divItemTitleRight);
             domAttr.set(divItemTitleText, "innerHTML", (itemResult.title) || (nls.showNullValue));
 
             divItemInfo = domConstruct.create('div', {}, divItemTitle);
@@ -491,7 +491,7 @@ define([
                 domAttr.set(spanItemWatchEyeText, "innerHTML", (itemResult.numViews >= 0) ? (number.format(parseInt(itemResult.numViews, 10))) : (nls.showNullValue));
             }
             divItemContent = domConstruct.create('div', { "class": "esriCTListAppContent" }, divContent);
-            divItemSnippet = domConstruct.create('div', { "class": "esriCTAppHeadline" }, divItemContent);
+            divItemSnippet = domConstruct.create('div', { "class": "esriCTAppHeadline esriCTBodyTextColor " }, divItemContent);
             if (itemResult.snippet) {
                 spanItemReadMore = domConstruct.create('span', {}, divItemSnippet);
                 domAttr.set(spanItemReadMore, "innerHTML", itemResult.snippet);
@@ -510,7 +510,7 @@ define([
             divItemBtnContainer = domConstruct.create('div', { "class": "esriCTItemBtnContainer" }, divItemContent);
 
             //create open/view button
-            divItemViewIcon = domConstruct.create('div', { "class": "esriCTItemViewIcon", "title": nls.title.viewBtnTitle }, divItemBtnContainer);
+            divItemViewIcon = domConstruct.create('div', { "class": "esriCTItemViewIcon esriCTHeaderBackgroundColor", "title": nls.title.viewBtnTitle }, divItemBtnContainer);
 
             // Handle item title click in list layout
             this.own(on(divItemViewIcon, "click", lang.hitch(this, function () {
@@ -523,7 +523,7 @@ define([
             })));
 
             //create info button
-            divItemDetailsIcon = domConstruct.create('div', { "class": "esriCTItemDetailsIcon", "title": nls.title.infoBtnTitle }, divItemBtnContainer);
+            divItemDetailsIcon = domConstruct.create('div', { "class": "esriCTItemDetailsIcon esriCTHeaderBackgroundColor", "title": nls.title.infoBtnTitle }, divItemBtnContainer);
 
             // Handle item title click in list layout
             this.own(on(divItemDetailsIcon, "click", lang.hitch(this, function () {
@@ -660,14 +660,14 @@ define([
                     domAttr.set(this.numOfCommentsViews, "innerHTML", itemText);
                 }
                 domAttr.set(this.itemSnippet, "innerHTML", itemResult.snippet || "");
-                domConstruct.create('div', { "class": "esriCTReviewHeader", "innerHTML": nls.appDesText }, this.detailsContent);
-                itemDescription = domConstruct.create('div', { "class": "esriCTText esriCTReviewContainer esriCTBottomBorder" }, this.detailsContent);
+                domConstruct.create('div', { "class": "esriCTReviewHeader esriCTHeaderBackgroundColorAsTextColor", "innerHTML": nls.appDesText }, this.detailsContent);
+                itemDescription = domConstruct.create('div', { "class": "esriCTText esriCTReviewContainer esriCTBottomBorder esriCTBodyTextColor" }, this.detailsContent);
 
                 // If showLicenseInfo flag is set to true in the configuration file, show licensing information of the item
                 if (dojo.configData.values.showLicenseInfo) {
-                    accessContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder" }, this.detailsContent);
-                    domConstruct.create('div', { "class": "esriCTReviewHeader", "innerHTML": nls.accessConstraintsText }, accessContainer);
-                    accessInfo = domConstruct.create('div', { "class": "esriCTText" }, accessContainer);
+                    accessContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder esriCTBodyTextColor" }, this.detailsContent);
+                    domConstruct.create('div', { "class": "esriCTReviewHeader esriCTHeaderBackgroundColorAsTextColor", "innerHTML": nls.accessConstraintsText }, accessContainer);
+                    accessInfo = domConstruct.create('div', { "class": "esriCTText esriCTBodyTextColor" }, accessContainer);
                     domAttr.set(accessInfo, "innerHTML", itemResult.licenseInfo || "");
                 }
                 domAttr.set(this.btnTryItNow, "title", "");
@@ -717,7 +717,7 @@ define([
             var tagsContent, i, itemTags, sizeContent, itemSizeValue, itemSize, tagsContainer, sizeContainer;
 
             tagsContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder" }, detailsContent);
-            domConstruct.create('div', { "innerHTML": nls.tagsText, "class": "esriCTReviewHeader" }, tagsContainer);
+            domConstruct.create('div', { "innerHTML": nls.tagsText, "class": "esriCTReviewHeader esriCTHeaderBackgroundColorAsTextColor" }, tagsContainer);
             tagsContent = domConstruct.create('div', {}, tagsContainer);
             for (i = 0; i < itemInfo.tags.length; i++) {
                 if (i === 0) {
@@ -726,9 +726,9 @@ define([
                     itemTags = itemTags + ", " + itemInfo.tags[i];
                 }
             }
-            domConstruct.create('div', { "class": "esriCTText", "innerHTML": itemTags }, tagsContent);
+            domConstruct.create('div', { "class": "esriCTText esriCTBodyTextColor", "innerHTML": itemTags }, tagsContent);
             sizeContainer = domConstruct.create('div', { "class": "esriCTReviewContainer esriCTBottomBorder" }, detailsContent);
-            domConstruct.create('div', { "class": "esriCTReviewHeader", "innerHTML": nls.sizeText }, sizeContainer);
+            domConstruct.create('div', { "class": "esriCTReviewHeader esriCTHeaderBackgroundColorAsTextColor", "innerHTML": nls.sizeText }, sizeContainer);
             sizeContent = domConstruct.create('div', {}, sizeContainer);
             if (itemInfo.size > 1048576) {
                 itemSizeValue = itemInfo.size / 1048576;
@@ -737,7 +737,7 @@ define([
                 itemSizeValue = itemInfo.size / 1024;
                 itemSize = Math.round(itemSizeValue) + " " + nls.sizeUnitKB;
             }
-            domConstruct.create('div', { "class": "esriCTText", "innerHTML": itemSize }, sizeContent);
+            domConstruct.create('div', { "class": "esriCTText esriCTBodyTextColor", "innerHTML": itemSize }, sizeContent);
             topic.publish("hideProgressIndicator");
         },
 
