@@ -1,16 +1,11 @@
 ﻿.esriCTRatingStarIconColor
 {
-    color:${SelectedThemeColor} !important;
-}
-
-input
-{
-    border: 1px solid ${SelectedThemeColor} !important;
+    color: ${SelectedThemeColor} !important;
 }
 
 .esriCTMapIcons, .esriCTGeolocationIcon
 {
-    background-color:${SelectedThemeColor} !important;
+    background-color: ${HeaderBackgroundColor} !important;
 }
 
 .esriCTAutoSuggest
@@ -33,11 +28,6 @@ input
 }
 
 .esriCTListAppTitle
-{
-    color: ${SelectedThemeColor} !important;
-}
-
-.esriCTCategoriesHeader
 {
     color: ${SelectedThemeColor} !important;
 }
@@ -84,7 +74,7 @@ input
 
 .dijitDialogTitleBar
 {
-    background-color: ${SelectedThemeColor} !important;
+    background-color: ${HeaderBackgroundColor} !important;
 }
 
 .esriCTExpand, .esriCTMoreInfo
@@ -110,26 +100,29 @@ input
 
 .dijitButton
 {
-    border: 1px solid ${SelectedThemeColor} !important;
-    color: #fff;
-    background-color: ${SelectedThemeColor} !important;
+    border: 1px solid ${HeaderBackgroundColor} !important;
+    color: ${HeaderTextColor} !important;
+    background-color: ${HeaderBackgroundColor} !important;
 }
 
-.esriCTTabList li a.select
+input
 {
-    background: ${SelectedThemeColor} !important;
-    color: #fff;
-    cursor: default !important;
+    border: 1px solid ${HeaderBackgroundColor} !important;
 }
 
 .HomeButton .home, .HomeButton .home:hover
 {
-    background-color: ${SelectedThemeColor} !important;
+    background-color: ${HeaderBackgroundColor} !important;
 }
 
 .esriSimpleSliderDecrementButton, .esriSimpleSliderIncrementButton
 {
-    background-color: ${SelectedThemeColor} !important;
+    background-color: ${HeaderBackgroundColor} !important;
+
+}
+
+.esriSimpleSlider, .home:before, .icon-gps:before{
+    color: ${HeaderTextColor} !important;
 }
 
 .dijitDialogUnderlay
@@ -149,11 +142,6 @@ input
     color: ${SelectedThemeColor} !important;
 }
 
-.esriCTSortViews ul
-{
-    background: ${SelectedThemeColor} !important;
-}
-
 .esriCTItemSnippet
 {
    border: 1px solid ${SelectedThemeColor} !important;
@@ -166,10 +154,57 @@ input
 
 .esriCTShiftRightPanel
 {
-        border-right: 1px solid ${SelectedThemeColor} !important;
+    border-right: 1px solid ${SelectedThemeColor} !important;
 }
 
 .esriCTShiftRight
 {
-        border-left: 1px solid ${SelectedThemeColor} !important;
+    border-left: 1px solid ${SelectedThemeColor} !important;
 }
+
+.esriCTTabList li a.select
+{
+    background-color: ${HeaderBackgroundColor} !important;
+    color: ${HeaderTextColor} !important;
+    cursor: default !important;
+}
+
+/** Issue list panel ends **/
+
+/** Org theming classes starts **/
+
+.esriCTBodyTextColor {
+    color: ${BodyTextColor} !important;
+}
+
+.esriCTHeaderBackgroundColor {
+    background-color: ${HeaderBackgroundColor} !important;
+}
+
+.esriCTHeaderTextColor {
+    color: ${HeaderTextColor} !important;
+}
+
+.esriCTHeaderTextColorAsBorder {
+    border-color: ${HeaderTextColor} !important;
+}
+
+.esriCTHeaderTextColorAsBackground {
+    background-color: ${HeaderTextColor} !important;
+}
+
+.esriCTHeaderBackgroundColorAsTextColor {
+    color: ${HeaderBackgroundColor} !important;
+}
+
+.esriCTHeaderBackgroundColorAsBorder {
+    border-color: ${HeaderBackgroundColor} !important;
+}
+
+.esriCTSortMenuListSelected, .esriCTListSelected
+{
+    border: 1px solid;
+    border-color: ${HeaderTextColor} !important;
+}
+
+/** Org theming classes ends **/

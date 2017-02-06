@@ -45,30 +45,30 @@ define([
             domAttr.set(this.sortByLabel, "innerHTML", nls.sortByText);
 
             // Create sort by dropdown menu
-            listSortMenu = domConstruct.create('ul', { "class": "listSortMenu" }, this.sortMenu);
-            sortMenuListViews = domConstruct.create('li', { "class": "list", "sortValue": "numViews" }, listSortMenu);
+            listSortMenu = domConstruct.create('ul', { "class": "listSortMenu esriCTHeaderBackgroundColor esriCTHeaderTextColorAsBorder esriCTHeaderTextColor" }, this.sortMenu);
+            sortMenuListViews = domConstruct.create('li', { "class": "list esriCTHeaderTextColorAsBorder", "sortValue": "numViews" }, listSortMenu);
 
             sortMenuListViewsAsc = domConstruct.create('div', { "class": "esriCTSortAsc", "sortOrder": "asc" }, sortMenuListViews);
-            sortMenuListViewsAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg", "title": nls.title.ascendingSort }, sortMenuListViewsAsc);
+            sortMenuListViewsAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg  icon-angle-up", "title": nls.title.ascendingSort }, sortMenuListViewsAsc);
             domConstruct.create('div', { "class": "esriCTSortListText", "innerHTML": nls.sortByViewText, "sortValue": "numViews" }, sortMenuListViews);
             sortMenuListViewsDesc = domConstruct.create('div', { "class": "esriCTSortDesc", "sortOrder": "desc" }, sortMenuListViews);
-            sortMenuListViewsDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg", "title": nls.title.descendingSort }, sortMenuListViewsDesc);
+            sortMenuListViewsDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg icon-angle-down", "title": nls.title.descendingSort }, sortMenuListViewsDesc);
 
-            sortMenuListDate = domConstruct.create('li', { "class": "list", "sortValue": "modified" }, listSortMenu);
+            sortMenuListDate = domConstruct.create('li', { "class": "list esriCTHeaderTextColorAsBorder", "sortValue": "modified" }, listSortMenu);
 
             sortMenuListDateAsc = domConstruct.create('div', { "class": "esriCTSortAsc", "sortOrder": "asc" }, sortMenuListDate);
-            sortMenuListDateAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg", "title": nls.title.ascendingSort }, sortMenuListDateAsc);
+            sortMenuListDateAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg  icon-angle-up", "title": nls.title.ascendingSort }, sortMenuListDateAsc);
             domConstruct.create('div', { "class": "esriCTSortListText", "innerHTML": nls.sortByDateText, "sortValue": "modified" }, sortMenuListDate);
             sortMenuListDateDesc = domConstruct.create('div', { "class": "esriCTSortDesc", "sortOrder": "desc" }, sortMenuListDate);
-            sortMenuListDateDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg", "title": nls.title.descendingSort }, sortMenuListDateDesc);
+            sortMenuListDateDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg icon-angle-down", "title": nls.title.descendingSort }, sortMenuListDateDesc);
 
             sortMenuListTitle = domConstruct.create('li', { "class": "list", "sortValue": "title" }, listSortMenu);
 
             sortMenuListTitleAsc = domConstruct.create('div', { "class": "esriCTSortAsc", "sortOrder": "asc" }, sortMenuListTitle);
-            sortMenuListTitleAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg", "title": nls.title.ascendingSort }, sortMenuListTitleAsc);
+            sortMenuListTitleAscImg = domConstruct.create('div', { "class": "esriCTSortAscImg icon-angle-up", "title": nls.title.ascendingSort }, sortMenuListTitleAsc);
             domConstruct.create('div', { "class": "esriCTSortListText", "innerHTML": nls.sortByNameText, "sortValue": "title" }, sortMenuListTitle);
             sortMenuListTitleDesc = domConstruct.create('div', { "class": "esriCTSortDesc", "sortOrder": "desc" }, sortMenuListTitle);
-            sortMenuListTitleDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg", "title": nls.title.descendingSort }, sortMenuListTitleDesc);
+            sortMenuListTitleDescImg = domConstruct.create('div', { "class": "esriCTSortDescImg icon-angle-down", "title": nls.title.descendingSort }, sortMenuListTitleDesc);
 
             for (i = 0; i < listSortMenu.children.length; i++) {
                 if (domAttr.get(listSortMenu.children[i], "sortValue") === dojo.configData.values.sortField) {
