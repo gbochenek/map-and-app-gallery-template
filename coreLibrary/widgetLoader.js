@@ -108,7 +108,7 @@ define([
                         this._createApplicationHeader(widgets);
                         portalSigninWidgetLoader.initializePortal().then(lang.hitch(this, function () {
                             this._applicationThemeLoader();
-                            if (dojo.configData.values.appid && response.token) {
+                            if (response.token) {
                                 topic.publish("onSignIn", null, true);
                             }
                         }));
