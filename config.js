@@ -60,7 +60,6 @@
 		"portalURL": "http://www.arcgis.com",
 		"geometryService": "",
 		"proxyUrl": "",
-		"headerBackgroundColor": "#f26e1f",
 		"headerTextColor": "#fff",
 		"bodyTextColor": "#515151"
 	},
