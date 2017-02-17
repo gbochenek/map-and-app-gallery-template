@@ -108,7 +108,7 @@ define([
                         this._createApplicationHeader(widgets);
                         portalSigninWidgetLoader.initializePortal().then(lang.hitch(this, function () {
                             this._applicationThemeLoader();
-                            if (response.token) {
+                            if (response && response.token) {
                                 topic.publish("onSignIn", null, true);
                             }
                         }));
@@ -154,7 +154,7 @@ define([
         _setOrgTheme: function () {
             dojo.configData.appTheme = {
                 "header": {
-                    "background": dojo.configData.values.headerBackgroundColor,
+                    "background": dojo.configData.values.theme,
                     "text": dojo.configData.values.headerTextColor
                 },
                 "body": {
@@ -178,7 +178,7 @@ define([
                 cssString = string.substitute(ThemeCss, {
                     SelectedThemeColor: dojo.configData.values.theme,
                     BodyTextColor: dojo.configData.appTheme.body.text,
-                    HeaderBackgroundColor: dojo.configData.appTheme.header.background,
+                    HeaderBackgroundColor: dojo.configData.values.theme,
                     HeaderTextColor: dojo.configData.appTheme.header.text
                 });
                 mediaCssString = string.substitute(MediaThemeCss, {
