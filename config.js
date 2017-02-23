@@ -82,12 +82,6 @@
 			"fieldName": "applicationIcon",
 			"type": "string",
 			"tooltip": "Icon in top left corner of application. Icon should be 48px high."
-		}, {
-			"label": "Color scheme",
-			"fieldName": "theme",
-			"type": "color",
-			"tooltip": "Color of header bar and widget windows",
-			"sharedThemeProperty": "header.background"
 		}]
 	}, {
 		"category": "<b>Gallery Settings</b>",
@@ -196,6 +190,12 @@
 			"type": "color",
 			"sharedThemeProperty": "header.text",
 			"fieldName": "headerTextColor"
+		}, {
+		    "label": "Header background color",
+		    "fieldName": "theme",
+		    "type": "color",
+		    "tooltip": "Color of header bar and widget windows",
+		    "sharedThemeProperty": "header.background"
 		}, {
 			"label": "Body text color",
 			"tooltip": "Set body text color",
