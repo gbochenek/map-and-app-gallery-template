@@ -32,6 +32,7 @@ define([
     "dojo/dom-style",
     "dojo/dom-geometry",
     "dojo/dom-construct",
+    "esri/config",
     "esri/request",
     "esri/arcgis/utils",
     "esri/urlUtils",
@@ -39,7 +40,7 @@ define([
     "esri/arcgis/OAuthInfo",
     "widgets/leftPanel/leftPanel",
     "dojo/domReady!"
-], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, dom, domAttr, domClass, domStyle, domGeom, domConstruct, esriRequest, arcgisUtils, urlUtils, IdentityManager, ArcGISOAuthInfo) {
+], function (declare, _WidgetBase, portal, topic, lang, Deferred, nls, query, on, dom, domAttr, domClass, domStyle, domGeom, domConstruct, esriConfig, esriRequest, arcgisUtils, urlUtils, IdentityManager, ArcGISOAuthInfo) {
 
     return declare([_WidgetBase], {
         nls: nls,
@@ -120,8 +121,14 @@ define([
                 // hosted or portal
                 instance = location.pathname.substr(0, appLocation); //get the portal instance name
                 dojo.configData.values.portalURL = location.protocol + "//" + location.host + instance;
+                dojo.configData.values.proxyUrl = dojo.configData.values.portalURL + "/sharing/proxy";
             }
             arcgisUtils.arcgisUrl = dojo.configData.values.portalURL + "/sharing/rest/content/items";
+
+            if (dojo.configData.values.proxyUrl){
+                //  If a proxy url has been set, the JSAPI should know about it
+                esriConfig.defaults.io.proxyUrl = dojo.configData.values.proxyUrl;
+            }
         },
 
         /**
